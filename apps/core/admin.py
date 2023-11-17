@@ -4,11 +4,19 @@ from django.contrib.auth.admin import UserAdmin
 
 # Own Libraries
 from apps.core.models import AuthUser
+from apps.psychology.admin import (
+    UserAttentionModalityInline,
+    UserCarreerInline,
+)
 
 
 @admin.register(AuthUser)
 class UserAdmin(UserAdmin):
     list_display = ("id", "username", "email")
+    inlines = [
+        UserCarreerInline,
+        UserAttentionModalityInline,
+    ]
 
     fieldsets = (
         ("Usuario", {"fields": ("username", "image_profile")}),

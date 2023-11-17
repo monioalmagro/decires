@@ -8,11 +8,22 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 """
 
 # Standard Libraries
+import logging
 import os
 
 # Third-party Libraries
 from django.core.asgi import get_asgi_application
+from fastapi import FastAPI
+from strawberry.fastapi import GraphQLRouter
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 application = get_asgi_application()
+
+# Own Libraries
+from apps.core.schema.api import schema
+
+graphql_app = GraphQLRouter(schema, path="/psychology/")
+
+fastapp = FastAPI()
+fastapp.include_router(graphql_app, prefix="/api/graph")
