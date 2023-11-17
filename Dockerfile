@@ -11,6 +11,8 @@ ENV DJANGO_SETTINGS_MODULE="config.settings.base"
 # Directorio de trabajo
 WORKDIR /app
 
+FROM python-base as development
+
 # Copia los archivos de configuración de Poetry
 COPY poetry.lock pyproject.toml /app/
 
@@ -22,8 +24,13 @@ RUN pip install poetry \
 # Copia el código fuente de la aplicación
 COPY . /app/
 
+FROM development as development-api
+
+CMD python manage.py migrate; uvicorn config.asgi:fastapp --host 0.0.0.0 --port 9000 --reload
+
+
 # Segunda etapa: Construir la imagen para el servidor de desarrollo de Django
-FROM python-base as development-web
+FROM development as development-web
 
 # Puerto que usará el servidor de desarrollo de Django
 EXPOSE 8000
