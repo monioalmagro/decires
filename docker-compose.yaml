@@ -9,6 +9,19 @@ x-common:
 
 
 services:
+  api:
+    container_name: ${COMPOSE_PROJECT_NAME}_api
+    ports:
+      - 9000:9000
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development-api
+      ssh: ["default"]
+    environment:
+      <<: *default-environment-args
+    depends_on:
+      - postgres
   web:
     ports:
       - 8000:8000
