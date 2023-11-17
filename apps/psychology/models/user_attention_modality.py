@@ -21,5 +21,13 @@ class UserAttentionModality(AuditableMixin):
         db_index=True,
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "modality"],
+                name="unique modality for user",
+            )
+        ]
+
     def __str__(self):
         return f"{self.user}, ({self.get_modality_display()})"
