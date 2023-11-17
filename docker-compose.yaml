@@ -1,0 +1,40 @@
+x-common:
+  default_environment_args: &default-environment-args
+    ### Default ###
+    COMPOSE_PROJECT_NAME:  ${COMPOSE_PROJECT_NAME}
+    DATABASE_URL: ${DATABASE_URL}
+    DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+    SECRET_KEY: ${SECRET_KEY}
+    DJANGO_ALLOW_ASYNC_UNSAFE: ${DJANGO_ALLOW_ASYNC_UNSAFE}
+
+
+services:
+  web:
+    ports:
+      - 8000:8000
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development-web
+      ssh: ["default"]
+    environment:
+      <<: *default-environment-args
+    depends_on:
+      - postgres
+    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0:8000"
+  postgres:
+    image: postgres:latest
+    container_name: ${COMPOSE_PROJECT_NAME}_postgres
+    restart: unless-stopped
+    environment:
+        POSTGRES_PASSWORD: "postgres"
+        POSTGRES_DB: psychology_db
+        POSTGRES_USER: "postgres"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pg_data:
