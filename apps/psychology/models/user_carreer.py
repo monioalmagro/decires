@@ -8,6 +8,7 @@ from utils.models import AuditableMixin
 User = get_user_model()
 
 
+# TODO: AGREGAR CONSTRAINT UNIQUE
 class UserCarreer(AuditableMixin):
     user = models.ForeignKey(
         User,
@@ -19,6 +20,14 @@ class UserCarreer(AuditableMixin):
         on_delete=models.CASCADE,
         related_name="user_carreer_set",
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "carreer"],
+                name="unique carreer for user",
+            )
+        ]
 
     def __str__(self):
         return f"{self.user}"
