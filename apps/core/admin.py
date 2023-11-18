@@ -1,11 +1,15 @@
 # Third-party Libraries
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
+from django.utils import timezone
 
 # Own Libraries
 from apps.core.models import AuthUser
 from apps.psychology.admin import (
-    UserAttentionModalityInline,
+    AttentionModesInline,
+    ContactMeInline,
+    OfficeLocationInline,
+    UserAttachmentInLine,
     UserCarreerInline,
 )
 
@@ -14,8 +18,11 @@ from apps.psychology.admin import (
 class UserAdmin(UserAdmin):
     list_display = ("id", "username", "email")
     inlines = [
+        OfficeLocationInline,
+        UserAttachmentInLine,
         UserCarreerInline,
-        UserAttentionModalityInline,
+        AttentionModesInline,
+        ContactMeInline,
     ]
 
     fieldsets = (
@@ -23,16 +30,34 @@ class UserAdmin(UserAdmin):
         (
             "Información personal",
             {
-                "classes": ("collapse",),
                 "fields": (
                     "first_name",
                     "last_name",
                     "nro_dni",
+                    "gender",
+                ),
+            },
+        ),
+        (
+            "Información de Contacto",
+            {
+                "fields": (
+                    "phone",
+                    "email",
+                    "facebook_profile",
+                    "instagram_profile",
+                    "linkedin_profile",
+                ),
+            },
+        ),
+        (
+            "Información Profesional",
+            {
+                "fields": (
                     "nro_matricula",
                     "cuit",
-                    "phone",
-                    "gender",
-                    "attention_address",
+                    "is_verified_profile",
+                    "verified_profile_at",
                 ),
             },
         ),
@@ -70,11 +95,54 @@ class UserAdmin(UserAdmin):
         "first_name__icontains",
         "last_name__icontains",
     )
-    list_filter = ("is_staff", "is_superuser")
+    list_filter = (
+        "is_staff",
+        "is_superuser",
+        "is_verified_profile",
+    )
     readonly_fields = (
         "date_joined",
         "last_login",
+        "verified_profile_at",
     )
+
+    actions = [
+        "is_verified_profile",
+        "unverified_profile",
+    ]
+
+    @admin.display(description="Verificar perfiles")
+    def verified_profile(self, request, queryset):
+        model = self.model._meta.verbose_name
+        _count = queryset.count()
+        message = "A %(count)d %(model)s se les ha sido verificado sus perfiles." % {
+            "count": _count,
+            "model": model,
+        }
+        self.message_user(request, message, messages.SUCCESS)
+        queryset.update(
+            verified_profile=True,
+            verified_profile_at=timezone.now(),
+        )
+        return queryset
+
+    @admin.display(description="Remover la verificación de perfiles")
+    def unverified_profile(self, request, queryset):
+        model = self.model._meta.verbose_name
+        _count = queryset.count()
+        message = (
+            "A %(count)d %(model)s se les ha sido removido la verificación de sus perfiles."
+            % {
+                "count": _count,
+                "model": model,
+            }
+        )
+        self.message_user(request, message, messages.SUCCESS)
+        queryset.update(
+            verified_profile=False,
+            verified_profile_at=None,
+        )
+        return queryset
 
     # list_select_related = ()
     show_full_result_count = False
