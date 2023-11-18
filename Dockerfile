@@ -38,9 +38,11 @@ FROM development as development-web
 # Port used by the Django development server
 EXPOSE 8000
 
+RUN rm /app/.env
+
 # Run Django migrations and collect static files
 RUN python manage.py collectstatic --noinput
-
+COPY .env /app/
 ## -- production -- ##
 
 # Fifth stage: Build the image for the production server
