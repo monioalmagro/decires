@@ -2,11 +2,11 @@
 from django.contrib import admin
 
 # Own Libraries
-from apps.psychology.models import Carreer
+from apps.psychology.models import Audience
 
 
-@admin.register(Carreer)
-class CarreerAdmin(admin.ModelAdmin):
+@admin.register(Audience)
+class AudienceAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "description",
