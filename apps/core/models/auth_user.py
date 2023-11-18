@@ -1,6 +1,7 @@
 # Third-party Libraries
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # Own Libraries
@@ -49,10 +50,24 @@ class AuthUser(AbstractUser):
         blank=True,
         null=True,
     )
-    attention_address = models.TextField(
-        max_length=500,
+
+    facebook_profile = models.URLField(
+        max_length=200,
         blank=True,
         null=True,
+        verbose_name="Facebook",
+    )
+    instagram_profile = models.URLField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name="Instagram",
+    )
+    linkedin_profile = models.URLField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name="LinkedIn",
     )
     image_profile = models.ImageField(
         upload_to=upload_user_image_profile,
@@ -61,7 +76,17 @@ class AuthUser(AbstractUser):
         null=True,
         blank=True,
     )
+    is_verified_profile = models.BooleanField(default=False)
+    verified_profile_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         _name = self.username or self.email
         return f"{_name}"
+
+    def save(self, *args, **kwargs):
+        if self.is_verified_profile:
+            self.verified_profile_at = timezone.now()
+        else:
+            self.verified_profile_at = None
+
+        super().save(*args, **kwargs)
