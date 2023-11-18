@@ -10,8 +10,8 @@ User = get_user_model()
 
 
 class UserAttachment(AuditableMixin):
-    name = models.CharField(max_length=250)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(
         upload_to=upload_attachment_file,
         # storage=storage_share_file,

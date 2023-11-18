@@ -5,8 +5,8 @@ from django.db import models
 from utils.models import AuditableMixin
 
 
-class Carreer(AuditableMixin):
-    name = models.CharField(max_length=150, unique=True)
+class Audience(AuditableMixin):
+    name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
