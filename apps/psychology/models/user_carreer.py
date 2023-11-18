@@ -8,7 +8,6 @@ from utils.models import AuditableMixin
 User = get_user_model()
 
 
-# TODO: AGREGAR CONSTRAINT UNIQUE
 class UserCarreer(AuditableMixin):
     user = models.ForeignKey(
         User,
@@ -18,6 +17,12 @@ class UserCarreer(AuditableMixin):
     carreer = models.ForeignKey(
         "Carreer",
         on_delete=models.CASCADE,
+        related_name="user_carreer_set",
+    )
+    order = models.SmallIntegerField(default=1)
+    audiences = models.ManyToManyField(
+        "Audience",
+        through="UserCarreerAudience",
         related_name="user_carreer_set",
     )
 

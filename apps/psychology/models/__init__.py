@@ -1,12 +1,19 @@
 from apps.psychology.models.carreer import Carreer
 from apps.psychology.models.user_attachment import UserAttachment
-from apps.psychology.models.user_attention_modality import UserAttentionModality
+from apps.psychology.models.attention_modes import AttentionModes
 from apps.psychology.models.user_carreer import UserCarreer
-
+from apps.psychology.models.audience import Audience
+from apps.psychology.models.office_location import OfficeLocation
+from apps.psychology.models.user_carreer_audience import UserCarreerAudience
+from apps.psychology.models.contact_me import ContactMe
 
 __all__ = [
     "Carreer",
     "UserAttachment",
-    "UserAttentionModality",
+    "AttentionModes",
     "UserCarreer",
+    "Audience",
+    "OfficeLocation",
+    "UserCarreerAudience",
+    "ContactMe",
 ]

@@ -3,23 +3,23 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 # Own Libraries
-from apps.core import core_constants
+from apps.psychology import psychology_constants
 from utils.models import AuditableMixin
 
 User = get_user_model()
 
 
-class UserAttentionModality(AuditableMixin):
+class AttentionModes(AuditableMixin):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="attention_modality_set",
     )
     modality = models.SmallIntegerField(
-        choices=core_constants.MODALITY_CHOICES,
-        default=core_constants.VIRTUAL,
+        choices=psychology_constants.MODALITY_CHOICES,
         db_index=True,
     )
+    order = models.SmallIntegerField(default=1)
 
     class Meta:
         constraints = [
