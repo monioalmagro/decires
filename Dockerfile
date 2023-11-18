@@ -1,40 +1,72 @@
-# Primera etapa: Construir la imagen base para Django y Poetry
+# First stage: Build the base image for Django and Poetry
 FROM python:3.11 as python-base
 
-# Configuración de variables de entorno
+# Environment variable configuration
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
 ENV DJANGO_SETTINGS_MODULE="config.settings.base"
 
-# Directorio de trabajo
+# Working directory
 WORKDIR /app
 
-FROM python-base as development
-
-# Copia los archivos de configuración de Poetry
+# Copy Poetry configuration files
 COPY poetry.lock pyproject.toml /app/
 
-# Instala Poetry y las dependencias del proyecto
-RUN pip install poetry \
+# Install Poetry and project dependencies
+RUN pip install --upgrade pip \
+    && pip install poetry \
     && poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
 
-# Copia el código fuente de la aplicación
+# Second stage: Build the image for development
+FROM python-base as development
+
+# Copy the application source code
 COPY . /app/
 
+# Third stage: Build the image for the Django development server
 FROM development as development-api
 
+# Command to run migrations and start the UVicorn server
 CMD python manage.py migrate; uvicorn config.asgi:fastapp --host 0.0.0.0 --port 9000 --reload
 
-
-# Segunda etapa: Construir la imagen para el servidor de desarrollo de Django
+# Fourth stage: Build the image for the Django development web server
 FROM development as development-web
 
-# Puerto que usará el servidor de desarrollo de Django
+# Port used by the Django development server
 EXPOSE 8000
 
-# Ejecutar migraciones de Django
+# Run Django migrations and collect static files
 RUN python manage.py collectstatic --noinput
 
+## -- production -- ##
+
+# Fifth stage: Build the image for the production server
+FROM python-base as production
+
+# Set Django production settings
+ENV DJANGO_SETTINGS_MODULE "config.settings.production"
+
+# Copy Poetry configuration files
+COPY poetry.lock pyproject.toml /app/
+
+# Install production dependencies
+RUN poetry install --no-root --without dev
+
+# Copy the application source code
+COPY . /app/
+
+# Expose the production server port
+EXPOSE 8000
+
+# Add and set permissions for scripts
+ADD run.sh run-uvicorn.sh run-django.sh /
+RUN chmod +x /run.sh /run-django.sh /run-uvicorn.sh
+
+# Run Django collectstatic during image build
+RUN python manage.py collectstatic --noinput
+
+# Set the default command to run the application
+CMD ["/run.sh"]
