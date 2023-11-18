@@ -17,4 +17,5 @@ class UserAdapter(ModelAdapter):
         **kwargs
     ) -> List[AuthUser]:
         kwargs["is_active"] = True
+        kwargs["is_verified_profile"] = True
         return super().get_objects(limit, offset, order_by, **kwargs)
