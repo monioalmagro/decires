@@ -60,19 +60,13 @@ The microservices are running at:
 - API: [http://localhost:9000/api/graph/psychology/](http://localhost:9000/api/graph/psychology/)
 - Admin: [http://localhost:8000/admin](http://localhost:8000/admin/)
 
-5. Testing features:
-
-```bash
-make test
-```
-
-6. Run the linters:
+5. Run the linters:
 
 ```bash
 make lint
 ```
 
-7. Managing dependencies with Poetry:
+6. Managing dependencies with Poetry:
 
 ```bash
 ### To add
