@@ -4,19 +4,16 @@ import logging
 # Third-party Libraries
 # Third Party Libraries
 from dotenv import load_dotenv
-from pydantic import Field, SecretStr
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import BaseSettings, Field, SecretStr
 
 logger = logging.getLogger(__name__)
+# Standard Libraries
+import json
 
 load_dotenv()
 
 
 class PsychologySettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-    )
     COMPOSE_PROJECT_NAME: str = Field(
         default="psychology",
         env="COMPOSE_PROJECT_NAME",
@@ -42,6 +39,13 @@ class PsychologySettings(BaseSettings):
         default=True,
         env="DJANGO_ALLOW_ASYNC_UNSAFE",
     )
+
+    class Config:
+        env_prefix = ""
+        case_sensitive = False
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        json_loads = json.loads
 
 
 settings = PsychologySettings()
