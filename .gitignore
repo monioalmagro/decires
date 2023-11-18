@@ -162,3 +162,5 @@ config/settings/local.py
 diagrams/
 *.drawio
 media/
+# Archivos macOS
+.DS_Store
