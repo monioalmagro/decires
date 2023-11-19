@@ -11,6 +11,7 @@ from apps.psychology.admin import (
     OfficeLocationInline,
     UserAttachmentInLine,
     UserCarreerInline,
+    UserLanguageInline,
 )
 
 
@@ -18,8 +19,9 @@ from apps.psychology.admin import (
 class UserAdmin(UserAdmin):
     list_display = ("id", "username", "email")
     inlines = [
-        OfficeLocationInline,
         UserAttachmentInLine,
+        OfficeLocationInline,
+        UserLanguageInline,
         UserCarreerInline,
         AttentionModesInline,
         ContactMeInline,
