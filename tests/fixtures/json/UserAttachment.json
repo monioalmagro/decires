@@ -1,0 +1,20 @@
+[
+  {
+    "model": "psychology.userattachment",
+    "pk": 1,
+    "fields": {
+      "created_at": "2023-11-19T00:51:50.300Z",
+      "updated_at": "2023-11-19T00:51:50.300Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Titulo",
+      "description": "Titulo",
+      "image": "test/user-attachment/3538675960/modelado.v1.drawio.png",
+      "media_file": "",
+      "content_type": "image/png",
+      "size": null,
+      "created_by": 1,
+      "updated_by": null
+    }
+  }
+]

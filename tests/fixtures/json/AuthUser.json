@@ -1,0 +1,31 @@
+[
+  {
+    "model": "core.authuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Z7QBYRFzoBaPDGVvNfnHDv$SIl8HVQ36pY+7nt/WK+WYgGSDsCc8MyZC9MlZ+J6FL0=",
+      "last_login": "2023-11-18T21:52:47.140Z",
+      "is_superuser": true,
+      "is_staff": true,
+      "email": "franco@crehana.com",
+      "username": "franco",
+      "first_name": "Argenis Leonardo",
+      "last_name": "Vargas Medina",
+      "date_joined": "2023-11-18T21:52:40.690Z",
+      "is_active": true,
+      "nro_dni": "18188043",
+      "nro_matricula": "18188043",
+      "cuit": "16670739",
+      "phone": "+573156625869",
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-11-19T00:06:55.760Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
