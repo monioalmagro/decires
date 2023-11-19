@@ -1,0 +1,74 @@
+[
+  {
+    "model": "psychology.audience",
+    "pk": 1,
+    "fields": {
+      "created_at": "2023-11-18T22:34:04.834Z",
+      "updated_at": "2023-11-18T22:34:04.834Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Niños",
+      "description": "Niños"
+    }
+  },
+  {
+    "model": "psychology.audience",
+    "pk": 2,
+    "fields": {
+      "created_at": "2023-11-18T22:34:17.441Z",
+      "updated_at": "2023-11-18T22:34:17.441Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Adulto mayor",
+      "description": "Adulto mayor"
+    }
+  },
+  {
+    "model": "psychology.audience",
+    "pk": 3,
+    "fields": {
+      "created_at": "2023-11-18T23:48:56.112Z",
+      "updated_at": "2023-11-18T23:48:56.112Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Pareja",
+      "description": "Pareja"
+    }
+  },
+  {
+    "model": "psychology.audience",
+    "pk": 4,
+    "fields": {
+      "created_at": "2023-11-18T23:49:03.883Z",
+      "updated_at": "2023-11-18T23:49:49.327Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Adolescentes",
+      "description": ""
+    }
+  },
+  {
+    "model": "psychology.audience",
+    "pk": 5,
+    "fields": {
+      "created_at": "2023-11-18T23:49:15.626Z",
+      "updated_at": "2023-11-18T23:49:15.626Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Familiar",
+      "description": "Familiar"
+    }
+  },
+  {
+    "model": "psychology.audience",
+    "pk": 6,
+    "fields": {
+      "created_at": "2023-11-18T23:49:28.810Z",
+      "updated_at": "2023-11-18T23:49:28.810Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "Adultos",
+      "description": "Adultos"
+    }
+  }
+]

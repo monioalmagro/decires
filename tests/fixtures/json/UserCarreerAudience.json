@@ -1,0 +1,26 @@
+[
+  {
+    "model": "psychology.usercarreeraudience",
+    "pk": 1,
+    "fields": {
+      "created_at": "2023-11-18T22:34:20.020Z",
+      "updated_at": "2023-11-18T22:34:20.020Z",
+      "is_active": true,
+      "is_deleted": false,
+      "user_carreer": 1,
+      "audience": 1
+    }
+  },
+  {
+    "model": "psychology.usercarreeraudience",
+    "pk": 2,
+    "fields": {
+      "created_at": "2023-11-18T22:34:20.030Z",
+      "updated_at": "2023-11-18T22:34:20.030Z",
+      "is_active": true,
+      "is_deleted": false,
+      "user_carreer": 1,
+      "audience": 2
+    }
+  }
+]

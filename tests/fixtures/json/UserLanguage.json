@@ -1,0 +1,41 @@
+[
+  {
+    "model": "psychology.userlanguage",
+    "pk": 1,
+    "fields": {
+      "created_at": "2023-11-19T03:03:35.045Z",
+      "updated_at": "2023-11-19T03:03:35.045Z",
+      "is_active": true,
+      "is_deleted": false,
+      "user": 1,
+      "language": 1,
+      "level": 4
+    }
+  },
+  {
+    "model": "psychology.userlanguage",
+    "pk": 2,
+    "fields": {
+      "created_at": "2023-11-19T02:55:42.551Z",
+      "updated_at": "2023-11-19T03:03:35.035Z",
+      "is_active": true,
+      "is_deleted": false,
+      "user": 1,
+      "language": 3,
+      "level": 2
+    }
+  },
+  {
+    "model": "psychology.userlanguage",
+    "pk": 3,
+    "fields": {
+      "created_at": "2023-11-19T02:58:42.010Z",
+      "updated_at": "2023-11-19T03:03:35.045Z",
+      "is_active": true,
+      "is_deleted": false,
+      "user": 1,
+      "language": 4,
+      "level": 3
+    }
+  }
+]
