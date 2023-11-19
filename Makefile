@@ -29,8 +29,12 @@ migrate: migrations ## Run migrate
 	docker exec -it psychology_web python3 manage.py migrate
 shell: shell ## Run migrate
 	docker exec -it psychology_web python3 manage.py shell
-superuser: superuser ## Run migrate
+superuser: ## Create django superuser
 	docker exec -it psychology_web python3 manage.py createsuperuser
+dumpdata: ## regenerate fixture over all models
+	docker exec -it psychology_web python3 manage.py dump_limited_data
+bulk-loaddata: ## regenerate fixture over all models
+	docker exec -it psychology_web python3 manage.py loaddata tests/fixtures/json/*.json
 clean:
 	find . -name '*.pyc' -delete
 	find . -name '*.pyo' -delete
