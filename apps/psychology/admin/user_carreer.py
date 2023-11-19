@@ -13,6 +13,8 @@ class UserCarreerInline(admin.TabularInline):
     verbose_name_plural = "Titulaciones"
     fields = (
         "carreer",
+        "modality",
+        "experience_summary",
         "order",
         "is_active",
         "is_deleted",
@@ -23,7 +25,7 @@ class UserCarreerInline(admin.TabularInline):
 
 @admin.register(UserCarreer)
 class UserCarreerAdmin(admin.ModelAdmin):
-    list_display = ("carreer", "is_active")
+    list_display = ("user", "carreer", "is_active")
     raw_id_fields = (
         "user",
         "carreer",
