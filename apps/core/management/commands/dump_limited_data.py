@@ -6,11 +6,9 @@ from django.core.management.base import BaseCommand
 # Own Libraries]
 from apps.core.models import AuthUser
 from apps.psychology.models import (
-    AttentionModes,
     Audience,
     Carreer,
     ContactMe,
-    OfficeLocation,
     UserAttachment,
     UserCarreer,
     UserCarreerAudience,
@@ -23,15 +21,13 @@ class Command(BaseCommand):
 
     models = (
         (AuthUser, "AuthUser"),
-        (AttentionModes, "AttentionModes"),
-        (Audience, "Audience"),
-        (Carreer, "Carreer"),
-        (ContactMe, "ContactMe"),
-        (OfficeLocation, "OfficeLocation"),
-        (UserAttachment, "UserAttachment"),
-        (UserCarreer, "UserCarreer"),
-        (UserCarreerAudience, "UserCarreerAudience"),
-        (UserLanguage, "UserLanguage"),
+        # (Audience, "Audience"),
+        # (Carreer, "Carreer"),
+        # (ContactMe, "ContactMe"),
+        # (UserAttachment, "UserAttachment"),
+        # (UserCarreer, "UserCarreer"),
+        # (UserCarreerAudience, "UserCarreerAudience"),
+        # (UserLanguage, "UserLanguage"),
     )
 
     def handle(self, *args, **options):

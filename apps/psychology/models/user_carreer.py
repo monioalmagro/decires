@@ -20,9 +20,13 @@ class UserCarreer(AuditableMixin):
         on_delete=models.CASCADE,
         related_name="user_carreer_set",
     )
-    modality = models.SmallIntegerField(
-        choices=psychology_constants.MODALITY_CHOICES,
-        default=psychology_constants.MODALITY_INDIVIDUAL,
+    service_method = models.SmallIntegerField(
+        choices=psychology_constants.SERVICE_METHOD_CHOICES,
+        default=psychology_constants.VIRTUAL,
+    )
+    service_modality = models.SmallIntegerField(
+        choices=psychology_constants.SERVICE_MODALITY_CHOICES,
+        default=psychology_constants.INDIVIDUAL,
     )
     order = models.SmallIntegerField(default=1)
     audiences = models.ManyToManyField(

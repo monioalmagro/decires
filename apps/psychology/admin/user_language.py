@@ -10,7 +10,8 @@ class UserLanguageInline(admin.TabularInline):
     model = UserLanguage
     verbose_name_plural = "Idiomas"
     fields = (
-        "language",
+        "language_name",
+        "language_code",
         "level",
         "is_active",
         "is_deleted",

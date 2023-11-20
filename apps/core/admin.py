@@ -6,9 +6,7 @@ from django.utils import timezone
 # Own Libraries
 from apps.core.models import AuthUser
 from apps.psychology.admin import (
-    AttentionModesInline,
     ContactMeInline,
-    OfficeLocationInline,
     UserAttachmentInLine,
     UserCarreerInline,
     UserLanguageInline,
@@ -20,10 +18,8 @@ class UserAdmin(UserAdmin):
     list_display = ("id", "username", "email")
     inlines = [
         UserAttachmentInLine,
-        OfficeLocationInline,
         UserLanguageInline,
         UserCarreerInline,
-        AttentionModesInline,
         ContactMeInline,
     ]
 
@@ -46,6 +42,7 @@ class UserAdmin(UserAdmin):
                 "fields": (
                     "phone",
                     "email",
+                    "personal_address",
                     "facebook_profile",
                     "instagram_profile",
                     "linkedin_profile",
@@ -60,6 +57,7 @@ class UserAdmin(UserAdmin):
                     "cuit",
                     "is_verified_profile",
                     "verified_profile_at",
+                    "office_location",
                 ),
             },
         ),

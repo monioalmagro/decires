@@ -78,6 +78,8 @@ class AuthUser(AbstractUser):
     )
     is_verified_profile = models.BooleanField(default=False)
     verified_profile_at = models.DateTimeField(blank=True, null=True)
+    personal_address = models.TextField(blank=True, null=True)
+    office_location = models.TextField(blank=True, null=True)
 
     def __str__(self):
         _name = self.username or self.email

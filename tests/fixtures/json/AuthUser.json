@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$600000$Z7QBYRFzoBaPDGVvNfnHDv$SIl8HVQ36pY+7nt/WK+WYgGSDsCc8MyZC9MlZ+J6FL0=",
-      "last_login": "2023-11-18T21:52:47.140Z",
+      "last_login": "2023-11-20T06:22:09.675Z",
       "is_superuser": true,
       "is_staff": true,
       "email": "franco@crehana.com",
@@ -23,7 +23,9 @@
       "linkedin_profile": null,
       "image_profile": "",
       "is_verified_profile": true,
-      "verified_profile_at": "2023-11-19T00:06:55.760Z",
+      "verified_profile_at": "2023-11-20T06:27:32.542Z",
+      "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B",
+      "office_location": "Provincia de Buenos Aires",
       "groups": [],
       "user_permissions": []
     }
