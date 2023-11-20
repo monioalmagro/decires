@@ -1,14 +1,14 @@
 # Standard Libraries
 import enum
-from typing import TypeVar
+from typing import Optional, Type, TypeVar
 
 TEnum = TypeVar("TEnum", bound=enum.Enum)
 
 
 def get_enum_instance_by_value(
-    enum_class: TEnum,
+    enum_class: Type[TEnum],
     value: int,
-) -> TEnum | None:
+) -> Optional[TEnum]:
     """
     Get an instance of an enumeration by its integer value.
 
@@ -17,8 +17,12 @@ def get_enum_instance_by_value(
         value (int): The integer value to match.
 
     Returns:
-        TEnum | None: The enumeration instance if found, else None.
+        Optional[TEnum]: The enumeration instance if found, else None.
     """
-    if match := next(iter(enum for enum in enum_class if enum.value == value), None):
-        return match
-    return None
+    # Use filter to find the instance with matching value
+    matching_enums = filter(lambda enum: enum.value == value, enum_class)
+
+    # Use next to get the first matching instance or None if no match
+    match = next(matching_enums, None)
+
+    return match

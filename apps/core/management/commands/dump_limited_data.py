@@ -21,13 +21,13 @@ class Command(BaseCommand):
 
     models = (
         (AuthUser, "AuthUser"),
-        # (Audience, "Audience"),
-        # (Carreer, "Carreer"),
-        # (ContactMe, "ContactMe"),
-        # (UserAttachment, "UserAttachment"),
-        # (UserCarreer, "UserCarreer"),
-        # (UserCarreerAudience, "UserCarreerAudience"),
-        # (UserLanguage, "UserLanguage"),
+        (Audience, "Audience"),
+        (Carreer, "Carreer"),
+        (ContactMe, "ContactMe"),
+        (UserAttachment, "UserAttachment"),
+        (UserCarreer, "UserCarreer"),
+        (UserCarreerAudience, "UserCarreerAudience"),
+        (UserLanguage, "UserLanguage"),
     )
 
     def handle(self, *args, **options):
