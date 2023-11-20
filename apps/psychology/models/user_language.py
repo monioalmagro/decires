@@ -15,7 +15,8 @@ class UserLanguage(AuditableMixin):
         on_delete=models.CASCADE,
         related_name="user_language_set",
     )
-    language = models.SmallIntegerField(
+    language_name = models.CharField(max_length=100, unique=True)
+    language_code = models.SmallIntegerField(
         choices=psychology_constants.LANG_CHOICES,
         db_index=True,
         blank=True,
@@ -29,12 +30,12 @@ class UserLanguage(AuditableMixin):
     )
 
     def __str__(self):
-        return f"{self.get_language_display()}"
+        return f"{self.language_name}"
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "language"],
+                fields=["user", "language_code"],
                 name="unique language for user",
             )
         ]

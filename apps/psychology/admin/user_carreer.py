@@ -13,7 +13,8 @@ class UserCarreerInline(admin.TabularInline):
     verbose_name_plural = "Titulaciones"
     fields = (
         "carreer",
-        "modality",
+        "service_method",
+        "service_modality",
         "experience_summary",
         "order",
         "is_active",

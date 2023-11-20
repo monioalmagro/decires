@@ -13,9 +13,11 @@ volume: ## Remove all containers volumes
 pull: ## Pull images
 	docker-compose pull
 build: ## Build Docker services
-	docker-compose build
+	docker-compose build --no-cache
 up: pull build ## Run all services
 	docker-compose up -d
+	make drop-db
+	make migrate
 	make ps
 ps: ## Show all services
 	docker-compose ps
@@ -34,7 +36,7 @@ superuser: ## Create django superuser
 dumpdata: ## regenerate fixture over all models
 	docker exec -it psychology_web python3 manage.py dump_limited_data
 bulk-loaddata: ## regenerate fixture over all models
-	docker exec -it psychology_web python3 manage.py loaddata tests/fixtures/json/*.json
+	docker exec -it psychology_web python3 manage.py loaddata tests/fixtures/json/AuthUser.json tests/fixtures/json/*.json
 clean:
 	find . -name '*.pyc' -delete
 	find . -name '*.pyo' -delete
@@ -59,3 +61,5 @@ pyenv-install: ## Install python dependencies
 	poetry config virtualenvs.create false
 	poetry install --no-root --without dev
 pyenv-init: pyenv-python pyenv-create-env pyenv-env ## Initialize python env
+drop-db: ## drop all tables in database
+	docker exec -it psychology_postgres psql -U postgres -d psychology_db -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
