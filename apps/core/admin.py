@@ -1,3 +1,6 @@
+# Standard Libraries
+import logging
+
 # Third-party Libraries
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
@@ -10,16 +13,25 @@ from apps.psychology.admin import (
     UserAttachmentInLine,
     UserCarreerInline,
     UserLanguageInline,
+    UserPaymentInline,
 )
+
+logger = logging.getLogger(__name__)
 
 
 @admin.register(AuthUser)
 class UserAdmin(UserAdmin):
-    list_display = ("id", "username", "email")
+    list_display = (
+        "id",
+        "username",
+        "email",
+        "get_was_paid",
+    )
     inlines = [
         UserAttachmentInLine,
         UserLanguageInline,
         UserCarreerInline,
+        UserPaymentInline,
         ContactMeInline,
     ]
 
@@ -80,8 +92,9 @@ class UserAdmin(UserAdmin):
             {
                 "classes": ("collapse",),
                 "fields": (
-                    "last_login",
                     "date_joined",
+                    "get_was_paid",
+                    "last_login",
                 ),
             },
         ),
@@ -104,12 +117,24 @@ class UserAdmin(UserAdmin):
         "date_joined",
         "last_login",
         "verified_profile_at",
+        "get_was_paid",
     )
 
     actions = [
         "is_verified_profile",
         "unverified_profile",
     ]
+
+    @admin.display(description="Al día con el pago del sistema?")
+    def get_was_paid(self, obj: AuthUser) -> str:
+        now = timezone.now()
+        current_month = now.month
+        if obj.user_payment_set.filter(
+            created_at__month=current_month,
+            was_paid=True,
+        ).exists():
+            return "Si"
+        return "No"
 
     @admin.display(description="Verificar perfiles")
     def verified_profile(self, request, queryset):
