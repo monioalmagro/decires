@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}{% load static %}
+
+<!--  -->
+{% block extra_headers %}
+<link href="{% static 'assets/pluggins/select2/dist/css/select2.min.js' %}" rel="stylesheet" />
+{% endblock extra_headers %}
+<!--  -->
+{% block content %} {{ block.super }}
+
+<div class="modal" id="modal_search_proffessionals">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-inverse">
+        <h4 class="modal-title text-yellow">Nuestros Profesionales</h4>
+        <button type="button" class="close text-yellow" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-bordered">
+          <!--  -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-form-label">PROFESIONALES</label>
+            <div class="col-lg-8">
+              <select class="default-select2 form-control" id="profesionales">
+                <option value="todas" selected>Profesionales</option>
+              </select>
+            </div>
+          </div>
+          <!--  -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-form-label">MODALIDAD</label>
+            <div class="col-lg-8">
+              <select class="default-select2 form-control" id="select_modalidad">
+                <option value="" selected>Modalidad</option>
+                <option value="presential">Presencial</option>
+                <option value="virtual">Virtual</option>
+              </select>
+            </div>
+          </div>
+          <!--  -->
+          <div class="form-group row" id="ciudad">
+            <label class="col-lg-4 col-form-label">CIUDAD</label>
+            <div class="col-lg-8">
+              <select class="default-select2 form-control" id="select_ciudad">
+                <option value="" selected>Ciudad</option>
+                <option value="AK">Alaska</option>
+                <option value="HI">Hawaii</option>
+              </select>
+            </div>
+          </div>
+          <!--  -->
+          <div class="form-group row" id="zona">
+            <label class="col-lg-4 col-form-label">ZONAS</label>
+            <div class="col-lg-8">
+              <select class="default-select2 form-control">
+                <option value="" selected>Zonas</option>
+                <option value="AK">Alaska</option>
+                <option value="HI">Hawaii</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
+        <a href="javascript:;" onclick="searchProffessional();" class="btn btn-primary">Buscar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+<!--  -->
+{% block extra_js %}
+<script src="{% static 'assets/pluggins/select2/dist/js/select2.min.js' %}"></script>
+<script src="{% static 'base/home.js' %}?no_cache={{ no_cache }}"></script>
+{% endblock extra_js %}

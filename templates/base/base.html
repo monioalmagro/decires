@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ site_name }}</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    {% block header %}
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet"
+    />
+    <link href="{% static 'assets/css/one-page-parallax/app.min.css' %}" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+    <link
+      href="{% static 'assets/css/one-page-parallax/theme/yellow.min.css' %}"
+      rel="stylesheet"
+      id="theme-css-link"
+    />
+    {% endblock header %} {% block extra_header %} {% endblock extra_header %}
+  </head>
+  <body data-spy="scroll" data-target="#header" data-offset="51">
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade">
+      {% block navbar %} {% include 'base/navbar.html' %} {% endblock navbar %}
+      <!--  -->
+      {% block content %} {% include 'base/content.html' %} {% endblock content %}
+      <!--  -->
+      {% block footer %} {% include 'base/footer.html' %} {% endblock footer %}
+    </div>
+    <!-- end #page-container -->
+    {% block js %}
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="{% static 'assets/js/one-page-parallax/app.min.js' %}"></script>
+    <script src="{% url 'javascript' %}"></script>
+    <script src="{% static 'base/commons.js' %}?no_cache={{ no_cache }}"></script>
+    <!-- ================== END BASE JS ================== -->
+    {% endblock js %}
+    <!--  -->
+    {% block extra_js %} {% endblock extra_js %}
+  </body>
+</html>
