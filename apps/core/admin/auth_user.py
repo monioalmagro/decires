@@ -69,7 +69,7 @@ class UserAdmin(UserAdmin):
                     "cuit",
                     "is_verified_profile",
                     "verified_profile_at",
-                    "office_location",
+                    "office_location_tags",
                 ),
             },
         ),
