@@ -1,4 +1,4 @@
-loadSelect2 = (graphqlQuery, jquery_id, option_label_tag) => {
+loadSelect2 = (graphqlQuery, jquery_id, option_label_tag, select2_tag = "carreers") => {
   // Configurar la petición Ajax
   $.ajax({
     url: Django.graphql_url,
@@ -6,7 +6,14 @@ loadSelect2 = (graphqlQuery, jquery_id, option_label_tag) => {
     contentType: "application/json",
     data: JSON.stringify({ query: graphqlQuery }),
     success: function (response) {
-      $data = response.data.select2.carreers;
+      console.log(response);
+      if (select2_tag == "carreers") {
+        $data = response.data.select2.carreers;
+      } else if (select2_tag == "cities") {
+        $data = response.data.select2.cities;
+      } else if (select2_tag == "zones") {
+        $data = response.data.select2.zones;
+      }
 
       $options = `<option value="" selected>${option_label_tag}</option>`;
       for ($i = 0; $i < $data.length; $i++) {
