@@ -164,3 +164,4 @@ diagrams/
 media/
 # Archivos macOS
 .DS_Store
+static/
