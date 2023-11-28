@@ -1,5 +1,6 @@
 # Third-party Libraries
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -79,7 +80,7 @@ class AuthUser(AbstractUser):
     is_verified_profile = models.BooleanField(default=False)
     verified_profile_at = models.DateTimeField(blank=True, null=True)
     personal_address = models.TextField(blank=True, null=True)
-    office_location = models.TextField(blank=True, null=True)
+    office_location_tags = models.JSONField(default=dict, blank=True, null=True)
 
     def __str__(self):
         _name = self.username or self.email

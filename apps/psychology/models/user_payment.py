@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 # Own Libraries
+from apps.psychology import psychology_constants
 from utils.models import AuditableMixin
 
 User = get_user_model()
@@ -14,7 +15,13 @@ class UserPayment(AuditableMixin):
         on_delete=models.CASCADE,
         related_name="user_payment_set",
     )
-    was_paid = models.BooleanField(default=False)
+    concept = models.SmallIntegerField(
+        choices=psychology_constants.PAYMENT_CHOICES,
+        db_index=True,
+        blank=True,
+        null=True,
+    )
+    was_paid = models.BooleanField(default=False, db_index=True)
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):

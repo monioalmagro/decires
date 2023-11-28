@@ -5,7 +5,7 @@ from apps.psychology.models.audience import Audience
 from apps.psychology.models.user_carreer_audience import UserCarreerAudience
 from apps.psychology.models.contact_me import ContactMe
 from apps.psychology.models.user_language import UserLanguage
-from apps.psychology.models.user_payments import UserPayment
+from apps.psychology.models.user_payment import UserPayment
 
 __all__ = [
     "Carreer",

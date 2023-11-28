@@ -1,5 +1,5 @@
 // constants
-
+let object_data = {};
 const carrersQuery = `
   query select2Queries {
     select2 {
@@ -12,6 +12,27 @@ const carrersQuery = `
   }
 `;
 
+const citiesQuery = `query select2Queries {
+  select2 {
+    cities {
+      id
+      text
+      __typename
+    }
+  }
+}`;
+
+get_zones_query = (cityId) => {
+  return `query select2Queries {
+    select2 {
+      zones (cityId: ${cityId}){
+        id
+        text
+        __typename
+      }
+    }
+  }`;
+};
 // generics
 
 $("#ciudad").hide();
@@ -22,6 +43,7 @@ $("#select_modalidad").on("change", function () {
   if ($value == Django.select2_all) {
     $("#ciudad, #zona").hide();
   } else {
+    loadSelect2(citiesQuery, "#select_ciudad", "Ciudad", "cities");
     $("#ciudad").show();
   }
 });
@@ -31,6 +53,7 @@ $("#select_ciudad").on("change", function () {
   if ($value == Django.select2_all) {
     $("#zona").hide();
   } else {
+    loadSelect2(get_zones_query($value), "#select_zona", "Zonas", "zones");
     $("#zona").show();
   }
 });
@@ -55,59 +78,4 @@ searchProffessional = () => {
   }
 
   return 0;
-};
-
-a = {
-  "caba": [
-    "Abasto",
-    "Agronomía",
-    "Almagro",
-    "Balvanera (Once)",
-    "Barracas",
-    "Belgrano",
-    "Boedo",
-    "Caballito",
-    "Chacarita",
-    "Coghlan",
-    "Colegiales",
-    "Congreso - Tribunales",
-    "Constitución",
-    "Flores",
-    "Floresta",
-    "La Boca",
-    "La Paternal",
-    "Liniers",
-    "Mataderos",
-    "Monserrat",
-    "Monte Castro",
-    "Nueva Pompeya",
-    "Núñez",
-    "Palermo",
-    "Parque Avellaneda",
-    "Parque Chacabuco",
-    "Parque Chas",
-    "Parque Patricios",
-    "Puerto Madero",
-    "Recoleta - Barrio Norte",
-    "Retiro",
-    "Saavedra",
-    "San Cristobal",
-    "San Nicolas",
-    "San Telmo",
-    "Vélez Sarsfield",
-    "Versalles",
-    "Villa Crespo",
-    "Villa del Parque",
-    "Villa Devoto",
-    "Villa General Mitre",
-    "Villa Lugano",
-    "Villa Luro",
-    "Villa Ortúzar",
-    "Villa Pueyrredón",
-    "Villa Real",
-    "Villa Riachuelo",
-    "Villa Santa Rita",
-    "Villa Soldati",
-    "Villa Urquiza",
-  ],
 };

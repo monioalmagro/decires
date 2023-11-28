@@ -13,6 +13,7 @@ from apps.psychology.models import (
     UserCarreer,
     UserCarreerAudience,
     UserLanguage,
+    UserPayment,
 )
 
 
@@ -31,6 +32,7 @@ class Command(BaseCommand):
         (UserCarreer, "UserCarreer"),
         (UserCarreerAudience, "UserCarreerAudience"),
         (UserLanguage, "UserLanguage"),
+        (UserPayment, "UserPayment"),
     )
 
     def handle(self, *args, **options):

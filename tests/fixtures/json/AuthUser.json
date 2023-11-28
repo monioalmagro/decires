@@ -29,36 +29,5 @@
       "groups": [],
       "user_permissions": []
     }
-  },
-  {
-    "model": "core.authuser",
-    "pk": 2,
-    "fields": {
-      "password": "pbkdf2_sha256$600000$ctUUG7uqcIK8vTxna4f2UP$0g/KeTdPNFDrEtG2c1yApwYBZaX//XLCL/U901aplCU=",
-      "last_login": null,
-      "is_superuser": false,
-      "is_staff": false,
-      "email": "yonycat@mailinator.com",
-      "username": "Pablo",
-      "first_name": "Pablo",
-      "last_name": "Marmol",
-      "date_joined": "2023-11-21T17:54:53.710Z",
-      "is_active": true,
-      "nro_dni": "16670739",
-      "nro_matricula": "16670739",
-      "cuit": "4086269",
-      "phone": "13168365492",
-      "gender": 1,
-      "facebook_profile": null,
-      "instagram_profile": null,
-      "linkedin_profile": null,
-      "image_profile": "",
-      "is_verified_profile": false,
-      "verified_profile_at": null,
-      "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
-      "office_location_tags": {},
-      "groups": [],
-      "user_permissions": []
-    }
   }
 ]
