@@ -40,6 +40,12 @@ class PsychologySettings(BaseSettings):
         env="DJANGO_ALLOW_ASYNC_UNSAFE",
     )
 
+    SITE_NAME: str = Field(env="SITE_NAME", default="Red Decires")
+    GRAPHQL_URL: str = Field(
+        env="GRAPHQL_URL",
+        default="http://localhost:9000/api/graph/psychology/",
+    )
+
     class Config:
         env_prefix = ""
         case_sensitive = False
