@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 # Own Libraries
-from apps.psychology import psychology_constants
 from utils.models import AuditableMixin
 
 User = get_user_model()

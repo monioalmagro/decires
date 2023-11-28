@@ -11,3 +11,16 @@ class CarreerType(BaseModelType):
     @classmethod
     def from_db_model(cls, instance: Carreer) -> "CarreerType":
         return super().from_db_model(instance=instance)
+
+
+@strawberry.type()
+class CarreerSelect2Type:
+    id: strawberry.ID
+    text: str
+
+    @classmethod
+    def from_db_model(cls, instance: Carreer) -> "CarreerSelect2Type":
+        return cls(
+            id=instance.pk,
+            text=instance.name,
+        )
