@@ -1,0 +1,166 @@
+{% extends 'base/base.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block navbar %} {% include 'base/clean_navbar.html' %} {% endblock navbar %}
+
+<!--  -->
+{% block content %}
+<!-- begin #quote -->
+<div id="quote" class="content bg-black-darker has-bg" data-scrollview="true">
+  <!-- begin content-bg -->
+  <div
+    class="content-bg"
+    style="background-image: url(/static/assets/img/bg/bg-quote.jpg)"
+    data-paroller-factor="0.5"
+    data-paroller-factor-md="0.01"
+    data-paroller-factor-xs="0.01"
+  ></div>
+  <!-- end content-bg -->
+  <!-- begin container -->
+  <div class="container" data-animation="true" data-animation-type="fadeInLeft">
+    <!-- begin row -->
+    <div class="row">
+      <!-- begin col-12 -->
+      <div class="col-md-12 quote">
+        </br>
+        <span class="text-primary">Registro de profesionales, Unete al equipo ahora</span>!
+        <!-- <small>Lic. A B, Decires Psicología.</small> -->
+        </br>
+      </div>
+      <!-- end col-12 -->
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end #quote -->
+
+<!-- begin #team -->
+<div id="team" class="content" data-scrollview="true">
+  <!-- begin container -->
+  <div class="container">
+    <h2 class="content-title">Formulario de registro</h2>
+
+    <!-- begin row -->
+    <div class="row">
+      <!-- begin col-4 -->
+      <div class="col-md-12 col-sm-12">
+        <!-- begin team -->
+        <div class="team">
+          <div class="image" data-animation="true" data-animation-type="flipInX">
+            {% comment %} <img src="/static/assets/img/user/user-1.jpg" alt="Ryan Teller" /> {% endcomment %}
+            <div id="image-container"></div>
+          </div>
+
+          <div class="info">
+            <!-- begin register-content -->
+            <div class="register-content col-md-8 offset-md-2">
+              <form action="index.html" method="GET" class="margin-bottom-0">
+                <!-- principal init -->
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Nombre <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="First name" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Apellido <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Last name" required />
+                  </div>
+                </div>
+
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Email <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Email address" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Confirmación de Email <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Re-enter email address" required />
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Username <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Username" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" placeholder="Password" required />
+                  </div>
+                </div>
+                <!--  -->
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Avatar del usuario <span class="text-danger">*</span></label>
+                    <input type="file" id="avatar" accept="image/*" />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Previsualizar Avatar<span class="text-danger">*</span></label>
+                    <button type="button" class="btn btn-inverse form-control" onclick="uploadImage()">Previsualizar</button>
+                  </div>
+
+                </div>
+                <!-- principal end -->
+
+                <!--
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Nombre <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="First name" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Apellido <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Last name" required />
+                  </div>
+                </div>
+
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Email <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Email address" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Confirmación de Email <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Re-enter email address" required />
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Username <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Username" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" placeholder="Password" required />
+                  </div>
+                </div>
+                 -->
+
+
+                <div class="register-buttons">
+                  <button type="submit" class="btn btn-primary btn-block btn-lg">Registrar</button>
+                </div>
+
+                <hr />
+                <p class="text-center mb-0">
+                  &copy; {{ site_name }} All Right Reserved {{ year }}
+                </p>
+              </form>
+            </div>
+            <!-- end register-content -->
+          </div>
+        </div>
+        <!-- end team -->
+      </div>
+      <!-- end col-4 -->
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end #team -->
+
+{% endblock content %}
+<!--  -->
+{% block extra_js %} {% endblock extra_js %}
