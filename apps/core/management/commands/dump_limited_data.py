@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 
 # Own Libraries
 # Own Libraries]
-from apps.core.models import AuthUser
+from apps.core.models import AuthUser, City, Country, Zone
 from apps.psychology.models import (
     Audience,
     Carreer,
@@ -21,6 +21,9 @@ class Command(BaseCommand):
 
     models = (
         (AuthUser, "AuthUser"),
+        (Country, "Country"),
+        (City, "City"),
+        (Zone, "Zone"),
         (Audience, "Audience"),
         (Carreer, "Carreer"),
         (ContactMe, "ContactMe"),
