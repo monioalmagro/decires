@@ -6,12 +6,11 @@ from django.core.management.base import BaseCommand
 # Own Libraries]
 from apps.core.models import AuthUser, City, Country, Zone
 from apps.psychology.models import (
-    Audience,
     Carreer,
     ContactMe,
+    Specialization,
     UserAttachment,
     UserCarreer,
-    UserCarreerAudience,
     UserLanguage,
     UserPayment,
 )
@@ -25,20 +24,19 @@ class Command(BaseCommand):
         (Country, "Country"),
         (City, "City"),
         (Zone, "Zone"),
-        (Audience, "Audience"),
         (Carreer, "Carreer"),
         (ContactMe, "ContactMe"),
         (UserAttachment, "UserAttachment"),
         (UserCarreer, "UserCarreer"),
-        (UserCarreerAudience, "UserCarreerAudience"),
         (UserLanguage, "UserLanguage"),
         (UserPayment, "UserPayment"),
+        (Specialization, "Specialization"),
     )
 
     def handle(self, *args, **options):
         # Obtener los primeros 10 registros del modelo
         for model, model_name in self.models:
-            first_10_records = model.objects.all()[:10]
+            first_10_records = model.objects.all()[:50]
 
             # Serializar los registros en formato JSON
             data = serializers.serialize("json", first_10_records)

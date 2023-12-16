@@ -69,13 +69,29 @@ loadModal = () => {
 searchProffessional = () => {
   $profesionales = $("#profesionales").val();
   $modalidad = $("#select_modalidad").val();
+  $ciudad = $("#select_ciudad").val();
+  $zona = $("#select_zona").val();
 
   if ($profesionales == Django.select2_all || $modalidad == Django.select2_all) {
     alert("No puedes lanzar la perticion");
   } else {
-    alert("PETICION AJAX CON REDIRECT ");
+    $obj = {
+      input: {
+        carreer: $profesionales,
+        serviceMethodEnum: $modalidad,
+        city: $ciudad,
+        zone: $zona ?? 0,
+      },
+    };
+
+    DecireslocalStorage.remove("request_values");
+    DecireslocalStorage.set("request_values", $obj);
+
     $("#modal_search_proffessionals").modal("hide");
+    location.href = Django.urls.search;
   }
 
   return 0;
 };
+
+// DecireslocalStorage.set()

@@ -18,5 +18,8 @@ def javascript(request: HttpRequest):
     context["site_name"] = settings.SITE_NAME
     context["select2_all"] = ""
 
+    context["urls"] = {}
+    context["urls"]["search"] = reverse("core:professional:search")
+
     var = "let Django = " + json.dumps(context, indent=2)
     return HttpResponse(var, content_type="application/javascript")

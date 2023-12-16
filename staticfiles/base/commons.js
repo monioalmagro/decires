@@ -1,3 +1,21 @@
+var DecireslocalStorage = {
+  set: function (key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+  get: function (key) {
+    var storedValue = localStorage.getItem(key);
+    return storedValue ? JSON.parse(storedValue) : null;
+  },
+
+  remove: function (key) {
+    localStorage.removeItem(key);
+  },
+
+  clear: function () {
+    localStorage.clear();
+  },
+};
+
 loadSelect2 = (graphqlQuery, jquery_id, option_label_tag, select2_tag = "carreers") => {
   // Configurar la petición Ajax
   $.ajax({
@@ -6,7 +24,6 @@ loadSelect2 = (graphqlQuery, jquery_id, option_label_tag, select2_tag = "carreer
     contentType: "application/json",
     data: JSON.stringify({ query: graphqlQuery }),
     success: function (response) {
-      console.log(response);
       if (select2_tag == "carreers") {
         $data = response.data.select2.carreers;
       } else if (select2_tag == "cities") {

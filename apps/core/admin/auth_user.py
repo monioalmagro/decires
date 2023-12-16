@@ -69,7 +69,7 @@ class UserAdmin(UserAdmin):
                     "cuit",
                     "is_verified_profile",
                     "verified_profile_at",
-                    "office_location_tags",
+                    "office_locations",
                 ),
             },
         ),
@@ -119,6 +119,7 @@ class UserAdmin(UserAdmin):
         "verified_profile_at",
         "get_was_paid",
     )
+    raw_id_fields = ("office_locations",)
 
     actions = [
         "is_verified_profile",

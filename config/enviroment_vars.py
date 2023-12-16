@@ -45,6 +45,7 @@ class PsychologySettings(BaseSettings):
         env="GRAPHQL_URL",
         default="http://localhost:9000/api/graph/psychology/",
     )
+    MEDIA_URL: str | None = Field(default="/media/")
 
     class Config:
         env_prefix = ""

@@ -2,9 +2,6 @@
 from django.contrib import admin
 
 # Own Libraries
-from apps.psychology.admin.user_carreer_audience import (
-    UserCarreerAudienceInline,
-)
 from apps.psychology.models import UserCarreer
 
 
@@ -13,6 +10,7 @@ class UserCarreerInline(admin.TabularInline):
     verbose_name_plural = "Titulaciones"
     fields = (
         "carreer",
+        "specializations",
         "service_method",
         "service_modality",
         "experience_summary",
@@ -20,7 +18,7 @@ class UserCarreerInline(admin.TabularInline):
         "is_active",
         "is_deleted",
     )
-    raw_id_fields = ("carreer",)
+    raw_id_fields = ("carreer", "specializations")
     extra = 0
 
 
@@ -30,6 +28,5 @@ class UserCarreerAdmin(admin.ModelAdmin):
     raw_id_fields = (
         "user",
         "carreer",
-        "audiences",
+        "specializations",
     )
-    inlines = (UserCarreerAudienceInline,)
