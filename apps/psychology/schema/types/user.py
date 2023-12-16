@@ -14,8 +14,8 @@ class UserType:
     original_id: strawberry.ID
     first_name: str | None = None
     last_name: str | None = None
-    office_location: str | None = None
     is_verified_profile: bool
+    avatar: str | None = None
 
     @classmethod
     def from_db_models(cls, instance: AuthUser) -> "UserType":
@@ -23,8 +23,8 @@ class UserType:
             original_id=instance.pk,
             first_name=instance.first_name,
             last_name=instance.last_name,
-            office_location=instance.office_location,
             is_verified_profile=instance.is_verified_profile,
+            avatar=instance.avatar,
         )
 
     @strawberry.field()

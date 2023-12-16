@@ -1,12 +1,12 @@
 # Third-party Libraries
 from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # Own Libraries
 from apps.core import core_constants
+from config.enviroment_vars import settings
 from utils.upload_files import upload_user_image_profile
 
 
@@ -80,7 +80,11 @@ class AuthUser(AbstractUser):
     is_verified_profile = models.BooleanField(default=False)
     verified_profile_at = models.DateTimeField(blank=True, null=True)
     personal_address = models.TextField(blank=True, null=True)
-    office_location_tags = models.JSONField(default=dict, blank=True, null=True)
+    office_locations = models.ManyToManyField(
+        "Zone",
+        blank=True,
+        related_name="auth_user_set",
+    )
 
     def __str__(self):
         _name = self.username or self.email
@@ -93,3 +97,8 @@ class AuthUser(AbstractUser):
             self.verified_profile_at = None
 
         super().save(*args, **kwargs)
+
+    @property
+    def avatar(self) -> str | None:
+        if base_media := settings.MEDIA_URL:
+            return f"{base_media}{self.image_profile}"

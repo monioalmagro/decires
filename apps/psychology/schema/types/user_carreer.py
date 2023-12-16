@@ -2,16 +2,13 @@
 import strawberry
 
 # Own Libraries
-from apps.psychology.adapters.user_carreer_audience import (
-    UserCarreerAudienceAdapter,
-)
 from apps.psychology.models import UserCarreer
 from apps.psychology.schema.enums.user_carreer import (
     CarreerServiceMethodEnum,
     CarreerServiceModalityEnum,
 )
-from apps.psychology.schema.types.audience import AudienceType
 from apps.psychology.schema.types.carreer import CarreerType
+from apps.psychology.schema.types.specialization import SpecializationType
 from utils.enums import get_enum_instance_by_value
 
 
@@ -22,6 +19,8 @@ class UserCarreerType:
     service_method_enum: CarreerServiceMethodEnum | None = None
     service_modality_enum: CarreerServiceModalityEnum | None = None
     experience_summary: str | None = None
+    truncate_experience_summary: str | None = None
+    specialization_set: strawberry.Private[object]
 
     @classmethod
     def from_db_model(cls, instance: UserCarreer):
@@ -37,16 +36,25 @@ class UserCarreerType:
                 value=instance.service_modality,
             ),
             experience_summary=instance.experience_summary,
+            truncate_experience_summary=cls.get_truncate_experience_summary(
+                instance.experience_summary
+            ),
+            specialization_set=instance.specializations.all(),
         )
 
+    @staticmethod
+    def get_truncate_experience_summary(
+        experience_summary: str | None = None,
+    ) -> str:
+        if experience_summary:
+            return f"{experience_summary[:150]}, Ver más..."
+        return ""
+
     @strawberry.field()
-    async def audiences_set(self) -> list[AudienceType]:
-        adapter = UserCarreerAudienceAdapter()
-        if results := await adapter.get_objects(
-            **{"user_carreer_id": self.original_id}
-        ):
+    async def specializations(self) -> list[SpecializationType]:
+        if self.specialization_set.exists():
             return [
-                AudienceType.from_db_model(instance=user_carreer.audience)
-                for user_carreer in results
+                SpecializationType.from_db_model(instance=specialization)
+                for specialization in self.specialization_set
             ]
         return []

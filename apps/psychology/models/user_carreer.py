@@ -20,6 +20,11 @@ class UserCarreer(AuditableMixin):
         on_delete=models.CASCADE,
         related_name="user_carreer_set",
     )
+    specializations = models.ManyToManyField(
+        "Specialization",
+        blank=True,
+        related_name="user_carreer_set",
+    )
     service_method = models.SmallIntegerField(
         choices=psychology_constants.SERVICE_METHOD_CHOICES,
         default=psychology_constants.VIRTUAL,
@@ -29,11 +34,6 @@ class UserCarreer(AuditableMixin):
         default=psychology_constants.INDIVIDUAL,
     )
     order = models.SmallIntegerField(default=1)
-    audiences = models.ManyToManyField(
-        "Audience",
-        through="UserCarreerAudience",
-        related_name="user_carreer_set",
-    )
     experience_summary = models.TextField(blank=True, null=True)
 
     class Meta:

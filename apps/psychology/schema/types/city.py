@@ -1,9 +1,5 @@
-# Standard Libraries
-from typing import Any
-
 # Third-party Libraries
 import strawberry
-from strawberry.scalars import JSON
 
 # Own Libraries
 from apps.core.models import City, Zone
