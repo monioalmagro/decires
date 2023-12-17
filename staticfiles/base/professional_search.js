@@ -98,6 +98,7 @@ professional_filter_select = (item) => {
 professional_filter_results = () => {
   if (professionalSearchController.filter_list.length > 0) {
     professionalSearchController.getFilteredResults();
+    professionalSearchController.updatePagination();
   }
   return false;
 };
@@ -119,6 +120,8 @@ let professionalSearchController = {
   total_count: null,
   filtered_total_count: null,
   filter_list: [],
+  currentPage: 1,
+  itemsPerPage: 12,
 
   /**
    * Initializes the controller with data.
@@ -239,6 +242,50 @@ let professionalSearchController = {
       });
     });
   },
+  /**
+   * Actualiza la paginación.
+   */
+  updatePagination: function () {
+    const totalPages = Math.ceil(this.filtered_total_count / this.itemsPerPage);
+    const paginationElement = $("#pagination");
+    paginationElement.empty();
+
+    // Crea el botón "Previo"
+    paginationElement.append(
+      `<li class="page-item ${
+        this.currentPage === 1 ? "disabled" : ""
+      }"><a href="javascript:;" class="page-link" onclick="professionalSearchController.changePage(${
+        this.currentPage - 1
+      })">Previo</a></li>`
+    );
+
+    // Crea los botones para cada página
+    for (let i = 1; i <= totalPages; i++) {
+      paginationElement.append(
+        `<li class="page-item ${
+          this.currentPage === i ? "active" : ""
+        }"><a class="page-link" href="javascript:;" onclick="professionalSearchController.changePage(${i})">${i}</a></li>`
+      );
+    }
+
+    // Crea el botón "Siguiente"
+    paginationElement.append(
+      `<li class="page-item ${
+        this.currentPage === totalPages ? "disabled" : ""
+      }"><a href="javascript:;" class="page-link" onclick="professionalSearchController.changePage(${
+        this.currentPage + 1
+      })">Siguiente</a></li>`
+    );
+  },
+
+  /**
+   * Cambia a la página especificada y actualiza la paginación.
+   */
+  changePage: function (page) {
+    this.currentPage = page;
+    this.prepareResults(this.data.slice((page - 1) * this.itemsPerPage, page * this.itemsPerPage));
+    this.updatePagination();
+  },
 };
 
 initialRequest = () => {
@@ -253,21 +300,35 @@ initialRequest = () => {
     success: function (response) {
       $data = [];
 
-      if (response.data.psychology.getProfessionalList.length > 0) {
+      if (
+        response.data &&
+        response.data.psychology &&
+        response.data.psychology.getProfessionalList
+      ) {
         $data = response.data.psychology.getProfessionalList;
-        $.when(professionalSearchController.init($data)).then(
+
+        Promise.resolve(
+          professionalSearchController.init($data),
           professionalSearchController.getSideBarSpecializations(
             "specializations",
             "#specialization_list"
           ),
-          professionalSearchController.getSideBarLanguages("#language_list"),
-          professionalSearchController.getInitialSearchResults()
-        );
+          professionalSearchController.getSideBarLanguages("#language_list")
+        ).then(function () {
+          professionalSearchController.getInitialSearchResults();
+          professionalSearchController.updatePagination();
+        });
       } else {
         setTimeout(function () {
           location.href = "/";
         }, 40);
       }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error en la solicitud AJAX:", status, error);
+      setTimeout(function () {
+        location.href = "/";
+      }, 40);
     },
   });
 };
