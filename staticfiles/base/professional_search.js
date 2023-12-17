@@ -99,6 +99,7 @@ professional_filter_results = () => {
   if (professionalSearchController.filter_list.length > 0) {
     professionalSearchController.getFilteredResults();
     professionalSearchController.updatePagination();
+    professionalSearchController.filter_list = [];
   }
   return false;
 };
