@@ -18,8 +18,15 @@ def javascript(request: HttpRequest):
     context["site_name"] = settings.SITE_NAME
     context["select2_all"] = ""
 
-    context["urls"] = {}
-    context["urls"]["search"] = reverse("core:professional:search")
+    urls = {
+        "home": reverse("home"),
+        "professionalSearch": reverse("core:professional:search"),
+        "professionalRetrieve": reverse(
+            "core:professional:retrieve", kwargs={"pk": "::"}
+        ),
+    }
+
+    context["urls"] = urls
 
     var = "let Django = " + json.dumps(context, indent=2)
     return HttpResponse(var, content_type="application/javascript")
