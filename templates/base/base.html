@@ -24,6 +24,9 @@
       rel="stylesheet"
       id="theme-css-link"
     />
+
+    <link href="{% static 'assets/plugins/gritter/css/jquery.gritter.css' %}" rel="stylesheet" />
+
     {% endblock header %} {% block extra_header %} {% endblock extra_header %}
   </head>
   <body data-spy="scroll" data-target="#header" data-offset="51">
@@ -39,6 +42,8 @@
     {% block js %}
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="{% static 'assets/js/one-page-parallax/app.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/sweetalert/dist/sweetalert.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/gritter/js/jquery.gritter.js' %}"></script>
     <script src="{% url 'javascript' %}"></script>
     <script src="{% static 'base/commons.js' %}?no_cache={{ no_cache }}"></script>
     <!-- ================== END BASE JS ================== -->
