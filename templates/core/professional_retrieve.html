@@ -1,0 +1,110 @@
+{% extends 'base/base.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block extra_header %}
+{% endblock extra_header%}
+<!-- begin  -->
+{% block navbar %}
+<!-- include  -->
+{% include 'base/clean_navbar.html' %}
+<!-- finish  -->
+{% endblock navbar %}
+
+<!--  -->
+{% block content %}
+<!-- begin #quote -->
+<div id="quote" class="content bg-black-darker has-bg" data-scrollview="true">
+  <!-- begin content-bg -->
+  <div
+    class="content-bg"
+    style="background-image: url(/static/assets/img/bg/bg-quote.jpg)"
+    data-paroller-factor="0.5"
+    data-paroller-factor-md="0.01"
+    data-paroller-factor-xs="0.01"
+  ></div>
+  <!-- end content-bg -->
+  <!-- begin container -->
+  <div class="container" data-animation="true" data-animation-type="fadeInLeft">
+    <!-- begin row -->
+    <div class="row">
+      <!-- begin col-12 -->
+      <div class="col-md-12 quote">
+        </br>
+        <span class="text-primary">Perfil Profesional</span>
+        <!-- <small>Lic. A B, Decires Psicología.</small> -->
+        </br>
+      </div>
+      <!-- end col-12 -->
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end #quote -->
+
+<br>
+<br>
+<br>
+		<!-- begin container -->
+		<div class="container">
+			<!-- begin row -->
+			<div class="row row-space-30">
+				<!-- begin col-9 -->
+				<div class="col-lg-9">
+					<!-- begin section-container -->
+					<div class="section-container" id="profile">
+						<div class="post-image" style="text-align: center;">
+                <img style="max-width: 200px; height: auto;" src="/media/test/user-image-profile/2611107400/Poster_for_Sale_con_la_obra_Nietzsche_Imprimir_de_LibertyManiacs.jpeg" class="img-fluid">
+            </div>
+            </br>
+						<h3 class="content-title">Dagan Ammiel</h3>
+						<p class="about-me-desc" style="text-align: justify;">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id efficitur ipsum.
+							Praesent vulputate vulputate metus vulputate hendrerit. Sed in magna sit amet lorem congue
+							semper non vel tellus. Nam tempor molestie aliquet. Fusce ultrices magna efficitur,
+							sodales turpis ut, suscipit tortor. Mauris at sem pellentesque, fringilla ligula vel,
+							luctus metus.
+            </p>
+            <p class="about-me-desc" style="text-align: justify;">
+							Morbi convallis volutpat quam, sit amet fermentum massa.
+							Nulla ac faucibus risus. Suspendisse ante elit, faucibus sed pharetra nec,
+							laoreet sed enim. Integer consectetur, risus id semper porttitor, lacus dolor euismod magna,
+							id consectetur dui mi vitae lorem. Nam ac malesuada urna, vel mollis eros. Aliquam erat volutpat.
+						</p>
+					</div>
+					<!-- end section-container -->
+				</div>
+				<!-- end col-9 -->
+        <!-- begin col-3 -->
+        <div class="col-lg-3">
+            <div class="section-container">
+                <h2 class="content-title">Especializaciones</h2>
+                <hr>
+                <ul class="sidebar-list" id="specializations"></ul>
+            </div>
+            <div class="section-container">
+                <h2 class="content-title">Idiomas</h2>
+                <hr>
+                <ul class="sidebar-list" id="languages"></ul>
+            </div>
+            <div class="section-container">
+                <h2 class="content-title">Ubicaciones</h2>
+                <hr>
+                <ul class="sidebar-list" id="office_locations"></ul>
+            </div>
+        </div>
+        <!-- end col-9 -->
+			</div>
+			<!-- end row -->
+		</div>
+		<!-- end container -->
+
+{% endblock content %}
+<!--  -->
+{% block extra_js %}
+<script>
+  const originalId = {{original_id}}
+</script>
+<script src="{% static 'base/professional_retrieve.js' %}?no_cache={{ no_cache }}"></script>
+{% endblock extra_js %}
