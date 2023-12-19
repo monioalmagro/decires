@@ -1,20 +1,46 @@
 var DecireslocalStorage = {
   set: function (key, value) {
+    this.remove(key);
     localStorage.setItem(key, JSON.stringify(value));
   },
   get: function (key) {
     var storedValue = localStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : null;
   },
-
   remove: function (key) {
     localStorage.removeItem(key);
   },
-
   clear: function () {
     localStorage.clear();
   },
 };
+
+function deciresAlert() {
+  this.basic = (title, msj, type) => {
+    swal({
+      title: title,
+      text: msj,
+      icon: type,
+      buttons: {
+        cancel: {
+          text: "Cerrar",
+          value: null,
+          visible: true,
+          className: "btn btn-default",
+          closeModal: true,
+        },
+        confirm: {
+          text: "Ok",
+          value: true,
+          visible: true,
+          className: "btn btn-primary",
+          closeModal: true,
+        },
+      },
+    });
+    return false;
+  };
+}
 
 loadSelect2 = (graphqlQuery, jquery_id, option_label_tag, select2_tag = "carreers") => {
   // Configurar la petición Ajax
@@ -64,4 +90,9 @@ uploadImage = () => {
 
     reader.readAsDataURL(file);
   }
+};
+
+djangoUrlResolve = (url_name, identifier) => {
+  var url = Django.urls[url_name];
+  return url.replace("::", identifier);
 };

@@ -74,33 +74,30 @@ getItem = (obj) => {
             </div>
           </div>`;
 };
-/**
- * Generates HTML for sidebar items.
- */
-getSideBarItems = (item, quantity, type) => {
-  return `<li><a href="#" onclick="professional_filter_select('${item}', ${type});">${item} <span class="pull-right">(${quantity})</span></a></li>`;
-};
-/**
- * Filters results based on selected criteria.
- */
-professional_filter_select = (item) => {
-  // Verificar si el elemento ya está presente en el array
-  const isDuplicate = professionalSearchController.filter_list.includes(item);
-
-  // Agregar el elemento solo si no es un duplicado
-  if (!isDuplicate) {
-    professionalSearchController.filter_list.push(item);
-  }
-
-  return false;
-};
 
 professional_filter_results = () => {
-  if (professionalSearchController.filter_list.length > 0) {
+  const checkboxesSpecializationSelected = $('input[name="specializations"]:checked');
+  const checkboxesLanguagesSelected = $('input[name="languages"]:checked');
+  const $filterSet = new Set();
+
+  checkboxesSpecializationSelected.each(function () {
+    const label = $('label[for="' + this.id + '"]');
+    $filterSet.add(label.text());
+  });
+  checkboxesLanguagesSelected.each(function () {
+    const label = $('label[for="' + this.id + '"]');
+    $filterSet.add(label.text());
+  });
+
+  if ($filterSet.size > 0) {
+    let filtros = Array.from($filterSet);
+
+    professionalSearchController.filter_list = filtros.map((cadena) => cadena.trim());
     professionalSearchController.getFilteredResults();
     professionalSearchController.updatePagination();
     professionalSearchController.filter_list = [];
   }
+
   return false;
 };
 
@@ -108,10 +105,49 @@ professional_filter_results = () => {
  * Restores filters to the initial state.
  */
 restore_filters = () => {
+  const checkboxesSpecializationSelected = $('input[name="specializations"]:checked');
+  const checkboxesLanguagesSelected = $('input[name="languages"]:checked');
+  checkboxesSpecializationSelected.prop("checked", false);
+  checkboxesLanguagesSelected.prop("checked", false);
+  //
   professionalSearchController.filter_list = [];
   professionalSearchController.getInitialSearchResults();
   return false;
 };
+
+function htmlFilterSection(data) {
+  this.data = data;
+
+  this.process_html_id = (itemName, itemPropertyName) => {
+    // Convierte a minúsculas y reemplaza espacios por guiones bajos
+    const processName = `${itemName.toLowerCase()}_${itemPropertyName
+      .toLowerCase()
+      .replace(/\s/g, "_")}`;
+    return processName;
+  };
+
+  this.setCheckBockItem = (itemName, item, itemPropertyName, checkboxName) => {
+    $input_id = this.process_html_id(itemName, item.name || item.languageName);
+    return `
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id=${$input_id} name=${checkboxName} />
+      <label class="form-check-label" for=${$input_id}>${item[itemPropertyName]}<label>
+    </div>`;
+  };
+
+  this.setupFilter = (itemName, itemPropertyName, html_id, checkboxName) => {
+    $htmlItemList = "";
+    $items = this.data;
+
+    for (const $item of $items) {
+      $htmlItemList += this.setCheckBockItem(itemName, $item, itemPropertyName, checkboxName);
+    }
+
+    $(html_id).empty().append($htmlItemList);
+
+    return false;
+  };
+}
 
 /**
  * Controller class for managing professional search functionality.
@@ -143,58 +179,45 @@ let professionalSearchController = {
    * Generates sidebar items for specializations and updates the UI.
    */
   getSideBarSpecializations: function (key, html_id) {
-    const itemCountMap = {};
-    const itemSet = new Set();
-
+    $data = [];
     this.data.forEach((items) => {
-      items.userCarreerSet[0][key].forEach((items2) => {
-        const itemName = items2.name;
-
-        itemSet.add(itemName);
-
-        itemCountMap[itemName] = (itemCountMap[itemName] || 0) + 1;
+      const $specializations = items.userCarreerSet[0][key];
+      $specializations.forEach((items2) => {
+        const isObjectNotPresent = !$data.some((dataItem) => {
+          return dataItem.name === items2.name;
+        });
+        if (isObjectNotPresent) {
+          $data.push(items2);
+        }
       });
     });
 
-    $side_bar_html = "";
-
-    for (const especializacion of itemSet) {
-      $side_bar_html += getSideBarItems(
-        especializacion,
-        itemCountMap[especializacion],
-        filter_type_especializations
-      );
-    }
-    $(html_id).empty().append($side_bar_html);
+    filter = new htmlFilterSection($data);
+    filter.setupFilter("specialization", "name", html_id, "specializations");
     return false;
   },
   /**
    * Generates sidebar items for languages and updates the UI.
    */
   getSideBarLanguages: function (html_id) {
-    const itemCountMap = {};
-    const itemSet = new Set();
+    $data = [];
 
     this.data.forEach((items) => {
-      items.languagesSet.forEach((items2) => {
-        const itemName = items2.languageName;
+      const $languages = items.languagesSet;
 
-        itemSet.add(itemName);
+      $languages.forEach((items2) => {
+        const isObjectNotPresent = !$data.some((dataItem) => {
+          return dataItem.languageName === items2.languageName;
+        });
 
-        itemCountMap[itemName] = (itemCountMap[itemName] || 0) + 1;
+        if (isObjectNotPresent) {
+          $data.push(items2);
+        }
       });
     });
 
-    $side_bar_html = "";
-
-    for (const especializacion of itemSet) {
-      $side_bar_html += getSideBarItems(
-        especializacion,
-        itemCountMap[especializacion],
-        filter_type_language
-      );
-    }
-    $(html_id).empty().append($side_bar_html);
+    filter2 = new htmlFilterSection($data);
+    filter2.setupFilter("language", "languageName", html_id, "languages");
     return false;
   },
   /**
@@ -212,7 +235,8 @@ let professionalSearchController = {
    */
   getInitialSearchResults: function () {
     this.getTotalCount();
-    this.prepareResults(this.data);
+    $data = this.filterData(this.data, this.filter_list);
+    this.prepareResults($data);
     return false;
   },
   /**
@@ -233,6 +257,9 @@ let professionalSearchController = {
   },
 
   filterData: function ($data, filterList) {
+    if (filterList.length === 0) {
+      return $data;
+    }
     return $data.filter((professional) => {
       return filterList.some((filter) => {
         const specializationMatch = professional.userCarreerSet[0].specializations.some(
@@ -321,14 +348,14 @@ initialRequest = () => {
         });
       } else {
         setTimeout(function () {
-          location.href = "/";
+          location.href = Django.urls.home;
         }, 40);
       }
     },
     error: function (xhr, status, error) {
       console.error("Error en la solicitud AJAX:", status, error);
       setTimeout(function () {
-        location.href = "/";
+        location.href = Django.urls.home;
       }, 40);
     },
   });
