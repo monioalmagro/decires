@@ -73,6 +73,7 @@ searchProffessional = () => {
   $zona = $("#select_zona").val();
 
   if ($profesionales == Django.select2_all || $modalidad == Django.select2_all) {
+    // todo: SWEET ALERT
     alert("No puedes lanzar la perticion");
   } else {
     $obj = {
@@ -88,7 +89,7 @@ searchProffessional = () => {
     DecireslocalStorage.set("request_values", $obj);
 
     $("#modal_search_proffessionals").modal("hide");
-    location.href = Django.urls.search;
+    location.href = Django.urls.professionalSearch;
   }
 
   return 0;
