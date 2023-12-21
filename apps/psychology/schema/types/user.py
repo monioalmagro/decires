@@ -2,9 +2,10 @@
 import strawberry
 
 # Own Libraries
-from apps.core.models import AuthUser
+from apps.core.models import AuthUser, Zone
 from apps.psychology.adapters.user_carreer import UserCarreerAdapter
 from apps.psychology.adapters.user_language import UserLanguageAdapter
+from apps.psychology.schema.types.city import ZoneType
 from apps.psychology.schema.types.user_carreer import UserCarreerType
 from apps.psychology.schema.types.user_language import UserLanguageType
 
@@ -16,6 +17,8 @@ class UserType:
     last_name: str | None = None
     is_verified_profile: bool
     avatar: str | None = None
+    office_locations: list[ZoneType] | None = None
+    profile_url: str | None = None
 
     @classmethod
     def from_db_models(cls, instance: AuthUser) -> "UserType":
@@ -25,7 +28,17 @@ class UserType:
             last_name=instance.last_name,
             is_verified_profile=instance.is_verified_profile,
             avatar=instance.avatar,
+            office_locations=cls.get_zones(
+                zone_list=list(instance.office_locations.all())
+            ),
+            profile_url=instance.profile_url,
         )
+
+    @staticmethod
+    def get_zones(zone_list: list[Zone] | None = None) -> list[ZoneType]:
+        if zone_list := zone_list or []:
+            return [ZoneType.from_db_model(instance=zone) for zone in zone_list]
+        return []
 
     @strawberry.field()
     async def user_carreer_set(self) -> list[UserCarreerType]:

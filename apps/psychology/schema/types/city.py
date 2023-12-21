@@ -26,3 +26,25 @@ class CitySelect2Type(ILocationType):
 @strawberry.type()
 class ZoneSelect2Type(ILocationType):
     pass
+
+
+@strawberry.type()
+class CityType:
+    name: str | None = None
+
+    @classmethod
+    def from_db_model(cls, instance: City):
+        return cls(name=instance.name)
+
+
+@strawberry.type()
+class ZoneType:
+    name: str | None = None
+    city: CityType | None = None
+
+    @classmethod
+    def from_db_model(cls, instance: Zone) -> "ZoneType":
+        return cls(
+            name=instance.name,
+            city=CityType.from_db_model(instance=instance.city),
+        )

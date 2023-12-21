@@ -16,7 +16,7 @@ class LanguageEnum(enum.Enum):
 
 @strawberry.enum()
 class LanguageLevelEnum(enum.Enum):
-    EASY = strawberry.enum_value(value=1)
-    MEDIUM = strawberry.enum_value(value=2)
-    HARD = strawberry.enum_value(value=3)
-    EXPERT = strawberry.enum_value(value=4)
+    BASICO = strawberry.enum_value(value=1)
+    MEDIO = strawberry.enum_value(value=2)
+    DIFICIL = strawberry.enum_value(value=3)
+    EXPERTO = strawberry.enum_value(value=4)

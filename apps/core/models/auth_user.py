@@ -1,6 +1,7 @@
 # Third-party Libraries
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -102,3 +103,7 @@ class AuthUser(AbstractUser):
     def avatar(self) -> str | None:
         if base_media := settings.MEDIA_URL:
             return f"{base_media}{self.image_profile}"
+
+    @property
+    def profile_url(self) -> str:
+        return reverse("core:professional:retrieve", kwargs={"pk": self.pk})
