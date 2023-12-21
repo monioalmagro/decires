@@ -47,6 +47,6 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                "Successfully exported the first 10 records to model_data.json"
+                "Successfully exported the first 50 records to model_data.json"
             )
         )

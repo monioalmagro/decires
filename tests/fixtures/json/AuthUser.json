@@ -1,6 +1,75 @@
 [
   {
     "model": "core.authuser",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$3yxAfMV7XtPqq9BS7OHbpv$1rW0GQegA2pUbeKq5kH4uQifiRGu2cfcQ43G2HsAzxU=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "argenis.vargas2@crehana.com",
+      "username": "alcides",
+      "first_name": "Arcides",
+      "last_name": "Vargas",
+      "date_joined": "2023-12-16T19:21:42.631Z",
+      "is_active": true,
+      "nro_dni": "40862692",
+      "nro_matricula": null,
+      "cuit": null,
+      "phone": "13168365492",
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/2063106068/Rise_of_Ren.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T19:25:01.034Z",
+      "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$N9gVFcg0VoQCSv0JTKW9Xy$Q3kn1ruZvdBCg5y5rw37IuKmD7DxlXXy+unQpu6I/uM=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "yonycat2@mailinator.com",
+      "username": "alexandra",
+      "first_name": "Alexandra",
+      "last_name": "Mendoza",
+      "date_joined": "2023-12-16T19:18:32.240Z",
+      "is_active": true,
+      "nro_dni": "26590229",
+      "nro_matricula": null,
+      "cuit": null,
+      "phone": "13168365492",
+      "gender": 2,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/612801738/photo_2023-05-24_17.43.54.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T19:25:25.527Z",
+      "personal_address": "",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$600000$Z7QBYRFzoBaPDGVvNfnHDv$SIl8HVQ36pY+7nt/WK+WYgGSDsCc8MyZC9MlZ+J6FL0=",
@@ -21,13 +90,121 @@
       "facebook_profile": null,
       "instagram_profile": null,
       "linkedin_profile": null,
-      "image_profile": "",
+      "image_profile": "test/user-image-profile/2611107400/Poster_for_Sale_con_la_obra_Nietzsche_Imprimir_de_LibertyManiacs.jpeg",
       "is_verified_profile": true,
-      "verified_profile_at": "2023-11-21T17:46:29.297Z",
+      "verified_profile_at": "2023-12-16T19:26:54.883Z",
       "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B",
-      "office_location_tags": {},
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$oe2gRJFHOrFkIE2HjN6PuC$hjItAG08Ormp6DLRLxZ0E8zcftUxICUcuY+7MDPYNms=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "argenis1818@gmail.com",
+      "username": "leonardo",
+      "first_name": "Leonardo",
+      "last_name": "Medina",
+      "date_joined": "2023-12-16T19:27:38.338Z",
+      "is_active": true,
+      "nro_dni": "1127572293",
+      "nro_matricula": null,
+      "cuit": null,
+      "phone": null,
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/1488849542/Costas_araguenas_Venezuela.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T19:28:56.374Z",
+      "personal_address": "",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$ctUUG7uqcIK8vTxna4f2UP$0g/KeTdPNFDrEtG2c1yApwYBZaX//XLCL/U901aplCU=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "yonycat@mailinator.com",
+      "username": "Pablo",
+      "first_name": "Pablo",
+      "last_name": "Marmol",
+      "date_joined": "2023-11-21T17:54:53.710Z",
+      "is_active": true,
+      "nro_dni": "16670739",
+      "nro_matricula": "16670739",
+      "cuit": "4086269",
+      "phone": "13168365492",
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/3139372940/Rise_of_Ren.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T17:58:34.640Z",
+      "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Q1VpwGZCDlLJQPURbuuo00$DBGaF52zYjytwFes7v0W7vUVUUr0kiyi7PSy6uThaio=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "testing_ejemplo121x@mailinator.com",
+      "username": "mathias",
+      "first_name": "Mathias",
+      "last_name": "Vargas",
+      "date_joined": "2023-12-16T18:16:22.097Z",
+      "is_active": true,
+      "nro_dni": "4086269",
+      "nro_matricula": "4086269",
+      "cuit": "40862693",
+      "phone": "13168365492",
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/1558104652/Mathiasvargas.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T18:19:02.408Z",
+      "personal_address": "aqdrff",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        3,
+        1
+      ]
     }
   }
 ]

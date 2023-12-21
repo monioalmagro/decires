@@ -13,6 +13,7 @@ query listProfessionalPublicQuery ($input: QueryListUserInput!) {
       firstName
       lastName
       avatar
+      profileUrl
       userCarreerSet {
         originalId
         carreer {
@@ -61,12 +62,12 @@ getItem = (obj) => {
     obj.userCarreerSet[0].specializations.length > 1 ? "Especialidades:" : "Especialidad:";
 
   return `<div class="item item-thumbnail">
-            <a href="javascript:void(0)" class="item-image">
+            <a href="${obj.profileUrl}" class="item-image">
               <img src="${obj.avatar}" alt="${obj.firstName} ${obj.lastName}" />
             </a>
             <div class="item-info">
               <h4 class="item-title">
-                <a href="javascript:void(0)">${obj.firstName} ${obj.lastName} (${obj.userCarreerSet[0].carreer.name})</a>
+                <a href="${obj.profileUrl}">${obj.firstName} ${obj.lastName} (${obj.userCarreerSet[0].carreer.name})</a>
               </h4>
               <p class="item-desc">${specialization_word}</p>
               <div class="item-price">${specializations}</div>

@@ -63,3 +63,5 @@ pyenv-install: ## Install python dependencies
 pyenv-init: pyenv-python pyenv-create-env pyenv-env ## Initialize python env
 drop-db: ## drop all tables in database
 	docker exec -it psychology_postgres psql -U postgres -d psychology_db -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+collectstatic:
+	docker exec -it psychology_web python3 manage.py collectstatic --noinput
