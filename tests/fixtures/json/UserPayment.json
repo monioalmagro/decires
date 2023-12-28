@@ -1,16 +1,17 @@
 [
   {
     "model": "psychology.userpayment",
-    "pk": 1,
+    "pk": 3,
     "fields": {
-      "created_at": "2023-01-21T17:46:29.301Z",
-      "updated_at": "2023-01-28T03:11:23.373Z",
+      "created_at": "2023-03-21T17:46:29.301Z",
+      "updated_at": "2023-12-28T03:14:11.977Z",
       "is_active": true,
       "is_deleted": false,
       "user": 1,
       "concept": 1,
       "was_paid": true,
-      "observations": "Primer pago, Mes enero 2023"
+      "was_reported": true,
+      "observations": "Pago, Mes marzo 2023"
     }
   },
   {
@@ -18,27 +19,29 @@
     "pk": 2,
     "fields": {
       "created_at": "2023-02-21T17:46:29.301Z",
-      "updated_at": "2023-02-28T03:11:23.373Z",
+      "updated_at": "2023-12-28T03:15:22.346Z",
       "is_active": true,
       "is_deleted": false,
       "user": 1,
       "concept": 1,
       "was_paid": true,
+      "was_reported": true,
       "observations": "Pago, Mes febrero 2023"
     }
   },
   {
     "model": "psychology.userpayment",
-    "pk": 3,
+    "pk": 1,
     "fields": {
-      "created_at": "2023-03-21T17:46:29.301Z",
-      "updated_at": "2023-03-28T03:11:23.373Z",
+      "created_at": "2023-01-21T17:46:29.301Z",
+      "updated_at": "2023-12-28T03:15:22.348Z",
       "is_active": true,
       "is_deleted": false,
       "user": 1,
       "concept": 1,
       "was_paid": true,
-      "observations": "Pago, Mes marzo 2023"
+      "was_reported": true,
+      "observations": "Primer pago, Mes enero 2023"
     }
   }
 ]

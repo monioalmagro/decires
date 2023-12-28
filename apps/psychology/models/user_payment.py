@@ -22,6 +22,7 @@ class UserPayment(AuditableMixin):
         null=True,
     )
     was_paid = models.BooleanField(default=False, db_index=True)
+    was_reported = models.BooleanField(default=False, db_index=True)
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):

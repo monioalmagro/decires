@@ -6,6 +6,7 @@ from django.core.management.base import BaseCommand
 # Own Libraries]
 from apps.core.models import AuthUser, City, Country, Zone
 from apps.psychology.models import (
+    AdminEmailNotification,
     Carreer,
     ContactMe,
     Specialization,
@@ -17,7 +18,7 @@ from apps.psychology.models import (
 
 
 class Command(BaseCommand):
-    help = "Export the first 10 records of MyModel"
+    help = "Export the first 50 records of MyModel"
 
     models = (
         (AuthUser, "AuthUser"),
@@ -31,6 +32,7 @@ class Command(BaseCommand):
         (UserLanguage, "UserLanguage"),
         (UserPayment, "UserPayment"),
         (Specialization, "Specialization"),
+        (AdminEmailNotification, "AdminEmailNotification"),
     )
 
     def handle(self, *args, **options):

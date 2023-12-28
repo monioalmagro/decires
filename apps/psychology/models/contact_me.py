@@ -23,6 +23,7 @@ class ContactMe(AuditableMixin):
         null=True,
     )
     message = models.TextField()
+    was_reported = models.BooleanField(default=False, db_index=True)
 
     def __str__(self):
         return f"{self.full_name} ({self.email})"
