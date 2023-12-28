@@ -5,10 +5,14 @@ from apps.psychology.admin.user_attachment import (
     UserAttachmentInLine,
 )
 
-from apps.psychology.admin.contact_me import ContactMeInline
+from apps.psychology.admin.contact_me import (
+    ContactMeInline,
+    ContactMeAdmin,
+)
 from apps.psychology.admin.user_language import UserLanguageInline
 from apps.psychology.admin.user_payments import UserPaymentInline, UserPaymentAdmin
 from apps.psychology.admin.specialization import (
     SpecializationAdmin,
     SpecializationInline,
 )
+from apps.psychology.admin.admin_email_notification import AdminEmailNotificationAdmin

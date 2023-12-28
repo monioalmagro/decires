@@ -1,0 +1,62 @@
+[
+  {
+    "model": "psychology.adminemailnotification",
+    "pk": 1,
+    "fields": {
+      "created_at": "2023-12-28T02:33:17.003Z",
+      "updated_at": "2023-12-28T02:33:17.003Z",
+      "is_active": true,
+      "is_deleted": false,
+      "object_id": 1,
+      "content_type": 1,
+      "admin_email": "decires@gmail.com.ar",
+      "was_reported": true,
+      "seen_notification": true
+    }
+  },
+  {
+    "model": "psychology.adminemailnotification",
+    "pk": 2,
+    "fields": {
+      "created_at": "2023-12-28T02:33:17.003Z",
+      "updated_at": "2023-12-28T02:33:17.003Z",
+      "is_active": true,
+      "is_deleted": false,
+      "object_id": 2,
+      "content_type": 1,
+      "admin_email": "decires@gmail.com.ar",
+      "was_reported": true,
+      "seen_notification": true
+    }
+  },
+  {
+    "model": "psychology.adminemailnotification",
+    "pk": 3,
+    "fields": {
+      "created_at": "2023-12-28T02:33:17.003Z",
+      "updated_at": "2023-12-28T02:33:17.003Z",
+      "is_active": true,
+      "is_deleted": false,
+      "object_id": 3,
+      "content_type": 1,
+      "admin_email": "decires@gmail.com.ar",
+      "was_reported": true,
+      "seen_notification": false
+    }
+  },
+  {
+    "model": "psychology.adminemailnotification",
+    "pk": 4,
+    "fields": {
+      "created_at": "2023-12-28T02:33:17.003Z",
+      "updated_at": "2023-12-28T02:33:17.003Z",
+      "is_active": true,
+      "is_deleted": false,
+      "object_id": 1,
+      "content_type": 2,
+      "admin_email": "decires@gmail.com.ar",
+      "was_reported": true,
+      "seen_notification": false
+    }
+  }
+]
