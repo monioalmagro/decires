@@ -2,12 +2,20 @@
 import strawberry
 
 # Own Libraries
+from apps.psychology.schema.mutations import ProfessionalMutations
 from apps.psychology.schema.queries import ProfessionalQueries, Select2Queries
 
 
 @strawberry.type
 class QueriesSummary(
     ProfessionalQueries,
+):
+    pass
+
+
+@strawberry.type()
+class MutationSummary(
+    ProfessionalMutations,
 ):
     pass
 
@@ -23,4 +31,11 @@ class Queries:
         return QueriesSummary()
 
 
-schema = strawberry.Schema(query=Queries)
+@strawberry.type()
+class Mutations:
+    @strawberry.field()
+    async def psychology(self) -> MutationSummary:
+        return MutationSummary()
+
+
+schema = strawberry.Schema(query=Queries, mutation=Mutations)

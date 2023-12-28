@@ -46,6 +46,7 @@ class PsychologySettings(BaseSettings):
         default="http://localhost:9000/api/graph/psychology/",
     )
     MEDIA_URL: str | None = Field(default="/media/")
+    DECIRES_EMAIL: str = Field(default=None, env="DECIRES_EMAIL")
 
     class Config:
         env_prefix = ""
