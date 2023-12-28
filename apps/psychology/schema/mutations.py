@@ -12,8 +12,11 @@ from apps.psychology.schema.background_tasks.send_admin_email_notifications impo
     send_message_to_admin_and_professional,
 )
 from apps.psychology.schema.fragments.contact_me import PublicContactMeFragment
+from apps.psychology.schema.fragments.new_professional import CreateNewProfessionalFragment
 from apps.psychology.schema.inputs.contact_me import MutationContactMeInput
 from apps.psychology.schema.types.contact_me import ContactMeType
+from apps.psychology.schema.types.user import ProfessionalType
+from apps.psychology.schema.inputs.user import MutationUserInput
 from utils.decorators import mutation_exception_handler
 
 logger = logging.getLogger(__name__)
@@ -44,3 +47,16 @@ class ProfessionalMutations:
             )
 
             return ContactMeType.from_db_model(instance=contact_me_instance)
+
+    @strawberry.field()
+    @mutation_exception_handler(log_tag="ProfessionalMutations")
+    async def new_professional(
+        self,
+        info: Info,
+        input: MutationUserInput,
+    ) -> CreateNewProfessionalFragment | None:
+        _input = input.to_pydantic()
+
+        adapter = UserAdapter()
+        if new_professional := await adapter.create_new_professional(_input):
+            return ProfessionalType.from_db_models(instance=new_professional)

@@ -30,20 +30,49 @@ class QueryRetrieveUserInput:
 
 
 class MutationUserPydanticModel(BaseModel):
+    email: str
+    username: str
     first_name: str
     last_name: str | None = None
+    is_active: bool
+    nro_dni: str
+    nro_matricula: str
+    cuit: str
+    phone: str
+    gender: int
+    facebook_profile: str
+    instagram_profile: str
+    linkedin_profile: str
+    image_profile: str | None = None
+    is_verified_profile: bool
+    personal_address: str
 
-    @validator("first_name", "last_name")
+    @validator(
+        "first_name",
+        "last_name",
+        "email",
+        "last_name",
+        "nro_dni",
+        "nro_matricula",
+        "cuit",
+        "phone",
+        "personal_address",
+    )
     @classmethod
     def validate_first_name(cls, name):
         if len(name) == 0:
             raise AssertionError("INPUT INVALID")
         return name.strip()
 
-    def validame_algo_externo(self, last_name):
-        if last_name == "Mazzurque":
-            return True
-        raise AssertionError("z§xbcvk,sndfl,bvnsd")
+    @validator('email')
+    def email_format(cls, v):
+        if not cls.validate_email(v):
+            raise ValueError('Formato de correo electrónico no válido')
+        return v
+
+    @classmethod
+    def validate_email(cls, email):
+        return '@' in email and '.' in email
 
 
 @strawberry.experimental.pydantic.input(

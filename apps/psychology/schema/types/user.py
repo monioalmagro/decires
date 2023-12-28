@@ -21,6 +21,7 @@ class UserType:
     office_locations: list[ZoneType] | None = None
     gender_enum: AuthUserGenderEnum | None = None
     profile_url: str | None = None
+    
 
     @classmethod
     def from_db_models(cls, instance: AuthUser) -> "UserType":
