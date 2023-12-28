@@ -5,6 +5,7 @@ import strawberry
 from apps.core.models import AuthUser, Zone
 from apps.psychology.adapters.user_carreer import UserCarreerAdapter
 from apps.psychology.adapters.user_language import UserLanguageAdapter
+from apps.psychology.schema.enums.auth_user import AuthUserGenderEnum
 from apps.psychology.schema.types.city import ZoneType
 from apps.psychology.schema.types.user_carreer import UserCarreerType
 from apps.psychology.schema.types.user_language import UserLanguageType
@@ -18,6 +19,7 @@ class UserType:
     is_verified_profile: bool
     avatar: str | None = None
     office_locations: list[ZoneType] | None = None
+    gender_enum: AuthUserGenderEnum | None = None
     profile_url: str | None = None
 
     @classmethod
@@ -31,6 +33,7 @@ class UserType:
             office_locations=cls.get_zones(
                 zone_list=list(instance.office_locations.all())
             ),
+            gender_enum=instance.gender,
             profile_url=instance.profile_url,
         )
 
