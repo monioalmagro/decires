@@ -84,7 +84,7 @@ function htmlComponentDisplay($data) {
 
     $languages = "";
     for ($i = 0; $i < $data.length; $i++) {
-      $languages += `<li><a href="javascript:void(0)">${$data[$i].languageName} (${$data[$i].levelEnum}).</a></li>`;
+      $languages += `<li style="list-style: none;"><a href="javascript:void(0)" style="text-decoration: none; color: black;">${$data[$i].languageName} (${$data[$i].levelEnum}).</a></li>`;
     }
     return $languages;
   };
@@ -93,7 +93,7 @@ function htmlComponentDisplay($data) {
 
     $specializations = "";
     for ($i = 0; $i < $data.length; $i++) {
-      $specializations += `<li><a href="javascript:void(0)">${$data[$i].name}.</a></li>`;
+      $specializations += `<li style="list-style: none;"><a href="javascript:void(0)" style="text-decoration: none; color: black;">${$data[$i].name}.</a></li>`;
     }
     return $specializations;
   };
@@ -102,7 +102,7 @@ function htmlComponentDisplay($data) {
 
     $locations = "";
     for ($i = 0; $i < $data.length; $i++) {
-      $locations += `<li><a href="javascript:void(0)">${$data[$i].name}, ${$data[$i].city.name}.</a></li>`;
+      $locations += `<li style="list-style: none;"><a href="javascript:void(0)" style="text-decoration: none; color: black;">${$data[$i].name}, ${$data[$i].city.name}.</a></li>`;
     }
     return $locations;
   };
@@ -153,3 +153,15 @@ initialRequest = () => {
 };
 
 initialRequest();
+
+loadModal = () => {
+  $("#masked-input-phone").mask("+54 (999) 999.99.99");
+
+  $("#modal_send_message").modal("show");
+  return false;
+};
+
+sendMessage = () => {
+  alert("qwerty");
+  return false;
+};
