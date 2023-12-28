@@ -31,6 +31,7 @@ cp .env.dist .env
 | ENVIROMENT_FILENAME       | Name of the file containing the environment variables, defined as `.env` by default. | true     |
 | DEBUG                     | Define values to settings DEBUG                                                      | true     |
 | SECRET_KEY                | Define values to settings SECRET_KEY                                                 | true     |
+| DECIRES_EMAIL             | Define values to settings DECIRES_EMAIL                                              | true     |
 | DJANGO_ALLOW_ASYNC_UNSAFE | Define values to settings DJANGO_ALLOW_ASYNC_UNSAFE                                  | true     |
 
 3. Init project:
