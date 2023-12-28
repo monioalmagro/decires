@@ -11,6 +11,7 @@ from apps.psychology.adapters.user import UserAdapter
 from apps.psychology.schema.background_tasks.send_admin_email_notifications import (
     send_message_to_admin_and_professional,
 )
+from apps.psychology.schema.fragments.contact_me import PublicContactMeFragment
 from apps.psychology.schema.inputs.contact_me import MutationContactMeInput
 from apps.psychology.schema.types.contact_me import ContactMeType
 from utils.decorators import mutation_exception_handler
@@ -26,7 +27,7 @@ class ProfessionalMutations:
         self,
         info: Info,
         input: MutationContactMeInput,
-    ) -> ContactMeType | None:
+    ) -> PublicContactMeFragment | None:
         _input = input.to_pydantic()
 
         user_adapter = UserAdapter()

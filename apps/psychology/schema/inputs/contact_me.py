@@ -16,12 +16,28 @@ class ContactMePydanticModel(BaseModel):
     @validator("phone")
     @classmethod
     def validate_phone(cls, value):
-        pattern = r"^\+\d{2} \(\d{3}\) \d{3}\.\d{2}\.\d{2}$"
+        pattern = r"^(?:\+\d{1,2} )?(?:(?:\(\d{1,4}\) \d{2}-\d{4})|(?:\d{1,4} \d{2}-\d{4})|(?:\d{1,4} \d{1,4} \d{2}-\d{4})|(?:\d{1,4} \d{1,4} \d{1,4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,2} \d{4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,4} \d{1,4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,4} \d{4} \d{2}-\d{4}))$"
 
         if not re.match(pattern, value):
-            raise AssertionError("Número de teléfono con formato incorrecto")
+            raise AssertionError(
+                f"El número de teléfono {value} no cumple con el formato esperado."
+            )
 
         return value
+
+    @validator("message")
+    @classmethod
+    def validate_message(cls, value):
+        _message = value.strip()
+        if len(_message) < 1:
+            raise AssertionError(
+                "Mensaje vacio, este campo debe contener un texto válido."
+            )
+        elif len(_message) > 150:
+            raise AssertionError(
+                "El mensaje supera la cantidad de caracteres permitidos (150)."
+            )
+        return _message
 
 
 @strawberry.experimental.pydantic.input(
