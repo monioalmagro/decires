@@ -18,6 +18,14 @@ class ModelAdapter:
     _log_tag = None
 
     @async_database()
+    def save_obj(self, obj: Type[ModelT], update_fields: list[str] | None = None):
+        if update_fields := update_fields or []:
+            obj.save(update_fields=update_fields)
+        else:
+            obj.save()
+        return obj
+
+    @async_database()
     def get_object(self, **kwargs) -> Optional[ModelT]:
         instance = self.get_queryset(**kwargs)
 

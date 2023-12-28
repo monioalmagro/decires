@@ -3,6 +3,8 @@
 {% load static %}
 <!--  -->
 {% block extra_header %}
+
+
 {% endblock extra_header%}
 <!-- begin  -->
 {% block navbar %}
@@ -75,12 +77,71 @@
                 <hr>
                 <ul class="sidebar-list" id="office_locations"></ul>
             </div>
+            <br><br>
+            <div class="section-container">
+                <a class="btn btn-lg btn-link btn-info"  onclick="loadModal()" > Contactame &nbsp; <i class="fa fa-envelope"></i></a>
+            </div>
         </div>
         <!-- end col-9 -->
 			</div>
 			<!-- end row -->
 		</div>
 		<!-- end container -->
+
+
+<div class="modal" id="modal_send_message">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-inverse">
+        <h4 class="modal-title text-yellow">Formulario de contacto</h4>
+        <button type="button" class="close text-yellow" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-bordered">
+          <!--  -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-form-label">NOMBRE</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="Nombre completo" id="full_name" class="form-control form-control-sm">
+            </div>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-form-label">EMAIL</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="xxxx@xxx.com" id="email" class="form-control form-control-sm">
+            </div>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-form-label">TELÉFONO</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="Ej: +54 (000) 000.00.00" id="phone" class="form-control form-control-sm" id="masked-input-phone">
+            </div>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-form-label">MENSAJE (máx 150)</label>
+            <div class="col-lg-8">
+              <textarea class="form-control form-control-sm" rows="5" id="message"></textarea>
+            </div>
+          </div>
+          <!--  -->
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
+        <a href="javascript:;" onclick="sendMessage();" class="btn btn-primary">Enviar</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
 <!--  -->
@@ -89,4 +150,5 @@
   const originalId = {{original_id}}
 </script>
 <script src="{% static 'base/professional_retrieve.js' %}?no_cache={{ no_cache }}"></script>
+<script src="{% static 'assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js' %}"></script>
 {% endblock extra_js %}
