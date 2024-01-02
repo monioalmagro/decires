@@ -111,7 +111,7 @@ class NewProfessionalProcess(BaseUserProcess):
     async def validation_controller(self):
         await self._validate_user_unique()
 
-    async def add_zones(self, adapter: UserAdapter, professional: AuthUser):
+    async def add_office_locations(self, adapter: UserAdapter, professional: AuthUser):
         if zone_list := await self.zone_adapter.get_objects(
             id__in=self.input.office_locations
         ):
@@ -146,11 +146,24 @@ class NewProfessionalProcess(BaseUserProcess):
                 user=professional, language_list=language
             )
 
+    async def user_set_password(self, adapter: UserAdapter, professional: AuthUser):
+        await adapter.set_password(
+            obj=professional,
+            password=self.input.password,
+        )
+
     async def action(self, info: Info | None = None) -> AuthUser | None:
         adapter = self.user_adapter
         await self.validation_controller()
         if new_professional := await adapter.create_new_professional(self.input):
-            await self.add_zones(adapter=adapter, professional=new_professional)
+            await self.user_set_password(
+                adapter=adapter,
+                professional=new_professional,
+            )
+            await self.add_office_locations(
+                adapter=adapter,
+                professional=new_professional,
+            )
             await self.add_carreer_with_specialization(professional=new_professional)
             await self.add_languages(professional=new_professional)
 

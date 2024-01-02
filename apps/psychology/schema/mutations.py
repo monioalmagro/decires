@@ -46,7 +46,6 @@ class ProfessionalMutations:
     ) -> CreateNewProfessionalFragment:
         _input = input.to_pydantic()
         process = NewProfessionalProcess(_input=_input)
-        if new_professional := await process.action(info=info):
-            # add languages
 
+        if new_professional := await process.action(info=info):
             return ProfessionalType.from_db_models(instance=new_professional)

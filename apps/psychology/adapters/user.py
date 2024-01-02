@@ -69,8 +69,6 @@ class UserAdapter(ModelAdapter):
                     linkedin_profile=_input.linkedin_profile,
                     personal_address=_input.personal_address,
                 )
-                obj.set_password(_input.password)
-                obj.save(update_fields=["password"])
             return obj
         except (DatabaseError, IntegrityError) as exp:
             logger.warning(
@@ -81,6 +79,19 @@ class UserAdapter(ModelAdapter):
             raise IntegrityError(str(exp)) from exp
 
     @async_database()
+    def set_password(self, obj: AuthUser, password: str):
+        obj.set_password(password)
+        obj.save(update_fields=["password"])
+
+    @async_database()
     def add_zones(self, obj: AuthUser, zone_list: list[Zone]):
-        obj.office_locations.set(zone_list)
-        obj.save()
+        try:
+            obj.office_locations.set(zone_list)
+            obj.save()
+        except (DatabaseError, IntegrityError) as exp:
+            logger.warning(
+                "*** UserAdapter.add_zones, INTEGRITY "
+                f"ERROR, {str(exp)} - {repr(exp)} ***",
+                exc_info=True,
+            )
+            raise IntegrityError(str(exp)) from exp

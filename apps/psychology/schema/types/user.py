@@ -3,8 +3,10 @@ import strawberry
 
 # Own Libraries
 from apps.core.models import AuthUser, Zone
+from apps.psychology.adapters.user_attachments import UserAttachmentAdapter
 from apps.psychology.adapters.user_carreer import UserCarreerAdapter
 from apps.psychology.adapters.user_language import UserLanguageAdapter
+from apps.psychology.models import UserAttachment
 from apps.psychology.schema.enums.auth_user import AuthUserGenderEnum
 from apps.psychology.schema.types.city import ZoneType
 from apps.psychology.schema.types.user_carreer import UserCarreerType
@@ -72,5 +74,32 @@ class UserType:
 
 
 @strawberry.type()
+class AttachmentType:
+    original_id: strawberry.ID | None = None
+    url: str | None = None
+
+    @classmethod
+    def from_db_model(cls, instance: UserAttachment):
+        return cls(
+            original_id=instance.pk,
+            url=instance.url_content,
+        )
+
+
+@strawberry.type()
 class ProfessionalType(UserType):
-    pass
+    @strawberry.field()
+    async def attachment_set(self) -> list[AttachmentType]:
+        adapter = UserAttachmentAdapter()
+        if results := await adapter.get_objects(
+            **{
+                "created_by_id": self.original_id,
+                "is_active": True,
+                "is_deleted": False,
+            }
+        ):
+            return [
+                AttachmentType.from_db_model(instance=attachment_instance)
+                for attachment_instance in results
+            ]
+        return []
