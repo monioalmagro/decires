@@ -3,19 +3,27 @@ from django.contrib import admin
 from django.http.request import HttpRequest
 
 # Own Libraries
-from apps.psychology.models import UserLanguage
+from apps.psychology.models import Language, UserLanguage
+
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "slug",
+    )
 
 
 class UserLanguageInline(admin.TabularInline):
     model = UserLanguage
     verbose_name_plural = "Idiomas"
     fields = (
-        "language_name",
-        "language_code",
-        "level",
+        "language",
         "is_active",
         "is_deleted",
     )
+    raw_id_fields = ("language",)
     extra = 0
 
     def has_add_permission(self, request: HttpRequest, obj=None) -> bool:

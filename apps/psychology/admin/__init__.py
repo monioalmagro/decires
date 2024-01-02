@@ -9,7 +9,7 @@ from apps.psychology.admin.contact_me import (
     ContactMeInline,
     ContactMeAdmin,
 )
-from apps.psychology.admin.user_language import UserLanguageInline
+from apps.psychology.admin.user_language import UserLanguageInline, LanguageAdmin
 from apps.psychology.admin.user_payments import UserPaymentInline, UserPaymentAdmin
 from apps.psychology.admin.specialization import (
     SpecializationAdmin,
