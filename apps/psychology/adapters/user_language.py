@@ -1,7 +1,9 @@
 # Standard Libraries
+import logging
 from typing import List
 
 # Third-party Libraries
+from django.db import DatabaseError, IntegrityError, transaction
 from django.db.models import QuerySet
 
 # Own Libraries
@@ -9,6 +11,8 @@ from apps.core.models import AuthUser
 from apps.psychology.models import Language, UserLanguage
 from utils.adapter import ModelAdapter
 from utils.database import async_database
+
+logger = logging.getLogger(__name__)
 
 
 class UserLanguageAdapter(ModelAdapter):
@@ -30,7 +34,7 @@ class UserLanguageAdapter(ModelAdapter):
         limit: int | None = None,
         offset: int | None = None,
         order_by: List[str] | None = None,
-        **kwargs
+        **kwargs,
     ) -> List[UserLanguage]:
         kwargs["is_active"] = True
         return super().get_objects(limit, offset, order_by, **kwargs)
@@ -43,5 +47,14 @@ class UserLanguageAdapter(ModelAdapter):
         language_list = language_list or []
         for language in language_list:
             objs.append(self.get_model_class()(user=user, language=language))
-
-        self.get_model_class().objects.bulk_create(objs=objs)
+        if objs:
+            try:
+                with transaction.atomic():
+                    self.get_model_class().objects.bulk_create(objs=objs)
+            except (DatabaseError, IntegrityError) as exp:
+                logging.warning(
+                    "*** UserLanguageAdapter.add_languages_to_user, "
+                    f"INTEGRITY ERROR, {str(exp)} - {repr(exp)} ***",
+                    exc_info=True,
+                )
+                raise IntegrityError(str(exp)) from exp
