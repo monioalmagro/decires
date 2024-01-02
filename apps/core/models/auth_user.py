@@ -102,7 +102,7 @@ class AuthUser(AbstractUser):
     @property
     def avatar(self) -> str | None:
         if (base_media := settings.MEDIA_URL) and self.image_profile:
-            return f"{base_media}{self.image_profile}"
+            return f"{settings.DECIRES_URL}{base_media}{self.image_profile}"
 
     @property
     def profile_url(self) -> str:
