@@ -2,30 +2,30 @@
 import strawberry
 
 # Own Libraries
-from apps.psychology.models import UserLanguage
-from apps.psychology.schema.enums.user_language import (
-    LanguageEnum,
-    LanguageLevelEnum,
-)
-from utils.enums import get_enum_instance_by_value
+from apps.psychology.models import Language, UserLanguage
+
+
+@strawberry.type()
+class LanguageType:
+    name: str | None = None
+    slug: str | None = None
+
+    @classmethod
+    def from_db_model(cls, instance: Language) -> "LanguageType":
+        return cls(
+            name=instance.name,
+            slug=instance.slug,
+        )
 
 
 @strawberry.type()
 class UserLanguageType:
-    language_name: str | None = None
-    language_enum: LanguageEnum | None = None
-    level_enum: LanguageLevelEnum | None = None
+    language: LanguageType | None = None
+    is_active: bool | None = None
 
     @classmethod
     def from_db_model(cls, instance: UserLanguage) -> "UserLanguageType":
         return cls(
-            language_name=instance.language_name,
-            language_enum=get_enum_instance_by_value(
-                enum_class=LanguageEnum,
-                value=instance.language_code,
-            ),
-            level_enum=get_enum_instance_by_value(
-                enum_class=LanguageLevelEnum,
-                value=instance.level,
-            ),
+            language=LanguageType.from_db_model(instance=instance.language),
+            is_active=instance.is_active,
         )

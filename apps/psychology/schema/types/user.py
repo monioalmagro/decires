@@ -55,7 +55,15 @@ class UserType:
     @strawberry.field()
     async def languages_set(self) -> list[UserLanguageType]:
         adapter = UserLanguageAdapter()
-        if results := await adapter.get_objects(**{"user_id": self.original_id}):
+        if results := await adapter.get_objects(
+            **{
+                "user_id": self.original_id,
+                "is_active": True,
+                "is_deleted": False,
+                "language__is_active": True,
+                "language__is_deleted": False,
+            }
+        ):
             return [
                 UserLanguageType.from_db_model(instance=attention_mode)
                 for attention_mode in results
