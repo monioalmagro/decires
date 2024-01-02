@@ -54,7 +54,7 @@ class AuditableMixin(models.Model):
 
 class SlugMixin(models.Model):
     name = models.CharField(max_length=150)
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True, unique=True, db_index=True)
 
     class Meta:
         abstract = True
