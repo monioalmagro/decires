@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 # Own Libraries
+from config.enviroment_vars import settings
 from utils.models import AuditableMixin
 from utils.upload_files import upload_attachment_file
 
@@ -52,3 +53,10 @@ class UserAttachment(AuditableMixin):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.content_type})"
+
+    @property
+    def url_content(self) -> str | None:
+        if (base_media := settings.MEDIA_URL) and (
+            url := self.image or self.media_file
+        ):
+            return f"{settings.DECIRES_URL}{base_media}{url}"
