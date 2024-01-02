@@ -1,79 +1,10 @@
 [
   {
     "model": "core.authuser",
-    "pk": 5,
-    "fields": {
-      "password": "pbkdf2_sha256$600000$3yxAfMV7XtPqq9BS7OHbpv$1rW0GQegA2pUbeKq5kH4uQifiRGu2cfcQ43G2HsAzxU=",
-      "last_login": null,
-      "is_superuser": false,
-      "is_staff": false,
-      "email": "argenis.vargas2@crehana.com",
-      "username": "alcides",
-      "first_name": "Arcides",
-      "last_name": "Vargas",
-      "date_joined": "2023-12-16T19:21:42.631Z",
-      "is_active": true,
-      "nro_dni": "40862692",
-      "nro_matricula": null,
-      "cuit": null,
-      "phone": "13168365492",
-      "gender": 1,
-      "facebook_profile": null,
-      "instagram_profile": null,
-      "linkedin_profile": null,
-      "image_profile": "test/user-image-profile/2063106068/Rise_of_Ren.jpeg",
-      "is_verified_profile": true,
-      "verified_profile_at": "2023-12-16T19:25:01.034Z",
-      "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
-      "groups": [],
-      "user_permissions": [],
-      "office_locations": [
-        1,
-        2,
-        3
-      ]
-    }
-  },
-  {
-    "model": "core.authuser",
-    "pk": 4,
-    "fields": {
-      "password": "pbkdf2_sha256$600000$N9gVFcg0VoQCSv0JTKW9Xy$Q3kn1ruZvdBCg5y5rw37IuKmD7DxlXXy+unQpu6I/uM=",
-      "last_login": null,
-      "is_superuser": false,
-      "is_staff": false,
-      "email": "yonycat2@mailinator.com",
-      "username": "alexandra",
-      "first_name": "Alexandra",
-      "last_name": "Mendoza",
-      "date_joined": "2023-12-16T19:18:32.240Z",
-      "is_active": true,
-      "nro_dni": "26590229",
-      "nro_matricula": null,
-      "cuit": null,
-      "phone": "13168365492",
-      "gender": 2,
-      "facebook_profile": null,
-      "instagram_profile": null,
-      "linkedin_profile": null,
-      "image_profile": "test/user-image-profile/612801738/photo_2023-05-24_17.43.54.jpeg",
-      "is_verified_profile": true,
-      "verified_profile_at": "2023-12-16T19:25:25.527Z",
-      "personal_address": "",
-      "groups": [],
-      "user_permissions": [],
-      "office_locations": [
-        1,
-        2
-      ]
-    }
-  },
-  {
-    "model": "core.authuser",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$600000$Z7QBYRFzoBaPDGVvNfnHDv$SIl8HVQ36pY+7nt/WK+WYgGSDsCc8MyZC9MlZ+J6FL0=",
-      "last_login": "2023-11-21T17:40:22.480Z",
+      "last_login": "2023-12-28T04:16:53.050Z",
       "is_superuser": true,
       "is_staff": true,
       "email": "franco@crehana.com",
@@ -92,43 +23,8 @@
       "linkedin_profile": null,
       "image_profile": "test/user-image-profile/2611107400/Poster_for_Sale_con_la_obra_Nietzsche_Imprimir_de_LibertyManiacs.jpeg",
       "is_verified_profile": true,
-      "verified_profile_at": "2023-12-16T19:26:54.883Z",
+      "verified_profile_at": "2024-01-02T19:35:56.960Z",
       "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B",
-      "groups": [],
-      "user_permissions": [],
-      "office_locations": [
-        1,
-        2,
-        3
-      ]
-    }
-  },
-  {
-    "model": "core.authuser",
-    "pk": 6,
-    "fields": {
-      "password": "pbkdf2_sha256$600000$oe2gRJFHOrFkIE2HjN6PuC$hjItAG08Ormp6DLRLxZ0E8zcftUxICUcuY+7MDPYNms=",
-      "last_login": null,
-      "is_superuser": false,
-      "is_staff": false,
-      "email": "argenis1818@gmail.com",
-      "username": "leonardo",
-      "first_name": "Leonardo",
-      "last_name": "Medina",
-      "date_joined": "2023-12-16T19:27:38.338Z",
-      "is_active": true,
-      "nro_dni": "1127572293",
-      "nro_matricula": null,
-      "cuit": null,
-      "phone": null,
-      "gender": 1,
-      "facebook_profile": null,
-      "instagram_profile": null,
-      "linkedin_profile": null,
-      "image_profile": "test/user-image-profile/1488849542/Costas_araguenas_Venezuela.jpeg",
-      "is_verified_profile": true,
-      "verified_profile_at": "2023-12-16T19:28:56.374Z",
-      "personal_address": "",
       "groups": [],
       "user_permissions": [],
       "office_locations": [
@@ -202,8 +98,112 @@
       "groups": [],
       "user_permissions": [],
       "office_locations": [
-        3,
-        1
+        1,
+        3
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$N9gVFcg0VoQCSv0JTKW9Xy$Q3kn1ruZvdBCg5y5rw37IuKmD7DxlXXy+unQpu6I/uM=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "yonycat2@mailinator.com",
+      "username": "alexandra",
+      "first_name": "Alexandra",
+      "last_name": "Mendoza",
+      "date_joined": "2023-12-16T19:18:32.240Z",
+      "is_active": true,
+      "nro_dni": "26590229",
+      "nro_matricula": null,
+      "cuit": null,
+      "phone": "13168365492",
+      "gender": 2,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/612801738/photo_2023-05-24_17.43.54.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T19:25:25.527Z",
+      "personal_address": "",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$3yxAfMV7XtPqq9BS7OHbpv$1rW0GQegA2pUbeKq5kH4uQifiRGu2cfcQ43G2HsAzxU=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "argenis.vargas2@crehana.com",
+      "username": "alcides",
+      "first_name": "Arcides",
+      "last_name": "Vargas",
+      "date_joined": "2023-12-16T19:21:42.631Z",
+      "is_active": true,
+      "nro_dni": "40862692",
+      "nro_matricula": null,
+      "cuit": null,
+      "phone": "13168365492",
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/2063106068/Rise_of_Ren.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T19:25:01.034Z",
+      "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "core.authuser",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$oe2gRJFHOrFkIE2HjN6PuC$hjItAG08Ormp6DLRLxZ0E8zcftUxICUcuY+7MDPYNms=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "email": "argenis1818@gmail.com",
+      "username": "leonardo",
+      "first_name": "Leonardo",
+      "last_name": "Medina",
+      "date_joined": "2023-12-16T19:27:38.338Z",
+      "is_active": true,
+      "nro_dni": "1127572293",
+      "nro_matricula": null,
+      "cuit": null,
+      "phone": null,
+      "gender": 1,
+      "facebook_profile": null,
+      "instagram_profile": null,
+      "linkedin_profile": null,
+      "image_profile": "test/user-image-profile/1488849542/Costas_araguenas_Venezuela.jpeg",
+      "is_verified_profile": true,
+      "verified_profile_at": "2023-12-16T19:28:56.374Z",
+      "personal_address": "",
+      "groups": [],
+      "user_permissions": [],
+      "office_locations": [
+        1,
+        2,
+        3
       ]
     }
   }

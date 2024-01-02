@@ -9,6 +9,7 @@ from apps.psychology.models import (
     AdminEmailNotification,
     Carreer,
     ContactMe,
+    Language,
     Specialization,
     UserAttachment,
     UserCarreer,
@@ -29,6 +30,7 @@ class Command(BaseCommand):
         (ContactMe, "ContactMe"),
         (UserAttachment, "UserAttachment"),
         (UserCarreer, "UserCarreer"),
+        (Language, "Language"),
         (UserLanguage, "UserLanguage"),
         (UserPayment, "UserPayment"),
         (Specialization, "Specialization"),
@@ -38,10 +40,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Obtener los primeros 10 registros del modelo
         for model, model_name in self.models:
-            first_10_records = model.objects.all()[:50]
+            first_50_records = model.objects.all().order_by("id")[:50]
 
             # Serializar los registros en formato JSON
-            data = serializers.serialize("json", first_10_records)
+            data = serializers.serialize("json", first_50_records)
 
             # Guardar los datos en un archivo
             with open(f"tests/fixtures/json/{model_name}.json", "w") as file:
