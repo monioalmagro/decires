@@ -58,6 +58,7 @@ class ProfessionalQueries:
             "user_carreer_set__carreer_id": _input.carreer,
             "user_carreer_set__service_method": _input.service_method_enum,
             "office_locations__city_id": _input.city,
+            "is_verified_profile": True,
         }
         if zone := _input.zone:
             kwargs["office_locations__id"] = zone
@@ -75,5 +76,9 @@ class ProfessionalQueries:
         input: QueryRetrieveUserInput,
     ) -> ProfessionalType | None:
         adapter = UserAdapter()
-        if result := await adapter.get_object(id=input.original_id):
+        kwargs = {
+            "id": input.original_id,
+            "is_verified_profile": True,
+        }
+        if result := await adapter.get_object(**kwargs):
             return ProfessionalType.from_db_models(instance=result)
