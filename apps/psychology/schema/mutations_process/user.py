@@ -23,7 +23,7 @@ from apps.psychology.schema.background_tasks.send_admin_email_notifications impo
 from apps.psychology.schema.inputs.contact_me import ContactMePydanticModel
 from apps.psychology.schema.inputs.user import MutationUserPydanticModel
 from apps.psychology.schema.inputs.user_carreer import UserCarreerPydanticModel
-from apps.psychology.schema.mutations_process.base import (
+from apps.psychology.schema.interfaces.process import (
     BaseMutationProcess,
     BaseValidator,
 )
