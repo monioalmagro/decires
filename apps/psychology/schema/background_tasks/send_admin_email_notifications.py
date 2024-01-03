@@ -32,6 +32,8 @@ async def send_message_to_admin_and_professional(
             ],
         )
 
+        # LOGIC: SEND MSG TO WHATSAPP AND EMAIL TO ADMIN AND PROFESSIONAL
+
         history_adapter = AdminEmailNotificationAdapter()
         await history_adapter.save_register(
             object_id=_contact_me_instance.pk,

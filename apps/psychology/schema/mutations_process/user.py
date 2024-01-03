@@ -58,7 +58,7 @@ class ContactProfessionalProcess(BaseUserProcess):
         _input: ContactMePydanticModel,
     ):
         super().__init__(validator_instance)
-
+        self.validator = validator_instance
         self.user_adapter = self.get_user_adapter()
         self.contact_me_adapter = self.get_contact_me_adapter()
         self.input = _input
@@ -78,7 +78,8 @@ class ContactProfessionalProcess(BaseUserProcess):
 
     async def action(self, info: Info) -> ContactMe | None:
         adapter = self.contact_me_adapter
-        await self.validator.validation_controller(user_adapter=self.user_adapter)
+        _validator = self.validator
+        await _validator.validation_controller(user_adapter=self.user_adapter)
 
         if contact_me_instance := await adapter.create_new_contact(_input=self.input):
             await self.send_background_tasks(
@@ -97,11 +98,20 @@ class ProfessionalValidator(BaseValidator):
         super().__init__(_input)
 
     async def _validate_user_unique(self, user_adapter: UserAdapter):
-        user_unique_filter = Q(username=self.input.username) | Q(email=self.input.email)
+        user_unique_filter = (
+            Q(username=self.input.username)
+            | Q(email=self.input.email)
+            | Q(nro_dni=self.input.nro_dni)
+            | Q(nro_matricula=self.input.nro_matricula)
+            | Q(cuit=self.input.cuit)
+            | Q(facebook_profile=self.input.facebook_profile)
+            | Q(instagram_profile=self.input.instagram_profile)
+            | Q(linkedin_profile=self.input.linkedin_profile)
+        )
         if await user_adapter.get_object(user_unique_filter=user_unique_filter):
             raise IntegrityError(
-                f"User with this 'email' ({self.input.email}) or "
-                f"'username' ({self.input.username}) already exists.",
+                "Invalid registration. The provided information is "
+                "already in use. Please check your details and try again",
             )
 
     async def validation_controller(self, user_adapter: UserAdapter):
@@ -115,6 +125,7 @@ class NewProfessionalProcess(BaseUserProcess):
         _input: MutationUserPydanticModel,
     ):
         super().__init__(validator_instance)
+        self.validator = validator_instance
         self.user_adapter = self.get_user_adapter()
         self.zone_adapter = self.get_zone_adapter()
         self.carreer_adapter = self.get_carreer_adapter()

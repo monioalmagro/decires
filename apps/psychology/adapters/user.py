@@ -19,7 +19,7 @@ class UserAdapter(ModelAdapter):
 
     @async_database()
     def get_object(self, **kwargs) -> AuthUser | None:
-        kwargs["is_verified_profile"] = True
+        kwargs["is_active"] = True
         user_unique_filter = kwargs.pop("user_unique_filter", None)
         queryset = self.get_queryset(**kwargs)
         if user_unique_filter:
@@ -36,7 +36,6 @@ class UserAdapter(ModelAdapter):
         **kwargs,
     ) -> List[AuthUser]:
         kwargs["is_active"] = True
-        kwargs["is_verified_profile"] = True
 
         limit = limit or self.default_limit
         offset = offset or 0
