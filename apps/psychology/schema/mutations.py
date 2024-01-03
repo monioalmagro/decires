@@ -14,7 +14,9 @@ from apps.psychology.schema.inputs.contact_me import MutationContactMeInput
 from apps.psychology.schema.inputs.user import MutationUserInput
 from apps.psychology.schema.mutations_process.user import (
     ContactProfessionalProcess,
+    ContactProfessionalValidator,
     NewProfessionalProcess,
+    ProfessionalValidator,
 )
 from apps.psychology.schema.types.contact_me import ContactMeType
 from apps.psychology.schema.types.user import ProfessionalType
@@ -33,7 +35,11 @@ class ProfessionalMutations:
         input: MutationContactMeInput,
     ) -> PublicContactMeFragment | None:
         _input = input.to_pydantic()
-        process = ContactProfessionalProcess(_input=_input)
+        validator = ContactProfessionalValidator(_input=_input)
+        process = ContactProfessionalProcess(
+            validator_instance=validator,
+            _input=_input,
+        )
         if contact_me_instance := await process.action(info=info):
             return ContactMeType.from_db_model(instance=contact_me_instance)
 
@@ -45,7 +51,11 @@ class ProfessionalMutations:
         input: MutationUserInput,
     ) -> CreateNewProfessionalFragment:
         _input = input.to_pydantic()
-        process = NewProfessionalProcess(_input=_input)
+        validator = ProfessionalValidator(_input=_input)
+        process = NewProfessionalProcess(
+            validator_instance=validator,
+            _input=_input,
+        )
 
         if new_professional := await process.action(info=info):
             return ProfessionalType.from_db_models(instance=new_professional)

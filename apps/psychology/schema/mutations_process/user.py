@@ -1,3 +1,6 @@
+# Standard Libraries
+from typing import Type
+
 # Third-party Libraries
 from django.db import IntegrityError
 from django.db.models import Q
@@ -20,31 +23,48 @@ from apps.psychology.schema.background_tasks.send_admin_email_notifications impo
 from apps.psychology.schema.inputs.contact_me import ContactMePydanticModel
 from apps.psychology.schema.inputs.user import MutationUserPydanticModel
 from apps.psychology.schema.inputs.user_carreer import UserCarreerPydanticModel
-from apps.psychology.schema.mutations_process.base import BaseMutationProcess
+from apps.psychology.schema.mutations_process.base import (
+    BaseMutationProcess,
+    BaseValidator,
+)
 
 
 class BaseUserProcess(BaseMutationProcess):
+    def __init__(self, validator_instance: Type[BaseValidator]):
+        super().__init__(validator_instance)
+
     def get_user_adapter(self):
         return UserAdapter()
 
 
-class ContactProfessionalProcess(BaseUserProcess):
+##
+class ContactProfessionalValidator(BaseValidator):
     def __init__(self, _input: ContactMePydanticModel):
+        super().__init__(_input)
+
+    async def validation_controller(self, user_adapter: UserAdapter):
+        await self._validate_user_by_id(user_adapter=user_adapter)
+
+    async def _validate_user_by_id(self, user_adapter: UserAdapter):
+        _input = self.input
+        if not (await user_adapter.get_object(**{"id": _input.user_id})):
+            raise AssertionError(f"User not found with ID: {_input.user_id}")
+
+
+class ContactProfessionalProcess(BaseUserProcess):
+    def __init__(
+        self,
+        validator_instance: ContactProfessionalValidator,
+        _input: ContactMePydanticModel,
+    ):
+        super().__init__(validator_instance)
+
         self.user_adapter = self.get_user_adapter()
         self.contact_me_adapter = self.get_contact_me_adapter()
         self.input = _input
 
     def get_contact_me_adapter(self):
         return ContactMeAdapter()
-
-    async def validation_controller(self):
-        await self._validate_user_by_id()
-
-    async def _validate_user_by_id(self):
-        user_adapter = self.user_adapter
-        _input = self.input
-        if not (await user_adapter.get_object(**{"id": _input.user_id})):
-            raise AssertionError(f"User not found with ID: {_input.user_id}")
 
     @staticmethod
     async def send_background_tasks(
@@ -58,7 +78,8 @@ class ContactProfessionalProcess(BaseUserProcess):
 
     async def action(self, info: Info) -> ContactMe | None:
         adapter = self.contact_me_adapter
-        await self.validation_controller()
+        await self.validator.validation_controller(user_adapter=self.user_adapter)
+
         if contact_me_instance := await adapter.create_new_contact(_input=self.input):
             await self.send_background_tasks(
                 info=info,
@@ -70,8 +91,30 @@ class ContactProfessionalProcess(BaseUserProcess):
             return contact_me_instance
 
 
-class NewProfessionalProcess(BaseUserProcess):
+##
+class ProfessionalValidator(BaseValidator):
     def __init__(self, _input: MutationUserPydanticModel):
+        super().__init__(_input)
+
+    async def _validate_user_unique(self, user_adapter: UserAdapter):
+        user_unique_filter = Q(username=self.input.username) | Q(email=self.input.email)
+        if await user_adapter.get_object(user_unique_filter=user_unique_filter):
+            raise IntegrityError(
+                f"User with this 'email' ({self.input.email}) or "
+                f"'username' ({self.input.username}) already exists.",
+            )
+
+    async def validation_controller(self, user_adapter: UserAdapter):
+        await self._validate_user_unique(user_adapter=user_adapter)
+
+
+class NewProfessionalProcess(BaseUserProcess):
+    def __init__(
+        self,
+        validator_instance: ProfessionalValidator,
+        _input: MutationUserPydanticModel,
+    ):
+        super().__init__(validator_instance)
         self.user_adapter = self.get_user_adapter()
         self.zone_adapter = self.get_zone_adapter()
         self.carreer_adapter = self.get_carreer_adapter()
@@ -98,18 +141,6 @@ class NewProfessionalProcess(BaseUserProcess):
 
     def get_user_language_adapter(self):
         return UserLanguageAdapter()
-
-    async def _validate_user_unique(self):
-        user_unique_filter = Q(username=self.input.username) | Q(email=self.input.email)
-        adapter = self.user_adapter
-        if await adapter.get_object(user_unique_filter=user_unique_filter):
-            raise IntegrityError(
-                f"User with this 'email' ({self.input.email}) or "
-                f"'username' ({self.input.username}) already exists.",
-            )
-
-    async def validation_controller(self):
-        await self._validate_user_unique()
 
     async def add_office_locations(self, adapter: UserAdapter, professional: AuthUser):
         if zone_list := await self.zone_adapter.get_objects(
@@ -154,7 +185,7 @@ class NewProfessionalProcess(BaseUserProcess):
 
     async def action(self, info: Info | None = None) -> AuthUser | None:
         adapter = self.user_adapter
-        await self.validation_controller()
+        await self.validator.validation_controller(user_adapter=self.user_adapter)
         if new_professional := await adapter.create_new_professional(self.input):
             await self.user_set_password(
                 adapter=adapter,
@@ -168,3 +199,6 @@ class NewProfessionalProcess(BaseUserProcess):
             await self.add_languages(professional=new_professional)
 
             return new_professional
+
+
+##

@@ -19,6 +19,7 @@ class UserAdapter(ModelAdapter):
 
     @async_database()
     def get_object(self, **kwargs) -> AuthUser | None:
+        kwargs["is_verified_profile"] = True
         user_unique_filter = kwargs.pop("user_unique_filter", None)
         queryset = self.get_queryset(**kwargs)
         if user_unique_filter:
