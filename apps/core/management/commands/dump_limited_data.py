@@ -15,6 +15,7 @@ from apps.psychology.models import (
     UserCarreer,
     UserLanguage,
     UserPayment,
+    UserSpecialization,
 )
 
 
@@ -34,6 +35,7 @@ class Command(BaseCommand):
         (UserLanguage, "UserLanguage"),
         (UserPayment, "UserPayment"),
         (Specialization, "Specialization"),
+        (UserSpecialization, "UserSpecialization"),
         (AdminEmailNotification, "AdminEmailNotification"),
     )
 

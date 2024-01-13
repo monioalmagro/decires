@@ -3,18 +3,40 @@
     "model": "psychology.userattachment",
     "pk": 1,
     "fields": {
-      "created_at": "2023-11-19T00:51:50.300Z",
-      "updated_at": "2023-11-19T00:51:50.300Z",
+      "created_at": "2024-01-13T05:34:04.468Z",
+      "updated_at": "2024-01-13T05:35:38.329Z",
       "is_active": true,
       "is_deleted": false,
-      "name": "Titulo",
-      "description": "Titulo",
-      "image": "test/user-attachment/3538675960/modelado.v1.drawio.png",
+      "name": "Profile1",
+      "description": "Profile1",
+      "image": "test/user-attachment/1563476466/Poster_for_Sale_con_la_obra_Nietzsche_Imprimir_de_LibertyManiacs.jpeg",
       "media_file": "",
+      "source_content_type": 1,
       "content_type": "image/png",
       "size": null,
       "created_by": 1,
-      "updated_by": null
+      "updated_by": null,
+      "url_path": "http://localhost:8000/media/test/user-attachment/1563476466/Poster_for_Sale_con_la_obra_Nietzsche_Imprimir_de_LibertyManiacs.jpeg"
+    }
+  },
+  {
+    "model": "psychology.userattachment",
+    "pk": 2,
+    "fields": {
+      "created_at": "2024-01-13T05:36:37.277Z",
+      "updated_at": "2024-01-13T05:37:20.665Z",
+      "is_active": true,
+      "is_deleted": false,
+      "name": "attachment1",
+      "description": "attachment1",
+      "image": "",
+      "media_file": "test/user-attachment/3091558046/report2023-10-24-13-21-50_1.pdf",
+      "source_content_type": 2,
+      "content_type": "application/pdf",
+      "size": null,
+      "created_by": 1,
+      "updated_by": null,
+      "url_path": "http://localhost:8000/media/test/user-attachment/3091558046/report2023-10-24-13-21-50_1.pdf"
     }
   }
 ]
