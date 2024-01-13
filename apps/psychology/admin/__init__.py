@@ -16,3 +16,4 @@ from apps.psychology.admin.specialization import (
     SpecializationInline,
 )
 from apps.psychology.admin.admin_email_notification import AdminEmailNotificationAdmin
+from apps.psychology.admin.user_specialization import UserSpecializationInline

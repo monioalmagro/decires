@@ -7,6 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils import timezone
 
 # Own Libraries
+from apps.core.admin.zone import UserZoneInlineAdmin
 from apps.core.models import AuthUser
 from apps.psychology.admin import (
     ContactMeInline,
@@ -14,6 +15,7 @@ from apps.psychology.admin import (
     UserCarreerInline,
     UserLanguageInline,
     UserPaymentInline,
+    UserSpecializationInline,
 )
 
 logger = logging.getLogger(__name__)
@@ -29,14 +31,16 @@ class UserAdmin(UserAdmin):
     )
     inlines = [
         UserAttachmentInLine,
+        UserZoneInlineAdmin,
         UserLanguageInline,
         UserCarreerInline,
+        UserSpecializationInline,
         UserPaymentInline,
         ContactMeInline,
     ]
 
     fieldsets = (
-        ("Usuario", {"fields": ("username", "image_profile")}),
+        ("Usuario", {"fields": ("username",)}),
         (
             "Información personal",
             {
@@ -69,7 +73,6 @@ class UserAdmin(UserAdmin):
                     "cuit",
                     "is_verified_profile",
                     "verified_profile_at",
-                    "office_locations",
                 ),
             },
         ),
@@ -119,7 +122,7 @@ class UserAdmin(UserAdmin):
         "verified_profile_at",
         "get_was_paid",
     )
-    raw_id_fields = ("office_locations",)
+    # raw_id_fields = ("office_locations",)
 
     actions = [
         "is_verified_profile",
