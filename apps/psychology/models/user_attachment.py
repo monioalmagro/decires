@@ -10,6 +10,15 @@ from utils.upload_files import upload_attachment_file
 User = get_user_model()
 
 
+USER_IMAGE = 1
+USER_ATTACHMENT = 2
+
+SOURCE_CONTENT_TYPE_CHOICES = (
+    (USER_IMAGE, "USER_IMAGE"),
+    (USER_ATTACHMENT, "USER_ATTACHMENT"),
+)
+
+
 class UserAttachment(AuditableMixin):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
@@ -26,6 +35,12 @@ class UserAttachment(AuditableMixin):
         max_length=255,
         null=True,
         blank=True,
+    )
+    source_content_type = models.SmallIntegerField(
+        choices=SOURCE_CONTENT_TYPE_CHOICES,
+        blank=True,
+        null=True,
+        db_index=True,
     )
     content_type = models.CharField(
         max_length=100,
@@ -49,6 +64,11 @@ class UserAttachment(AuditableMixin):
         related_name="user_attachment_updated_by_set",
         null=True,
         blank=True,
+    )
+    url_path = models.URLField(
+        max_length=255,
+        blank=True,
+        null=True,
     )
 
     def __str__(self) -> str:

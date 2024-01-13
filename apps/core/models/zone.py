@@ -1,8 +1,11 @@
 # Third-party Libraries
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # Own Libraries
 from utils.models import AuditableMixin, SlugMixin
+
+User = get_user_model()
 
 
 class Zone(AuditableMixin, SlugMixin):
@@ -14,3 +17,29 @@ class Zone(AuditableMixin, SlugMixin):
 
     def __str__(self) -> str:
         return f"{self.name}"
+
+
+class UserZone(AuditableMixin):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="user_zone_set",
+    )
+    zone = models.ForeignKey(
+        "Zone",
+        on_delete=models.PROTECT,
+        related_name="user_zone_set",
+        blank=True,
+        null=True,
+    )
+
+    def __str__(self):
+        return f"{self.user.username} ({self.zone})"
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "zone"],
+                name="unique zone for user",
+            )
+        ]
