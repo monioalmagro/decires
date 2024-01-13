@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 # Own Libraries
 from apps.core import core_constants
 from config.enviroment_vars import settings
-from utils.upload_files import upload_user_image_profile
 
 
 class AuthUser(AbstractUser):
@@ -71,21 +70,9 @@ class AuthUser(AbstractUser):
         unique=True,
         verbose_name="LinkedIn",
     )
-    image_profile = models.ImageField(
-        upload_to=upload_user_image_profile,
-        # storage=storage_share_file,
-        max_length=255,
-        null=True,
-        blank=True,
-    )
     is_verified_profile = models.BooleanField(default=False)
     verified_profile_at = models.DateTimeField(blank=True, null=True)
     personal_address = models.TextField(blank=True, null=True)
-    office_locations = models.ManyToManyField(
-        "Zone",
-        blank=True,
-        related_name="auth_user_set",
-    )
 
     def __str__(self):
         _name = self.username or self.email
