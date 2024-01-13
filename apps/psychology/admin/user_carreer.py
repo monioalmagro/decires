@@ -10,15 +10,17 @@ class UserCarreerInline(admin.TabularInline):
     verbose_name_plural = "Titulaciones"
     fields = (
         "carreer",
-        "specializations",
+        # "specializations",
         "service_method",
         "service_modality",
         "experience_summary",
-        "order",
         "is_active",
         "is_deleted",
     )
-    raw_id_fields = ("carreer", "specializations")
+    raw_id_fields = (
+        "carreer",
+        # "specializations",
+    )
     extra = 0
 
 
@@ -28,5 +30,5 @@ class UserCarreerAdmin(admin.ModelAdmin):
     raw_id_fields = (
         "user",
         "carreer",
-        "specializations",
+        # "specializations",
     )
