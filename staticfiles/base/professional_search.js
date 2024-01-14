@@ -6,38 +6,57 @@ const filter_type_language = 2;
  * GraphQL query to retrieve the list of public professionals.
  */
 const listProfessionalPublicQuery = `
-query listProfessionalPublicQuery ($input: QueryListUserInput!) {
+query professionalListPublicQuery($input: QueryListUserInput!) {
   psychology {
-    getProfessionalList (input: $input){
+    getProfessionalList(input: $input) {
       originalId
       firstName
       lastName
-      avatar
-      profileUrl
+      email
+      avatar {
+        originalId
+        url
+        __typename
+      }
+      genderEnum
+      facebookProfile
+      instagramProfile
+      linkedinProfile
       userCarreerSet {
         originalId
-        carreer {
-          name
-          description
-        }
-        specializations {
-          originalId
-          name
-          description
-          __typename
-        }
+        name
+        description
         serviceMethodEnum
         serviceModalityEnum
         truncateExperienceSummary
         __typename
       }
-      languagesSet {
-        languageName
-        languageEnum
-        levelEnum
+      userSpecializationSet {
+        originalId
+        name
+        description
         __typename
       }
+      languagesSet {
+        name
+        slug
+        __typename
+      }
+      userOfficeSet {
+        name
+        city {
+          name
+          __typename
+        }
+        __typename
+      }
+      attachmentSet {
+        originalId
+        url
+        description
+      }
       isVerifiedProfile
+      profileUrl
       __typename
     }
   }
