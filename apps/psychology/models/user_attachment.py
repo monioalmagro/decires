@@ -10,16 +10,14 @@ from utils.upload_files import upload_attachment_file
 User = get_user_model()
 
 
-USER_IMAGE = 1
-USER_ATTACHMENT = 2
-
-SOURCE_CONTENT_TYPE_CHOICES = (
-    (USER_IMAGE, "USER_IMAGE"),
-    (USER_ATTACHMENT, "USER_ATTACHMENT"),
-)
-
-
 class UserAttachment(AuditableMixin):
+    USER_IMAGE = 1
+    USER_ATTACHMENT = 2
+
+    SOURCE_CONTENT_TYPE_CHOICES = (
+        (USER_IMAGE, "USER_IMAGE"),
+        (USER_ATTACHMENT, "USER_ATTACHMENT"),
+    )
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(

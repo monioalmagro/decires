@@ -20,6 +20,7 @@ class Select2Queries:
     @strawberry.field()
     async def carreers(self) -> list[CarreerSelect2Type]:
         adapter = CarreerAdapter()
+        adapter.user_id = None
         if results := await adapter.get_objects():
             return [
                 CarreerSelect2Type.from_db_model(instance=carreer)
@@ -30,6 +31,7 @@ class Select2Queries:
     @strawberry.field()
     async def cities(self) -> list[CitySelect2Type]:
         adapter = CityAdapter()
+        adapter.user_id = None
         if results := await adapter.get_objects(order_by=["created_at"]):
             return [CitySelect2Type.from_db_model(instance=city) for city in results]
         return []
@@ -37,6 +39,7 @@ class Select2Queries:
     @strawberry.field()
     async def zones(self, city_id: strawberry.ID) -> list[ZoneSelect2Type]:
         adapter = ZoneAdapter()
+        adapter.user_id = None
         if results := await adapter.get_objects(
             order_by=["created_at"],
             **{"city_id": city_id},
@@ -57,13 +60,13 @@ class ProfessionalQueries:
         kwargs = {
             "user_carreer_set__carreer_id": _input.carreer,
             "user_carreer_set__service_method": _input.service_method_enum,
-            "office_locations__city_id": _input.city,
+            "user_zone_set__zone__city_id": _input.city,
             "is_verified_profile": True,
         }
         if zone := _input.zone:
-            kwargs["office_locations__id"] = zone
+            kwargs["user_zone_set__zone__id"] = zone
 
-        if results := await adapter.get_objects(**kwargs):
+        if results := await adapter.get_objects(order_by=["id"], **kwargs):
             return [
                 ProfessionalType.from_db_models(instance=professional)
                 for professional in results

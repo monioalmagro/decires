@@ -6,7 +6,7 @@ from typing import List
 from django.db import DatabaseError, IntegrityError, transaction
 
 # Own Libraries
-from apps.core.models import AuthUser, Zone
+from apps.core.models import AuthUser
 from apps.psychology.schema.inputs.user import MutationUserPydanticModel
 from utils.adapter import ModelAdapter
 from utils.database import async_database
@@ -21,9 +21,12 @@ class UserAdapter(ModelAdapter):
     def get_object(self, **kwargs) -> AuthUser | None:
         kwargs["is_active"] = True
         user_unique_filter = kwargs.pop("user_unique_filter", None)
+        user_exclude = kwargs.pop("user_exclude", None)
         queryset = self.get_queryset(**kwargs)
         if user_unique_filter:
             queryset = queryset.filter(user_unique_filter)
+        if user_exclude:
+            queryset = queryset.exclude(**user_exclude)
 
         return queryset.first() if queryset.exists() else None
 
@@ -35,6 +38,7 @@ class UserAdapter(ModelAdapter):
         order_by: List[str] | None = None,
         **kwargs,
     ) -> List[AuthUser]:
+        logger.debug(f"*** {self.__class__.__name__}.get_objects ***")
         kwargs["is_active"] = True
 
         limit = limit or self.default_limit
@@ -83,15 +87,15 @@ class UserAdapter(ModelAdapter):
         obj.set_password(password)
         obj.save(update_fields=["password"])
 
-    @async_database()
-    def add_zones(self, obj: AuthUser, zone_list: list[Zone]):
-        try:
-            obj.office_locations.set(zone_list)
-            obj.save()
-        except (DatabaseError, IntegrityError) as exp:
-            logger.warning(
-                "*** UserAdapter.add_zones, INTEGRITY "
-                f"ERROR, {str(exp)} - {repr(exp)} ***",
-                exc_info=True,
-            )
-            raise IntegrityError(str(exp)) from exp
+    # @async_database()
+    # def add_zones(self, obj: AuthUser, zone_list: list[Zone]):
+    #     try:
+    #         obj.office_locations.set(zone_list)
+    #         obj.save()
+    #     except (DatabaseError, IntegrityError) as exp:
+    #         logger.warning(
+    #             "*** UserAdapter.add_zones, INTEGRITY "
+    #             f"ERROR, {str(exp)} - {repr(exp)} ***",
+    #             exc_info=True,
+    #         )
+    #         raise IntegrityError(str(exp)) from exp

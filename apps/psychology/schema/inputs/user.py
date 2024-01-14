@@ -55,8 +55,9 @@ class MutationUserPydanticModel(BaseModel):
     office_locations: list[strawberry.ID] | None = None
     carreer: strawberry.ID | None = None
     languages: list[strawberry.ID] | None = None
-    specialization: strawberry.ID | None = None
+    specializations: list[strawberry.ID] = None
     experience_summary: str | None = None
+    attachment_ids: list[strawberry.ID] = None
 
     @validator(
         "first_name",
@@ -92,6 +93,11 @@ class MutationUserPydanticModel(BaseModel):
         except Exception as exp:
             raise AssertionError(str(exp)) from exp
         return email
+
+    @validator("languages")
+    @classmethod
+    def languages_check(cls, languages):
+        return languages or []
 
     @validator("password")
     @classmethod

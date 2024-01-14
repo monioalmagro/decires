@@ -8,7 +8,6 @@ from apps.psychology.schema.enums.user_carreer import (
     CarreerServiceModalityEnum,
 )
 from apps.psychology.schema.types.carreer import CarreerType
-from apps.psychology.schema.types.specialization import SpecializationType
 from utils.enums import get_enum_instance_by_value
 
 
@@ -20,7 +19,6 @@ class UserCarreerType:
     service_modality_enum: CarreerServiceModalityEnum | None = None
     experience_summary: str | None = None
     truncate_experience_summary: str | None = None
-    specialization_set: strawberry.Private[object]
 
     @classmethod
     def from_db_model(cls, instance: UserCarreer):
@@ -39,7 +37,6 @@ class UserCarreerType:
             truncate_experience_summary=cls.get_truncate_experience_summary(
                 instance.experience_summary
             ),
-            specialization_set=instance.specializations.all(),
         )
 
     @staticmethod
@@ -49,12 +46,3 @@ class UserCarreerType:
         if experience_summary:
             return f"{experience_summary[:150]}, Ver más..."
         return ""
-
-    @strawberry.field()
-    async def specializations(self) -> list[SpecializationType]:
-        if self.specialization_set.exists():
-            return [
-                SpecializationType.from_db_model(instance=specialization)
-                for specialization in self.specialization_set
-            ]
-        return []
