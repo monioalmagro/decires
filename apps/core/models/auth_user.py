@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 
 # Own Libraries
 from apps.core import core_constants
-from config.enviroment_vars import settings
 
 
 class AuthUser(AbstractUser):
@@ -51,7 +50,6 @@ class AuthUser(AbstractUser):
         blank=True,
         null=True,
     )
-
     facebook_profile = models.URLField(
         blank=True,
         null=True,
@@ -85,11 +83,6 @@ class AuthUser(AbstractUser):
             self.verified_profile_at = None
 
         super().save(*args, **kwargs)
-
-    @property
-    def avatar(self) -> str | None:
-        if (base_media := settings.MEDIA_URL) and self.image_profile:
-            return f"{settings.DECIRES_URL}{base_media}{self.image_profile}"
 
     @property
     def profile_url(self) -> str:
