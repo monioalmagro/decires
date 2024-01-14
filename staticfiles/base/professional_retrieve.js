@@ -1,36 +1,43 @@
 _notify = new deciresAlert();
 
-const retrieveProfessionalPublicQuery = `query retrieveProfessionalPublicQuery($input: QueryRetrieveUserInput!) {
+const retrieveProfessionalPublicQuery = `
+query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
   psychology {
     getProfessional(input: $input) {
       originalId
       firstName
       lastName
-      avatar
+      email
+      avatar {
+        originalId
+        url
+        __typename
+      }
+      genderEnum
+      facebookProfile
+      instagramProfile
+      linkedinProfile
       userCarreerSet {
         originalId
-        carreer {
-          name
-          description
-        }
-        specializations {
-          originalId
-          name
-          description
-          __typename
-        }
+        name
+        description
         serviceMethodEnum
         serviceModalityEnum
-        experienceSummary
+        truncateExperienceSummary
+        __typename
+      }
+      userSpecializationSet {
+        originalId
+        name
+        description
         __typename
       }
       languagesSet {
-        languageName
-        languageEnum
-        levelEnum
+        name
+        slug
         __typename
       }
-      officeLocations {
+      userOfficeSet {
         name
         city {
           name
@@ -38,11 +45,18 @@ const retrieveProfessionalPublicQuery = `query retrieveProfessionalPublicQuery($
         }
         __typename
       }
+      attachmentSet {
+        originalId
+        url
+        description
+      }
       isVerifiedProfile
+      profileUrl
       __typename
     }
   }
-}`;
+}
+`;
 
 function htmlComponentDisplay($data) {
   this.data = $data;
