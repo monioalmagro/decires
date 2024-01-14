@@ -2,15 +2,34 @@
 import strawberry
 
 # Own Libraries
-from apps.core.models import AuthUser, Zone
+from apps.core.models import AuthUser
+from apps.psychology.adapters.carreer import CarreerAdapter
+from apps.psychology.adapters.languages import LanguageAdapter
+from apps.psychology.adapters.specialization import SpecializationAdapter
 from apps.psychology.adapters.user_attachments import UserAttachmentAdapter
-from apps.psychology.adapters.user_carreer import UserCarreerAdapter
-from apps.psychology.adapters.user_language import UserLanguageAdapter
+from apps.psychology.adapters.zone import ZoneAdapter
 from apps.psychology.models import UserAttachment
 from apps.psychology.schema.enums.auth_user import AuthUserGenderEnum
+from apps.psychology.schema.types.carreer import CarreerType
 from apps.psychology.schema.types.city import ZoneType
-from apps.psychology.schema.types.user_carreer import UserCarreerType
-from apps.psychology.schema.types.user_language import UserLanguageType
+from apps.psychology.schema.types.specialization import SpecializationType
+from apps.psychology.schema.types.user_language import LanguageType
+from utils.enums import get_enum_instance_by_value
+
+
+@strawberry.type()
+class AttachmentType:
+    original_id: strawberry.ID | None = None
+    url: str | None = None
+    description: str | None = None
+
+    @classmethod
+    def from_db_model(cls, instance: UserAttachment):
+        return cls(
+            original_id=instance.pk,
+            url=instance.url_content,
+            description=instance.description,
+        )
 
 
 @strawberry.interface()
@@ -18,11 +37,8 @@ class UserType:
     original_id: strawberry.ID
     first_name: str | None = None
     last_name: str | None = None
-    is_verified_profile: bool
-    avatar: str | None = None
-    office_locations: list[ZoneType] | None = None
+    email: str | None = None
     gender_enum: AuthUserGenderEnum | None = None
-    profile_url: str | None = None
 
     @classmethod
     def from_db_models(cls, instance: AuthUser) -> "UserType":
@@ -30,73 +46,88 @@ class UserType:
             original_id=instance.pk,
             first_name=instance.first_name,
             last_name=instance.last_name,
-            is_verified_profile=instance.is_verified_profile,
-            avatar=instance.avatar,
-            office_locations=cls.get_zones(
-                zone_list=list(instance.office_locations.all())
-            ),
+            email=instance.email,
             gender_enum=instance.gender,
-            profile_url=instance.profile_url,
         )
 
-    @staticmethod
-    def get_zones(zone_list: list[Zone] | None = None) -> list[ZoneType]:
-        if zone_list := zone_list or []:
-            return [ZoneType.from_db_model(instance=zone) for zone in zone_list]
-        return []
-
     @strawberry.field()
-    async def user_carreer_set(self) -> list[UserCarreerType]:
-        adapter = UserCarreerAdapter()
-        if results := await adapter.get_objects(**{"user_id": self.original_id}):
-            return [
-                UserCarreerType.from_db_model(instance=carreer) for carreer in results
-            ]
-        return []
-
-    @strawberry.field()
-    async def languages_set(self) -> list[UserLanguageType]:
-        adapter = UserLanguageAdapter()
-        if results := await adapter.get_objects(
-            **{
-                "user_id": self.original_id,
-                "is_active": True,
-                "is_deleted": False,
-                "language__is_active": True,
-                "language__is_deleted": False,
-            }
+    async def avatar(self) -> AttachmentType | None:
+        adapter = UserAttachmentAdapter()
+        adapter.user_id = self.original_id
+        if instance := await adapter.get_object(
+            **{"source_content_type": UserAttachment.USER_IMAGE}
         ):
-            return [
-                UserLanguageType.from_db_model(instance=attention_mode)
-                for attention_mode in results
-            ]
-        return []
-
-
-@strawberry.type()
-class AttachmentType:
-    original_id: strawberry.ID | None = None
-    url: str | None = None
-
-    @classmethod
-    def from_db_model(cls, instance: UserAttachment):
-        return cls(
-            original_id=instance.pk,
-            url=instance.url_content,
-        )
+            return AttachmentType.from_db_model(instance=instance)
 
 
 @strawberry.type()
 class ProfessionalType(UserType):
+    phone: str | None = None
+    gender_enum: AuthUserGenderEnum | None = None
+    facebook_profile: str | None = None
+    instagram_profile: str | None = None
+    linkedin_profile: str | None = None
+    is_verified_profile: bool = False
+    profile_url: str | None = None
+
+    @classmethod
+    def from_db_models(cls, instance: AuthUser) -> UserType:
+        professional = super().from_db_models(instance)
+        professional.phone = instance.phone
+        professional.gender_enum = get_enum_instance_by_value(
+            enum_class=AuthUserGenderEnum,
+            value=instance.gender,
+        )
+        professional.facebook_profile = instance.facebook_profile
+        professional.instagram_profile = instance.instagram_profile
+        professional.linkedin_profile = instance.linkedin_profile
+        professional.is_verified_profile = instance.is_verified_profile
+        professional.profile_url = instance.profile_url
+        return professional
+
+    @strawberry.field()
+    async def user_carreer_set(self) -> list[CarreerType]:
+        adapter = CarreerAdapter()
+        adapter.user_id = self.original_id
+        if results := await adapter.get_objects():
+            return [CarreerType.from_db_model(instance=carreer) for carreer in results]
+        return []
+
+    @strawberry.field()
+    async def user_specialization_set(self) -> list[SpecializationType]:
+        adapter = SpecializationAdapter()
+        adapter.user_id = self.original_id
+        if results := await adapter.get_objects():
+            return [
+                SpecializationType.from_db_model(instance=carreer)
+                for carreer in results
+            ]
+        return []
+
+    @strawberry.field()
+    async def languages_set(self) -> list[LanguageType]:
+        adapter = LanguageAdapter()
+        adapter.user_id = self.original_id
+        if results := await adapter.get_objects():
+            return [
+                LanguageType.from_db_model(instance=language) for language in results
+            ]
+        return []
+
+    @strawberry.field()
+    async def user_office_set(self) -> list[ZoneType]:
+        adapter = ZoneAdapter()
+        adapter.user_id = self.original_id
+        if results := await adapter.get_objects():
+            return [ZoneType.from_db_model(instance=zone) for zone in results]
+        return []
+
     @strawberry.field()
     async def attachment_set(self) -> list[AttachmentType]:
         adapter = UserAttachmentAdapter()
+        adapter.user_id = self.original_id
         if results := await adapter.get_objects(
-            **{
-                "created_by_id": self.original_id,
-                "is_active": True,
-                "is_deleted": False,
-            }
+            **{"source_content_type": UserAttachment.USER_ATTACHMENT}
         ):
             return [
                 AttachmentType.from_db_model(instance=attachment_instance)
