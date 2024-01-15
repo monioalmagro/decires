@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Own Libraries
 from apps.core import core_constants
+from config.enviroment_vars import settings
 
 
 class AuthUser(AbstractUser):
@@ -83,6 +84,12 @@ class AuthUser(AbstractUser):
             self.verified_profile_at = None
 
         super().save(*args, **kwargs)
+
+    @classmethod
+    def get_default_profile_picture(cls):
+        if cls.gender == 2:
+            return settings.DEFAULT_THUMBNAIL_FEMALE_IMAGE
+        return settings.DEFAULT_THUMBNAIL_MALE_IMAGE
 
     @property
     def profile_url(self) -> str:

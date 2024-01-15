@@ -73,20 +73,20 @@ getItemRow = (items) => {
  * Generates HTML for an item.
  */
 getItem = (obj) => {
-  const specializations = obj.userCarreerSet
-    .flatMap((item) => item.specializations.map((spec) => spec.name))
-    .join(", ");
+  const specializations = obj.userSpecializationSet.flatMap((item) => item.name).join(", ");
 
   let specialization_word =
-    obj.userCarreerSet[0].specializations.length > 1 ? "Especialidades:" : "Especialidad:";
+    obj.userSpecializationSet.length > 1 ? "Especialidades:" : "Especialidad:";
+
+  let $avatar = obj.avatar ? obj.avatar.url : "";
 
   return `<div class="item item-thumbnail">
             <a href="${obj.profileUrl}" class="item-image">
-              <img src="${obj.avatar}" alt="${obj.firstName} ${obj.lastName}" />
+              <img src="${$avatar}" alt="${obj.firstName} ${obj.lastName}" />
             </a>
             <div class="item-info">
               <h4 class="item-title">
-                <a href="${obj.profileUrl}">${obj.firstName} ${obj.lastName} (${obj.userCarreerSet[0].carreer.name})</a>
+                <a href="${obj.profileUrl}">${obj.firstName} ${obj.lastName} (${obj.userCarreerSet[0].name})</a>
               </h4>
               <p class="item-desc">${specialization_word}</p>
               <div class="item-price">${specializations}</div>
@@ -201,7 +201,7 @@ let professionalSearchController = {
   getSideBarSpecializations: function (key, html_id) {
     $data = [];
     this.data.forEach((items) => {
-      const $specializations = items.userCarreerSet[0][key];
+      const $specializations = items.userSpecializationSet;
       $specializations.forEach((items2) => {
         const isObjectNotPresent = !$data.some((dataItem) => {
           return dataItem.name === items2.name;
@@ -227,7 +227,7 @@ let professionalSearchController = {
 
       $languages.forEach((items2) => {
         const isObjectNotPresent = !$data.some((dataItem) => {
-          return dataItem.languageName === items2.languageName;
+          return dataItem.name === items2.name;
         });
 
         if (isObjectNotPresent) {
@@ -237,7 +237,7 @@ let professionalSearchController = {
     });
 
     filter2 = new htmlFilterSection($data);
-    filter2.setupFilter("language", "languageName", html_id, "languages");
+    filter2.setupFilter("language", "name", html_id, "languages");
     return false;
   },
   /**
@@ -282,10 +282,10 @@ let professionalSearchController = {
     }
     return $data.filter((professional) => {
       return filterList.some((filter) => {
-        const specializationMatch = professional.userCarreerSet[0].specializations.some(
+        const specializationMatch = professional.userSpecializationSet.some(
           (s) => s.name === filter
         );
-        const languageMatch = professional.languagesSet.some((l) => l.languageName === filter);
+        const languageMatch = professional.languagesSet.some((l) => l.name === filter);
         return specializationMatch || languageMatch;
       });
     });
@@ -358,7 +358,7 @@ initialRequest = () => {
         Promise.resolve(
           professionalSearchController.init($data),
           professionalSearchController.getSideBarSpecializations(
-            "specializations",
+            "userSpecializationSet",
             "#specialization_list"
           ),
           professionalSearchController.getSideBarLanguages("#language_list")

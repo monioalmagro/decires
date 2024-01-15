@@ -23,7 +23,7 @@ query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
         description
         serviceMethodEnum
         serviceModalityEnum
-        truncateExperienceSummary
+        experienceSummary
         __typename
       }
       userSpecializationSet {
@@ -74,17 +74,66 @@ function htmlComponentDisplay($data) {
   this.renderProfile = () => {
     obj = this.data;
     userCarreer = obj.userCarreerSet[0];
-
     expParagraph = this.splitParagraph(userCarreer.experienceSummary);
 
+    emailIcon = `<span class="fa-stack fa-1x text-inverse">
+        <i class="fa fa-envelope fa-stack-1x"></i>
+      </span>`;
+    linkedInIcon = `<span class="fa-stack fa-1x text-inverse">
+        <i class="fab fa-linkedin fa-stack-1x"></i>
+      </span>`;
+    facebookIcon = `<span class="fa-stack fa-1x text-inverse">
+        <i class="fab fa-facebook fa-stack-1x"></i>
+      </span>`;
+    instagramIcon = `<span class="fa-stack fa-1x text-inverse">
+        <i class="fab fa-instagram fa-stack-1x"></i>
+      </span>`;
+
+    $avatar = obj.avatar ? obj.avatar.url : "";
+
     return `<div class="post-image" style="text-align: center;">
-                <img style="max-width: 200px; height: auto;" src="${obj.avatar}" class="img-fluid">
+                <img style="max-width: 200px; height: auto;" src="${$avatar}" class="img-fluid">
             </div>
             </br>
-            <h2 class="content-title">${obj.firstName} ${obj.lastName} (${userCarreer.carreer.name})</h2>
+            <h2 class="content-title">${obj.firstName} ${obj.lastName} (${userCarreer.name})</h2>
             <hr>
-            <h4 class="content-title">Tipo de atención: <small>${userCarreer.serviceMethodEnum}</small></h4>
-            <h4 class="content-title">Modalidad de atención: <small>${userCarreer.serviceModalityEnum}</small></h4>
+            <h3 class="content-title"><i class="fa fa-globe"></i> Redes Sociales</h3>
+            <h4 class="content-title">
+              <small>
+                ${emailIcon}
+                ${obj.email || ""}
+              </small>
+            </h4>
+            <h4 class="content-title">
+              <small>
+                ${linkedInIcon}
+                ${obj.linkedinProfile || ""}
+              </small>
+            </h4>
+            <h4 class="content-title">
+              <small>
+                ${facebookIcon}
+                ${obj.facebookProfile || ""}
+              </small>
+            </h4>
+            <h4 class="content-title">
+              <small>
+                ${instagramIcon}
+                ${obj.instagramProfile || ""}
+              </small>
+            </h4>
+            <hr>
+            <h4 class="content-title">Tipo de atención:
+              <small>
+                ${userCarreer.serviceMethodEnum}
+              </small>
+            </h4>
+            <h4 class="content-title">Modalidad de atención:
+              <small>
+                ${userCarreer.serviceModalityEnum}
+              </small>
+            </h4>
+
             <br>
             <h3 class="content-title">Sobre Mi</h3>
             <br>
@@ -93,17 +142,8 @@ function htmlComponentDisplay($data) {
             </div>
             <br>`;
   };
-  this.renderLanguages = () => {
-    $data = this.data.languagesSet;
-
-    $languages = "";
-    for ($i = 0; $i < $data.length; $i++) {
-      $languages += `<li style="list-style: none;"><a href="javascript:void(0)" style="text-decoration: none; color: black;">${$data[$i].languageName} (${$data[$i].levelEnum}).</a></li>`;
-    }
-    return $languages;
-  };
   this.renderSpecializations = () => {
-    $data = this.data.userCarreerSet[0].specializations;
+    $data = this.data.userSpecializationSet;
 
     $specializations = "";
     for ($i = 0; $i < $data.length; $i++) {
@@ -111,8 +151,17 @@ function htmlComponentDisplay($data) {
     }
     return $specializations;
   };
+  this.renderLanguages = () => {
+    $data = this.data.languagesSet;
+
+    $languages = "";
+    for ($i = 0; $i < $data.length; $i++) {
+      $languages += `<li style="list-style: none;"><a href="javascript:void(0)" style="text-decoration: none; color: black;">${$data[$i].name}.</a></li>`;
+    }
+    return $languages;
+  };
   this.renderOfficeLocations = () => {
-    $data = this.data.officeLocations;
+    $data = this.data.userOfficeSet;
 
     $locations = "";
     for ($i = 0; $i < $data.length; $i++) {

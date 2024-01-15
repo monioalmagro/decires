@@ -1,6 +1,5 @@
 # Third-party Libraries
 from django.contrib import admin
-from django.http.request import HttpRequest
 
 # Own Libraries
 from apps.psychology.models import UserAttachment
@@ -12,6 +11,7 @@ class UserAttachmentInLine(admin.TabularInline):
     fields = (
         "name",
         "description",
+        "source_content_type",
         "content_type",
         "media_file",
         "image",
@@ -25,14 +25,14 @@ class UserAttachmentInLine(admin.TabularInline):
     )
     fk_name = "created_by"
 
-    def has_add_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+    # def has_add_permission(self, request: HttpRequest, obj=None) -> bool:
+    #     return False
 
-    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+    # def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+    #     return False
 
-    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+    # def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+    #     return False
 
 
 @admin.register(UserAttachment)
