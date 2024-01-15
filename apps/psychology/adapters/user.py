@@ -19,10 +19,13 @@ class UserAdapter(ModelAdapter):
 
     @async_database()
     def get_object(self, **kwargs) -> AuthUser | None:
+        logger.info(f"*** KWARGS: {kwargs} ***")
         kwargs["is_active"] = True
         user_unique_filter = kwargs.pop("user_unique_filter", None)
         user_exclude = kwargs.pop("user_exclude", None)
+
         queryset = self.get_queryset(**kwargs)
+
         if user_unique_filter:
             queryset = queryset.filter(user_unique_filter)
         if user_exclude:
@@ -44,7 +47,7 @@ class UserAdapter(ModelAdapter):
         limit = limit or self.default_limit
         offset = offset or 0
 
-        queryset = self.get_queryset(**kwargs)
+        queryset = self.get_queryset(**kwargs).distinct("id")
 
         if order_by:
             queryset = queryset.order_by(*order_by)

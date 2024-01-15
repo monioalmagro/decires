@@ -1,6 +1,5 @@
 # Third-party Libraries
 from django.contrib import admin
-from django.http.request import HttpRequest
 
 # Own Libraries
 from apps.psychology.models import Language, UserLanguage
@@ -26,11 +25,11 @@ class UserLanguageInline(admin.TabularInline):
     raw_id_fields = ("language",)
     extra = 0
 
-    def has_add_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+    # def has_add_permission(self, request: HttpRequest, obj=None) -> bool:
+    #     return False
 
-    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+    # def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+    #     return False
 
-    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+    # def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+    #     return False

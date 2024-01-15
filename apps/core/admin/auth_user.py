@@ -28,6 +28,8 @@ class UserAdmin(UserAdmin):
         "username",
         "email",
         "get_was_paid",
+        "is_active",
+        "is_verified_profile",
     )
     inlines = [
         UserAttachmentInLine,
