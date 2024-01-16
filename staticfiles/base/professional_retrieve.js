@@ -58,6 +58,37 @@ query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
 }
 `;
 
+const contactMe = `mutation contactMe($input: MutationContactMeInput!) {
+  psychology {
+    contactMe(input: $input) {
+      __typename
+      ... on ContactMeType {
+        originalId
+        wasReported
+        __typename
+      }
+      ... on ResponseValidationError {
+        code
+        type
+        message
+        __typename
+      }
+      ... on ResponseInternalError {
+        code
+        type
+        message
+        __typename
+      }
+      ... on ResponseIntegrityError {
+        code
+        type
+        message
+        __typename
+      }
+    }
+  }
+}`;
+
 function htmlComponentDisplay($data) {
   this.data = $data;
 
@@ -218,13 +249,45 @@ initialRequest = () => {
 initialRequest();
 
 loadModal = () => {
-  $("#masked-input-phone").mask("+54 (999) 999.99.99");
+  // $("#masked-input-phone").mask("+54 (999) 999.99.99");
 
   $("#modal_send_message").modal("show");
   return false;
 };
 
 sendMessage = () => {
-  alert("qwerty");
+  $.ajax({
+    url: Django.graphql_url,
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      query: contactMe,
+      variables: {
+        input: {
+          userId: originalId.toString(),
+          fullName: $("#full_name").val(),
+          email: $("#email").val(),
+          phone: $("#phone").val(),
+          message: $("#message").val(),
+        },
+      },
+    }),
+    success: function (response) {
+      $data = response.data.psychology.contactMe;
+      if ($data.originalId) {
+        notification = new deciresAlert();
+        $.when($("#modal_send_message").modal("hide")).then(
+          notification.basic("Éxito", "Su mensaje ha sido enviado", "success")
+        );
+      }
+      return false;
+    },
+    error: function (xhr, status, error) {
+      console.error("Error en la solicitud AJAX:", status, error);
+      setTimeout(function () {
+        location.href = Django.urls.home;
+      }, 40);
+    },
+  });
   return false;
 };
