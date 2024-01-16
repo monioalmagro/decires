@@ -1,5 +1,5 @@
 # Standard Libraries
-import re
+# import re
 
 # Third-party Libraries
 import strawberry
@@ -13,17 +13,17 @@ class ContactMePydanticModel(BaseModel):
     phone: constr()
     message: str
 
-    @validator("phone")
-    @classmethod
-    def validate_phone(cls, value):
-        pattern = r"^(?:\+\d{1,2} )?(?:(?:\(\d{1,4}\) \d{2}-\d{4})|(?:\d{1,4} \d{2}-\d{4})|(?:\d{1,4} \d{1,4} \d{2}-\d{4})|(?:\d{1,4} \d{1,4} \d{1,4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,2} \d{4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,4} \d{1,4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,4} \d{4} \d{2}-\d{4}))$"
+    # @validator("phone")
+    # @classmethod
+    # def validate_phone(cls, value):
+    #     pattern = r"^(?:\+\d{1,2} )?(?:(?:\(\d{1,4}\) \d{2}-\d{4})|(?:\d{1,4} \d{2}-\d{4})|(?:\d{1,4} \d{1,4} \d{2}-\d{4})|(?:\d{1,4} \d{1,4} \d{1,4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,2} \d{4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,4} \d{1,4} \d{2}-\d{4})|(?:\+\d{1,2} \d{1,4} \d{4} \d{2}-\d{4}))$"
 
-        if not re.match(pattern, value):
-            raise AssertionError(
-                f"El número de teléfono {value} no cumple con el formato esperado."
-            )
+    #     if not re.match(pattern, value):
+    #         raise AssertionError(
+    #             f"El número de teléfono {value} no cumple con el formato esperado."
+    #         )
 
-        return value
+    #     return value
 
     @validator("message")
     @classmethod
