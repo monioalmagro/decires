@@ -39,6 +39,7 @@ class UserType:
     last_name: str | None = None
     email: str | None = None
     gender_enum: AuthUserGenderEnum | None = None
+    default_profile_picture: strawberry.Private[str]
 
     @classmethod
     def from_db_models(cls, instance: AuthUser) -> "UserType":
@@ -48,6 +49,7 @@ class UserType:
             last_name=instance.last_name,
             email=instance.email,
             gender_enum=instance.gender,
+            default_profile_picture=instance.default_profile_picture,
         )
 
     @strawberry.field()
@@ -58,6 +60,11 @@ class UserType:
             **{"source_content_type": UserAttachment.USER_IMAGE}
         ):
             return AttachmentType.from_db_model(instance=instance)
+        return AttachmentType(
+            original_id=None,
+            url=self.default_profile_picture,
+            description="PROFILE AVATAR",
+        )
 
 
 @strawberry.type()
