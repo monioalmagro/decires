@@ -2,6 +2,11 @@
 <!--  -->
 {% load static %}
 <!--  -->
+{% block extra_headers %}
+<link href="{% static 'assets/plugins/select2/dist/css/select2.min.js' %}" rel="stylesheet" />
+
+{% endblock extra_headers %}
+
 {% block navbar %} {% include 'base/clean_navbar.html' %} {% endblock navbar %}
 
 <!--  -->
@@ -60,36 +65,133 @@
                 <!-- principal init -->
                 <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
-                    <label class="control-label">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="First name" required />
+                    <label class="control-label">Nombre(s) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="first_name" placeholder="Nombres" required />
                   </div>
                   <div class="col-md-6 m-b-15">
-                    <label class="control-label">Apellido <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Last name" required />
+                    <label class="control-label">Apellido(s) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="last_name" placeholder="Apellidos" required />
                   </div>
                 </div>
-
                 <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Email <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Email address" required />
+                    <input type="text" class="form-control" id="email" placeholder="Email address" required />
                   </div>
                   <div class="col-md-6 m-b-15">
-                    <label class="control-label">Confirmación de Email <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Re-enter email address" required />
+                    <label class="control-label">Género<span class="text-danger">*</span></label>
+                    <select class="default-select2 form-control" id="gender" required>
+                      <option value="">Género</option>
+                      <option value="1">Masculino</option>
+                      <option value="2">Femenino</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Número de DNI <span class="text-danger">*</span></label>
+                    <input type="text" id="nro_dni" class="form-control" placeholder="Número de DNI" required />
+                  </div>
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Username <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" placeholder="Username" required />
                   </div>
+                </div>
+                <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Password <span class="text-danger">*</span></label>
                     <input type="password" class="form-control" placeholder="Password" required />
                   </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Confirmación del Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" placeholder="Password" required />
+                  </div>
                 </div>
-                <!--  -->
+
+                <!-- Información de contacto -->
+                <div class="row row-space-10">
+                  <div class="col-md-12 m-b-15">
+                    <h5 class="content-title">Información de contacto</h5>
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Número de Télefono <span class="text-danger">*</span></label>
+                    <input type="text" id="phone" class="form-control" placeholder="Número de Télefono" required />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Facebook</label>
+                    <input type="text" id="facebook" class="form-control" placeholder="Facebook link" />
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Instagram </label>
+                    <input type="text" id="instagram" class="form-control" placeholder="Instagram link" />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">LinkedIn</label>
+                    <input type="text" id="linkedin" class="form-control" placeholder="LinkedIn link" />
+                  </div>
+                </div>
+                <!-- Información de contacto end -->
+
+                <!-- Información profesional -->
+                <div class="row row-space-10">
+                  <div class="col-md-12 m-b-15">
+                    <h5 class="content-title">Información profesional</h5>
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Carrera<span class="text-danger">*</span></label>
+                    <select class="default-select2 form-control" id="carreer" required>
+                      <option value="">Carrera</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Especializaciones<span class="text-danger">*</span></label>
+                    <select class="multiple-select2 form-control" id="specializations" multiple="multiple" required>
+                      <option value="">Especializaciones</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                <div class="col-md-6 m-b-15">
+                  <label class="control-label">Idiomas de atención<span class="text-danger">*</span></label>
+                  <select class="multiple-select2 form-control" multiple="multiple" id="languages">
+                    <option value=""></option>
+                  </select>
+                </div>
+
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Número de matrícula <span class="text-danger">*</span></label>
+                    <input type="text" id="nro_matricula" class="form-control" placeholder="Número de matrícula" />
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">CUIT<span class="text-danger">*</span></label>
+                    <input type="text" id="cuit" class="form-control" placeholder="CUIT" />
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Ciudad de atención<span class="text-danger">*</span></label>
+                    <select class="default-select2 form-control" id="city" required>
+                      <option value="">Ciudad de atención</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Localidades de atención<span class="text-danger">*</span></label>
+                    <select class="multiple-select2 form-control" id="zone" multiple="multiple" required>
+                      <option value="">Barrios</option>
+                      <option value="1">Masculino</option>
+                      <option value="2">Femenino</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- Información profesional end -->
                 <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Avatar del usuario <span class="text-danger">*</span></label>
@@ -99,44 +201,7 @@
                     <label class="control-label">Previsualizar Avatar<span class="text-danger">*</span></label>
                     <button type="button" class="btn btn-inverse form-control" onclick="uploadImage()">Previsualizar</button>
                   </div>
-
                 </div>
-                <!-- principal end -->
-
-                <!--
-                <div class="row row-space-10">
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="First name" required />
-                  </div>
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Apellido <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Last name" required />
-                  </div>
-                </div>
-
-                <div class="row row-space-10">
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Email <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Email address" required />
-                  </div>
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Confirmación de Email <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Re-enter email address" required />
-                  </div>
-                </div>
-                <div class="row row-space-10">
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Username <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Username" required />
-                  </div>
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" placeholder="Password" required />
-                  </div>
-                </div>
-                 -->
-
 
                 <div class="register-buttons">
                   <button type="submit" class="btn btn-primary btn-block btn-lg">Registrar</button>
@@ -163,4 +228,7 @@
 
 {% endblock content %}
 <!--  -->
-{% block extra_js %} {% endblock extra_js %}
+{% block extra_js %}
+<script src="{% static 'assets/plugins/select2/dist/js/select2.min.js' %}?no_cache={{ no_cache }}"></script>
+<script src="{% static 'base/user_register.js' %}?no_cache={{ no_cache }}"></script>
+{% endblock extra_js %}
