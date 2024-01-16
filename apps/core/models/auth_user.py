@@ -85,11 +85,14 @@ class AuthUser(AbstractUser):
 
         super().save(*args, **kwargs)
 
-    @classmethod
-    def get_default_profile_picture(cls):
-        if cls.gender == 2:
-            return settings.DEFAULT_THUMBNAIL_FEMALE_IMAGE
-        return settings.DEFAULT_THUMBNAIL_MALE_IMAGE
+    @property
+    def default_profile_picture(self):
+        _decires_url = settings.DECIRES_URL
+        _static_url = settings.STATIC_URL
+        _base_url = f"{_decires_url}{_static_url}"
+        if self.gender == 2:
+            return f"{_base_url}{settings.DEFAULT_THUMBNAIL_FEMALE_IMAGE}"
+        return f"{_base_url}{settings.DEFAULT_THUMBNAIL_MALE_IMAGE}"
 
     @property
     def profile_url(self) -> str:

@@ -48,7 +48,12 @@ class PsychologySettings(BaseSettings):
         default="http://localhost:9000/api/graph/psychology/",
     )
     MEDIA_URL: str | None = Field(default="/media/")
+    STATIC_URL: str | None = Field(default="/static/")
     DECIRES_EMAIL: str = Field(default=None, env="DECIRES_EMAIL")
+    DEFAULT_THUMBNAIL_FEMALE_IMAGE: str = Field(
+        default="assets/img/user/female_user.png"
+    )
+    DEFAULT_THUMBNAIL_MALE_IMAGE: str = Field(default="assets/img/user/male_user.jpeg")
 
     class Config:
         env_prefix = ""
