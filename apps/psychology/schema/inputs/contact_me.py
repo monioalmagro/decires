@@ -3,6 +3,7 @@
 
 # Third-party Libraries
 import strawberry
+from django.core.validators import validate_email
 from pydantic import BaseModel, constr, validator
 
 
@@ -24,6 +25,18 @@ class ContactMePydanticModel(BaseModel):
     #         )
 
     #     return value
+
+    @validator("email")
+    @classmethod
+    def email_check(cls, email):
+        try:
+            if len(email) == 0:
+                raise AssertionError("Input email, invalid")
+            # django validator
+            validate_email(value=email)
+        except Exception as exp:
+            raise AssertionError(str(exp)) from exp
+        return email
 
     @validator("message")
     @classmethod

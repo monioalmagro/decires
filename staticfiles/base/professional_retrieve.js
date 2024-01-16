@@ -274,19 +274,19 @@ sendMessage = () => {
     }),
     success: function (response) {
       $data = response.data.psychology.contactMe;
+      notification = new deciresAlert();
       if (
         response.data &&
         response.data.psychology &&
         response.data.psychology.contactMe &&
         response.data.psychology.contactMe.originalId
       ) {
-        notification = new deciresAlert();
         $.when($("#modal_send_message").modal("hide")).then(
           notification.basic("Éxito", "Su mensaje ha sido enviado", "success")
         );
       } else {
         $.when($("#modal_send_message").modal("hide")).then(
-          notification.basic("Ups!", "Lo sentimos, algo salió mal", "error")
+          notification.basic("Lo sentimos, algo salió mal", $data.message, "error")
         );
       }
       return false;
