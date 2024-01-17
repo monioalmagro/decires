@@ -59,6 +59,15 @@ class MutationUserPydanticModel(BaseModel):
     experience_summary: str | None = None
     attachment_ids: list[strawberry.ID] = None
 
+    @validator("experience_summary")
+    @classmethod
+    def validate_experience_summary(cls, experience_summary):
+        if experience_summary:
+            experience_summary = experience_summary.strip()
+            if len(experience_summary) < 1 or len(experience_summary) > 500:
+                raise AssertionError("Experience summary invalid")
+        return experience_summary.strip()
+
     @validator(
         "first_name",
         "last_name",
@@ -66,7 +75,6 @@ class MutationUserPydanticModel(BaseModel):
         "nro_matricula",
         "cuit",
         "phone",
-        # "personal_address",
     )
     @classmethod
     def validate_first_name(cls, name):
