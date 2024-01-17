@@ -311,18 +311,18 @@ registerUser = (attachmentIds = []) => {
         response.data.psychology.newProfessional.originalId
       ) {
         notification.basic("Éxito", "Se ha registrado exitosamente en la plataforma", "success");
+        setTimeout(function () {
+          location.href = Django.urls.home;
+        }, 5000);
       } else {
-        console.error(response.data.psychology.newProfessional);
+        console.error(response);
         notification.basic(
           "Ups, algo salió mal!",
           "No hemos podido registrarte en la plataforma",
           "warning"
         );
       }
-
-      setTimeout(function () {
-        location.href = Django.urls.home;
-      }, 9000);
+      return false;
     },
     error: function (error) {
       // Manejar errores
