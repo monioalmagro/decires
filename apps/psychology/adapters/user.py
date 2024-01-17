@@ -74,7 +74,7 @@ class UserAdapter(ModelAdapter):
                     facebook_profile=_input.facebook_profile,
                     instagram_profile=_input.instagram_profile,
                     linkedin_profile=_input.linkedin_profile,
-                    personal_address=_input.personal_address,
+                    # personal_address=_input.personal_address,
                 )
             return obj
         except (DatabaseError, IntegrityError) as exp:

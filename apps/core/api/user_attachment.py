@@ -29,7 +29,12 @@ class RegisterUserAttachment(TemplateView):
     def save_file(self, request: HttpRequest, obj: UserAttachment):
         _file = request.FILES.get("attachment")
         update_fields = []
-        if obj.content_type not in [".img", ".jpg", ".jpeg"]:
+        if obj.content_type not in [
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".svg",
+        ]:
             obj.media_file.save(_file.name, File(_file))
             update_fields.append("media_file")
         else:

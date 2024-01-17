@@ -32,7 +32,8 @@ class SpecializationAdapter(SpecializationAdapterBase):
         **kwargs,
     ) -> List[Specialization]:
         kwargs["is_active"] = True
-        kwargs["user_specialization_set__user_id"] = self.user_id
+        if self.user_id:
+            kwargs["user_specialization_set__user_id"] = self.user_id
         return super().get_objects(limit, offset, order_by, **kwargs)
 
 
