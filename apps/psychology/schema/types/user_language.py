@@ -6,6 +6,19 @@ from apps.psychology.models import Language, UserLanguage
 
 
 @strawberry.type()
+class LanguageSelect2Type:
+    id: strawberry.ID
+    text: str
+
+    @classmethod
+    def from_db_model(cls, instance: Language) -> "LanguageSelect2Type":
+        return cls(
+            id=instance.pk,
+            text=instance.name,
+        )
+
+
+@strawberry.type()
 class LanguageType:
     name: str | None = None
     slug: str | None = None

@@ -4,6 +4,8 @@ import strawberry
 # Own Libraries
 from apps.psychology.adapters.carreer import CarreerAdapter
 from apps.psychology.adapters.city import CityAdapter
+from apps.psychology.adapters.languages import LanguageAdapter
+from apps.psychology.adapters.specialization import SpecializationAdapter
 from apps.psychology.adapters.user import UserAdapter
 from apps.psychology.adapters.zone import ZoneAdapter
 from apps.psychology.schema.inputs.user import (
@@ -12,7 +14,11 @@ from apps.psychology.schema.inputs.user import (
 )
 from apps.psychology.schema.types.carreer import CarreerSelect2Type
 from apps.psychology.schema.types.city import CitySelect2Type, ZoneSelect2Type
+from apps.psychology.schema.types.specialization import (
+    SpecializationSelect2Type,
+)
 from apps.psychology.schema.types.user import ProfessionalType
+from apps.psychology.schema.types.user_language import LanguageSelect2Type
 
 
 @strawberry.type()
@@ -32,7 +38,7 @@ class Select2Queries:
     async def cities(self) -> list[CitySelect2Type]:
         adapter = CityAdapter()
         adapter.user_id = None
-        if results := await adapter.get_objects(order_by=["created_at"]):
+        if results := await adapter.get_objects(order_by=["id"]):
             return [CitySelect2Type.from_db_model(instance=city) for city in results]
         return []
 
@@ -45,6 +51,28 @@ class Select2Queries:
             **{"city_id": city_id},
         ):
             return [ZoneSelect2Type.from_db_model(instance=zone) for zone in results]
+        return []
+
+    @strawberry.field()
+    async def specializations(self) -> list[SpecializationSelect2Type]:
+        adapter = SpecializationAdapter()
+        adapter.user_id = None
+        if results := await adapter.get_objects(order_by=["created_at"]):
+            return [
+                SpecializationSelect2Type.from_db_model(instance=specialization)
+                for specialization in results
+            ]
+        return []
+
+    @strawberry.field()
+    async def languages(self) -> list[LanguageSelect2Type]:
+        adapter = LanguageAdapter()
+        adapter.user_id = None
+        if results := await adapter.get_objects(order_by=["created_at"]):
+            return [
+                LanguageSelect2Type.from_db_model(instance=language)
+                for language in results
+            ]
         return []
 
 

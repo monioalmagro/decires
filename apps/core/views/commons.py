@@ -24,6 +24,7 @@ def javascript(request: HttpRequest):
         "professionalRetrieve": reverse(
             "core:professional:retrieve", kwargs={"pk": "::"}
         ),
+        "uploadAttachment": reverse("core:profesional_api_rest:user-attachments"),
     }
 
     context["urls"] = urls
