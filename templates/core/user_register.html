@@ -2,10 +2,9 @@
 <!--  -->
 {% load static %}
 <!--  -->
-{% block extra_headers %}
-<link href="{% static 'assets/plugins/select2/dist/css/select2.min.js' %}" rel="stylesheet" />
-
-{% endblock extra_headers %}
+{% block extra_header %}
+<link href="{% static 'assets/plugins/select2/dist/css/select2.min.css' %}" rel="stylesheet" />
+{% endblock extra_header %}
 
 {% block navbar %} {% include 'base/clean_navbar.html' %} {% endblock navbar %}
 
@@ -82,8 +81,8 @@
                     <label class="control-label">Género<span class="text-danger">*</span></label>
                     <select class="default-select2 form-control" id="gender" required>
                       <option value="">Género</option>
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
+                      <option value="MASCULINO">Masculino</option>
+                      <option value="FEMENINO">Femenino</option>
                     </select>
                   </div>
                 </div>
@@ -94,17 +93,17 @@
                   </div>
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Username <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Username" required />
+                    <input type="text" class="form-control" id="username" placeholder="Username" required />
                   </div>
                 </div>
                 <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" placeholder="Password" required />
+                    <input type="password" id="password" class="form-control" placeholder="Password" required />
                   </div>
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Confirmación del Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" placeholder="Password" required />
+                    <input type="password" id="password_confirm" class="form-control" placeholder="Password" required />
                   </div>
                 </div>
 
@@ -157,14 +156,33 @@
                   </div>
                 </div>
                 <div class="row row-space-10">
-                <div class="col-md-6 m-b-15">
-                  <label class="control-label">Idiomas de atención<span class="text-danger">*</span></label>
-                  <select class="multiple-select2 form-control" multiple="multiple" id="languages">
-                    <option value=""></option>
-                  </select>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Método de atención<span class="text-danger">*</span></label>
+                    <select class="default-select2 form-control" id="service_method">
+                      <option value=""></option>
+                      <option value="PRESENCIAL">Presencial</option>
+                      <option value="VIRTUAL">Virtual</option>
+                      <option value="DOMICILIO">Domicilio</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Modalidad de atención<span class="text-danger">*</span></label>
+                    <select class="default-select2 form-control" id="service_modality">
+                      <option value=""></option>
+                      <option value="INDIVIDUAL">Individual</option>
+                      <option value="GROUPS">Grupal</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row row-space-10">
+                  <div class="col-md-6 m-b-15">
+                    <label class="control-label">Idiomas de atención<span class="text-danger">*</span></label>
+                    <select class="multiple-select2 form-control" multiple="multiple" id="languages">
+                      <option value=""></option>
+                    </select>
+                  </div>
                 </div>
 
-                </div>
                 <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Número de matrícula <span class="text-danger">*</span></label>
@@ -185,9 +203,7 @@
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Localidades de atención<span class="text-danger">*</span></label>
                     <select class="multiple-select2 form-control" id="zone" multiple="multiple" required>
-                      <option value="">Barrios</option>
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
+                      <option value="">Localidades de atención</option>
                     </select>
                   </div>
                 </div>
@@ -204,7 +220,7 @@
                 </div>
 
                 <div class="register-buttons">
-                  <button type="submit" class="btn btn-primary btn-block btn-lg">Registrar</button>
+                  <button type="button" onclick="uploadAttachment()" class="btn btn-primary btn-block btn-lg">Registrar</button>
                 </div>
 
                 <hr />

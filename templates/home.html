@@ -2,7 +2,7 @@
 
 <!--  -->
 {% block extra_headers %}
-<link href="{% static 'assets/plugins/select2/dist/css/select2.min.js' %}" rel="stylesheet" />
+<link href="{% static 'assets/plugins/select2/dist/css/select2.min.css' %}" rel="stylesheet" />
 {% endblock extra_headers %}
 <!--  -->
 {% block content %} {{ block.super }}
@@ -66,7 +66,8 @@
     </div>
   </div>
 </div>
-{% endblock content %}
+
+{% comment %} {% endcomment %} {% endblock content %}
 <!--  -->
 {% block extra_js %}
 <script src="{% static 'assets/plugins/select2/dist/js/select2.min.js' %}"></script>
