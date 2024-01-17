@@ -199,7 +199,7 @@ class NewProfessionalProcess(BaseUserProcess):
     async def add_carreer(self, professional: AuthUser):
         self.carreer_adapter.user_id = professional.id
 
-        if carreer := await self.carreer_adapter.get_object():
+        if carreer := await self.carreer_adapter.get_object(id=self.input.carreer):
             data = UserCarreerPydanticModel(
                 user_id=professional.id,
                 carreer_id=carreer.id,

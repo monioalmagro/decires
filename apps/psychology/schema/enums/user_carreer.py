@@ -15,4 +15,4 @@ class CarreerServiceMethodEnum(enum.Enum):
 @strawberry.enum()
 class CarreerServiceModalityEnum(enum.Enum):
     INDIVIDUAL = strawberry.enum_value(value=1)
-    GROUPS = strawberry.enum_value(value=2)
+    GRUPAL = strawberry.enum_value(value=2)

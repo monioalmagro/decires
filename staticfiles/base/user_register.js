@@ -242,6 +242,33 @@ $("#city")
   });
 
 registerUser = (attachmentIds = []) => {
+  // console.log({
+  //   input: {
+  //     genderEnum: $("#gender").val(),
+  //     serviceMethodEnum: $("#service_method").val(),
+  //     serviceModalityEnum: $("#service_modality").val(),
+  //     password: $("#password").val(),
+  //     passwordConfirm: $("#password_confirm").val(),
+  //     email: $("#email").val(),
+  //     username: $("#username").val(),
+  //     firstName: $("#first_name").val(),
+  //     lastName: $("#last_name").val(),
+  //     nroDni: $("#nro_dni").val(),
+  //     nroMatricula: $("#nro_matricula").val(),
+  //     cuit: $("#cuit").val(),
+  //     phone: $("#phone").val(),
+  //     facebookProfile: $("#facebook").val() || null,
+  //     instagramProfile: $("#instagram").val() || null,
+  //     linkedinProfile: $("#linkedin").val() || null,
+  //     attachmentIds: attachmentIds,
+  //     experienceSummary: $("#experience_summary").val(),
+  //     specializations: $("#specializations").val(),
+  //     languages: $("#languages").val(),
+  //     carreer: $("#carreer").val().toString(),
+  //     officeLocations: $("#zone").val(),
+  //   },
+  // });
+
   $.ajax({
     url: Django.graphql_url,
     method: "POST",
@@ -267,7 +294,7 @@ registerUser = (attachmentIds = []) => {
           instagramProfile: $("#instagram").val() || null,
           linkedinProfile: $("#linkedin").val() || null,
           attachmentIds: attachmentIds,
-          experienceSummary: "",
+          experienceSummary: $("#experience_summary").val(),
           specializations: $("#specializations").val(),
           languages: $("#languages").val(),
           carreer: $("#carreer").val().toString(),
