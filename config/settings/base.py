@@ -32,7 +32,7 @@ SECRET_KEY = settings.SECRET_KEY.get_secret_value()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = settings.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.141.199.148', 'localhost', '127.0.0.1']
 
 
 # Application definition
