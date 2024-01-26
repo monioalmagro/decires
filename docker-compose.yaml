@@ -1,7 +1,9 @@
+version: '3.8'
+
 x-common:
   default_environment_args: &default-environment-args
     ### Default ###
-    COMPOSE_PROJECT_NAME:  ${COMPOSE_PROJECT_NAME}
+    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
     DATABASE_URL: ${DATABASE_URL}
     DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
     SECRET_KEY: ${SECRET_KEY}
@@ -24,6 +26,7 @@ services:
       <<: *default-environment-args
     depends_on:
       - postgres
+
   web:
     ports:
       - 8000:8000
@@ -41,6 +44,19 @@ services:
     depends_on:
       - postgres
     command: bash -c "python3 manage.py runserver 0:8000"
+  
+  nginx:
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./:/app/
+    depends_on:
+      - web
+
+
   postgres:
     image: postgres:latest
     container_name: ${COMPOSE_PROJECT_NAME}_postgres
@@ -56,4 +72,4 @@ services:
 
 volumes:
   pg_data:
-
+  nginx_data:  # Definición del volumen para Nginx
