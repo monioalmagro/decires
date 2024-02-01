@@ -167,8 +167,8 @@ function htmlComponentDisplay($data) {
                 ${userCarreer.serviceModalityEnum}
               </small>
             </h4>
-
             <br>
+
             <h3 class="content-title">Sobre Mi</h3>
             <br>
             <div class="parrafos">

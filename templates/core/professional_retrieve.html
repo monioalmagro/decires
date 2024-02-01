@@ -3,6 +3,9 @@
 {% load static %}
 <!--  -->
 {% block extra_header %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
 {% endblock extra_header%}
 <!-- begin  -->
 {% block navbar %}
@@ -51,15 +54,26 @@
 			<!-- begin row -->
 			<div class="row row-space-30">
 				<!-- begin col-9 -->
-				<div class="col-lg-9">
+				<div class="col-lg-10">
 					<!-- begin section-container -->
 					<div class="section-container" id="profile">
+					</div>
+          <div class="section-container" id="mapas">
+
+            <div class="section-container">
+                <h2 class="content-title"><small><i class="fas fa-map-marker fa-lg"></i></small> Oficina(s) de atención</h2>
+                <hr>
+                <ul class="sidebar-list" id="office_locations"></ul>
+            </div>
+            <br>
+            <div style="height: 300px; weight:300px;" id="map"></div>
+            <br>
 					</div>
 					<!-- end section-container -->
 				</div>
 				<!-- end col-9 -->
         <!-- begin col-3 -->
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="section-container">
                 <h2 class="content-title"><small><i class="fas fa-book fa-lg"></i></small> Especialidades</h2>
                 <hr>
@@ -70,11 +84,8 @@
                 <hr>
                 <ul class="sidebar-list" id="languages"></ul>
             </div>
-            <div class="section-container">
-                <h2 class="content-title"><small><i class="fas fa-map-marker fa-lg"></i></small> Ubicaciones</h2>
-                <hr>
-                <ul class="sidebar-list" id="office_locations"></ul>
-            </div>
+
+
 
             <br><br>
             <div class="section-container">
@@ -148,6 +159,27 @@
 <script>
   const originalId = {{original_id}}
 </script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 <script src="{% static 'base/professional_retrieve.js' %}?no_cache={{ no_cache }}"></script>
 <script src="{% static 'assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js' %}"></script>
+
+<script>
+
+var map = L.map('map').setView([-34.61315, -58.37723], 13);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+var puerto_madero = L.marker([-34.6, -58.36667]).addTo(map);
+puerto_madero.bindPopup("<b>Puerto Madero</b>").openPopup();
+
+var almagro = L.marker([-34.6113241,-58.4223237]).addTo(map);
+almagro.bindPopup("<b>Almagro</b>").openPopup();
+
+
+</script>
+
 {% endblock extra_js %}
