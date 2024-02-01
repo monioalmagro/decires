@@ -38,6 +38,8 @@ get_zones_query = (cityId) => {
 $("#ciudad").hide();
 $("#zona").hide();
 
+loadSelect2(carrersQuery, "#profesionales", "Profesionales");
+
 $("#select_modalidad").on("change", function () {
   $value = $(this).val();
   if ($value == Django.select2_all) {
@@ -60,11 +62,11 @@ $("#select_ciudad").on("change", function () {
 
 // functions
 
-loadModal = () => {
-  $.when(loadSelect2(carrersQuery, "#profesionales", "Profesionales")).then(
-    $("#modal_search_proffessionals").modal("show")
-  );
-};
+// loadModal = () => {
+//   $.when(loadSelect2(carrersQuery, "#profesionales", "Profesionales")).then(
+//     $("#modal_search_proffessionals").modal("show")
+//   );
+// };
 
 searchProffessional = () => {
   $profesionales = $("#profesionales").val();
