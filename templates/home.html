@@ -5,69 +5,7 @@
 <link href="{% static 'assets/plugins/select2/dist/css/select2.min.css' %}" rel="stylesheet" />
 {% endblock extra_headers %}
 <!--  -->
-{% block content %} {{ block.super }}
-
-<div class="modal" id="modal_search_proffessionals">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-inverse">
-        <h4 class="modal-title text-yellow">Nuestros Profesionales</h4>
-        <button type="button" class="close text-yellow" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal form-bordered">
-          <!--  -->
-          <div class="form-group row">
-            <label class="col-lg-4 col-form-label">PROFESIONALES</label>
-            <div class="col-lg-8">
-              <select class="default-select2 form-control" id="profesionales">
-                <option value="" selected>Profesionales</option>
-              </select>
-            </div>
-          </div>
-          <!--  -->
-          <div class="form-group row">
-            <label class="col-lg-4 col-form-label">MODALIDAD</label>
-            <div class="col-lg-8">
-              <select class="default-select2 form-control" id="select_modalidad">
-                <option value="" selected>Modalidad</option>
-                <option value="PRESENCIAL">Presencial</option>
-                <option value="VIRTUAL">Virtual</option>
-                <option value="DOMICILIO">Domicilio</option>
-              </select>
-            </div>
-          </div>
-          <!--  -->
-          <div class="form-group row" id="ciudad">
-            <label class="col-lg-4 col-form-label">CIUDAD</label>
-            <div class="col-lg-8">
-              <select class="default-select2 form-control" id="select_ciudad">
-                <option value="" selected>Ciudad</option>
-              </select>
-            </div>
-          </div>
-          <!--  -->
-          <div class="form-group row" id="zona">
-            <label class="col-lg-4 col-form-label">ZONAS</label>
-            <div class="col-lg-8">
-              <select class="default-select2 form-control" id="select_zona">
-                <option value="" selected>Zonas</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <a href="javascript:;" class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
-        <a href="javascript:;" onclick="searchProffessional();" class="btn btn-primary">Buscar</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% comment %} {% endcomment %} {% endblock content %}
+{% block content %} {{ block.super }} {% endblock content %}
 <!--  -->
 {% block extra_js %}
 <script src="{% static 'assets/plugins/select2/dist/js/select2.min.js' %}"></script>
