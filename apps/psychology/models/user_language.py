@@ -9,6 +9,8 @@ User = get_user_model()
 
 
 class Language(AuditableMixin, SlugMixin):
+    flag_icon = models.CharField(max_length=255, blank=True, null=True)
+
     def __str__(self) -> str:
         return f"{self.slug}"
 
