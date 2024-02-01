@@ -51,7 +51,7 @@ class MutationUserPydanticModel(BaseModel):
     facebook_profile: str | None = None
     instagram_profile: str | None = None
     linkedin_profile: str | None = None
-    # personal_address: str | None = None
+    personal_address: str | None = None
     office_locations: list[strawberry.ID] | None = None
     carreer: strawberry.ID | None = None
     languages: list[strawberry.ID] | None = None
