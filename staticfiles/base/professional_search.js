@@ -40,6 +40,7 @@ query professionalListPublicQuery($input: QueryListUserInput!) {
       languagesSet {
         name
         slug
+        flagIcon
         __typename
       }
       userOfficeSet {

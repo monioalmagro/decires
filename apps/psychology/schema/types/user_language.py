@@ -22,12 +22,14 @@ class LanguageSelect2Type:
 class LanguageType:
     name: str | None = None
     slug: str | None = None
+    flag_icon: str | None = None
 
     @classmethod
     def from_db_model(cls, instance: Language) -> "LanguageType":
         return cls(
             name=instance.name,
             slug=instance.slug,
+            flag_icon=instance.flag_icon,
         )
 
 

@@ -1,6 +1,7 @@
 _notify = new deciresAlert();
 
 const retrieveProfessionalPublicQuery = `
+
 query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
   psychology {
     getProfessional(input: $input) {
@@ -35,6 +36,7 @@ query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
       languagesSet {
         name
         slug
+        flagIcon
         __typename
       }
       userOfficeSet {
@@ -95,6 +97,7 @@ function htmlComponentDisplay($data) {
   this.splitParagraph = (paragraph) => {
     let $paragraph = paragraph.split(/\. (?=[A-Z])/);
 
+    // sourcery skip: avoid-using-var
     var outParagraph = "";
 
     for (var i = 0; i < $paragraph.length; i++) {
@@ -174,6 +177,7 @@ function htmlComponentDisplay($data) {
             <br>`;
   };
   this.renderSpecializations = () => {
+    // sourcery skip: dont-reassign-parameters
     $data = this.data.userSpecializationSet;
 
     $specializations = "";
@@ -183,15 +187,22 @@ function htmlComponentDisplay($data) {
     return $specializations;
   };
   this.renderLanguages = () => {
+    // sourcery skip: dont-reassign-parameters
     $data = this.data.languagesSet;
 
     $languages = "";
     for ($i = 0; $i < $data.length; $i++) {
-      $languages += `<li style="list-style: none;"><a href="javascript:void(0)" style="text-decoration: none; color: black;">${$data[$i].name}.</a></li>`;
+      $languages += `<li style="list-style: none;">
+          ${$data[$i].flagIcon || ""}
+          <a href="javascript:void(0)" style="text-decoration: none; color: black;">
+          ${$data[$i].name}.
+          </a>
+      </li>`;
     }
     return $languages;
   };
   this.renderOfficeLocations = () => {
+    // sourcery skip: dont-reassign-parameters
     $data = this.data.userOfficeSet;
 
     $locations = "";
