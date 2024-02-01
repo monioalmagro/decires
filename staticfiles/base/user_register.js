@@ -299,6 +299,7 @@ registerUser = (attachmentIds = []) => {
           languages: $("#languages").val(),
           carreer: $("#carreer").val().toString(),
           officeLocations: $("#zone").val(),
+          personalAddress: $("#personal_address").val(),
         },
       },
     }),
