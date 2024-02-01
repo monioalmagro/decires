@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 
 # Own Libraries
 # Own Libraries]
-from apps.core.models import AuthUser, City, Country, Zone
+from apps.core.models import AuthUser, City, Country, UserZone, Zone
 from apps.psychology.models import (
     AdminEmailNotification,
     Carreer,
@@ -27,6 +27,7 @@ class Command(BaseCommand):
         (Country, "Country"),
         (City, "City"),
         (Zone, "Zone"),
+        (UserZone, "UserZone"),
         (Carreer, "Carreer"),
         (ContactMe, "ContactMe"),
         (UserAttachment, "UserAttachment"),
