@@ -14,7 +14,7 @@ from apps.psychology.schema.enums.user_carreer import (
 class QueryListPydanticModel(BaseModel):
     carreer: strawberry.ID
     service_method_enum: CarreerServiceMethodEnum
-    city: strawberry.ID
+    city: strawberry.ID | None = None
     zone: strawberry.ID | None = None
 
     class Config:

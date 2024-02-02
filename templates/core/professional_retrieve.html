@@ -66,7 +66,8 @@
                 <ul class="sidebar-list" id="office_locations"></ul>
             </div>
             <br>
-            <div style="height: 300px; weight:300px;" id="map"></div>
+            <div style="height: 350px; weight:350px;" id="map"></div>
+            <br>
             <br>
 					</div>
 					<!-- end section-container -->
@@ -75,7 +76,7 @@
         <!-- begin col-3 -->
         <div class="col-lg-2">
             <div class="section-container">
-                <h2 class="content-title"><small><i class="fas fa-book fa-lg"></i></small> Especialidades</h2>
+                <h2 class="content-title"><small><i class="fas fa-book fa-lg"></i></small> Especializaciones</h2>
                 <hr>
                 <ul class="sidebar-list" id="specializations"></ul>
             </div>
@@ -84,15 +85,14 @@
                 <hr>
                 <ul class="sidebar-list" id="languages"></ul>
             </div>
-
-
-
             <br><br>
             <div class="section-container">
                 <a class="btn btn-lg btn-link btn-info"  onclick="loadModal()" > Contactame &nbsp; <i class="fa fa-envelope"></i></a>
             </div>
         </div>
         <!-- end col-9 -->
+
+
 			</div>
 			<!-- end row -->
 		</div>
@@ -167,7 +167,7 @@
 
 <script>
 
-var map = L.map('map').setView([-34.61315, -58.37723], 13);
+var map = L.map('map').setView([-34.61315, -58.37723], 10);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 20,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -178,6 +178,28 @@ puerto_madero.bindPopup("<b>Puerto Madero</b>").openPopup();
 
 var almagro = L.marker([-34.6113241,-58.4223237]).addTo(map);
 almagro.bindPopup("<b>Almagro</b>").openPopup();
+
+
+  var marker;
+
+  // Añadir un evento de clic al mapa
+  map.on('click', function (e) {
+      // Eliminar el marcador existente, si hay uno
+      if (marker) {
+          map.removeLayer(marker);
+      }
+
+      // Crear un nuevo marcador en la posición del clic
+      marker = L.marker(e.latlng).addTo(map);
+
+      // Obtener las coordenadas y mostrarlas en la consola
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
+      console.log("Latitud: " + lat + ", Longitud: " + lng);
+
+      // Aquí puedes enviar las coordenadas al servidor o realizar otras acciones
+      // como guardarlas en tu base de datos.
+  });
 
 
 </script>

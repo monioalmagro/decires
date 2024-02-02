@@ -42,7 +42,7 @@ loadSelect2(carrersQuery, "#profesionales", "Profesionales");
 
 $("#select_modalidad").on("change", function () {
   $value = $(this).val();
-  if ($value == Django.select2_all) {
+  if ($value == Django.select2_all || $value == "VIRTUAL") {
     $("#ciudad, #zona").hide();
   } else {
     loadSelect2(citiesQuery, "#select_ciudad", "Ciudad", "cities");
@@ -62,12 +62,6 @@ $("#select_ciudad").on("change", function () {
 
 // functions
 
-// loadModal = () => {
-//   $.when(loadSelect2(carrersQuery, "#profesionales", "Profesionales")).then(
-//     $("#modal_search_proffessionals").modal("show")
-//   );
-// };
-
 searchProffessional = () => {
   $profesionales = $("#profesionales").val();
   $modalidad = $("#select_modalidad").val();
@@ -75,8 +69,12 @@ searchProffessional = () => {
   $zona = $("#select_zona").val();
 
   if ($profesionales == Django.select2_all || $modalidad == Django.select2_all) {
-    // todo: SWEET ALERT
-    alert("No puedes lanzar la perticion");
+    alert = new deciresAlert();
+    alert.basic(
+      "Importante!",
+      "Para poder continuar necesitas seleccionar el tipo de profesional y la modalidad de atención",
+      "info"
+    );
   } else {
     $obj = {
       input: {
