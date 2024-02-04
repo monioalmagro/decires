@@ -38,7 +38,7 @@ class PsychologySettings(BaseSettings):
         default=True,
         env="DJANGO_ALLOW_ASYNC_UNSAFE",
     )
-    SITE_NAME: str = Field(env="SITE_NAME", default="Red Decires")
+    SITE_NAME: str = Field(env="SITE_NAME", default="Redpsidecires")
     DECIRES_URL: str = Field(
         env="DECIRES_URL",
         default="http://localhost:8000",
