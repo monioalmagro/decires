@@ -11,13 +11,13 @@ from config.enviroment_vars import settings
 
 
 def javascript(request: HttpRequest):
-    context = {}
     now = timezone.now()
-    context["datetime"] = now.strftime("%d-%m-%YT%H:%M:%S%z")
-    context["graphql_url"] = settings.GRAPHQL_URL
-    context["site_name"] = settings.SITE_NAME
-    context["select2_all"] = ""
-
+    context = {
+        "datetime": now.strftime("%d-%m-%YT%H:%M:%S%z"),
+        "graphql_url": settings.GRAPHQL_URL,
+        "site_name": settings.SITE_NAME,
+        "select2_all": "",
+    }
     urls = {
         "home": reverse("home"),
         "professionalSearch": reverse("core:professional:search"),
