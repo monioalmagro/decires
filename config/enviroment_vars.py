@@ -12,6 +12,25 @@ import json
 load_dotenv()
 
 
+class AWSSettings(BaseSettings):
+    AWS_REGION_NAME: str = Field(default="us-east-1", env="AWS_REGION_NAME")
+    AWS_ACCESS_KEY_ID: str | None = Field(default=None, env="AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY: str | None = Field(default=None, env="AWS_SECRET_ACCESS_KEY")
+    AWS_ACCOUNT_ID: int | None = Field(default=None, env="AWS_ACCOUNT_ID")
+    AWS_STAGE: str = Field(default="qa", env="AWS_STAGE")
+    AWS_S3_BUCKET_NAME: str | None = Field(default=None, env="AWS_S3_BUCKET_NAME")
+
+    class Config:
+        env_prefix = ""
+        case_sensitive = False
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        json_loads = json.loads
+
+
+aws_settings = AWSSettings()
+
+
 class PsychologySettings(BaseSettings):
     COMPOSE_PROJECT_NAME: str = Field(
         default="psychology",
@@ -54,6 +73,7 @@ class PsychologySettings(BaseSettings):
         default="assets/img/user/female_user.jpg"
     )
     DEFAULT_THUMBNAIL_MALE_IMAGE: str = Field(default="assets/img/user/male_user.jpg")
+    AWS_SETTINGS: AWSSettings | None = aws_settings
 
     class Config:
         env_prefix = ""
