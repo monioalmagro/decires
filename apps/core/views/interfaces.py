@@ -21,6 +21,7 @@ class PsychologyBaseView(TemplateView):
         context = super().get_context_data(**kwargs)
         now = timezone.now()
         context["site_name"] = settings.SITE_NAME
+        context["title"] = "¿Necesitas ser escuchado por un profesional?"
         context["year"] = str(now.year)
         context["no_cache"] = str(random.randint(1, 999999999))  # noqa
         return context
