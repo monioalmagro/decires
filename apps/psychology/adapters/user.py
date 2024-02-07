@@ -24,7 +24,7 @@ class UserAdapter(ModelAdapter):
             .objects.filter(**kwargs)
             .annotate(
                 membership_plan=F("user_payment_set__membership_plan"),
-                concept=F("user_payment_set__concept"),
+                type=F("user_payment_set__type"),
             )
         )
 

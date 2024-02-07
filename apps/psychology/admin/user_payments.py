@@ -10,7 +10,7 @@ class UserPaymentInline(admin.TabularInline):
     verbose_name_plural = "Pagos"
     fields = (
         "was_paid",
-        "concept",
+        "type",
         "membership_plan",
         "month",
         "observations",
@@ -29,7 +29,7 @@ class UserPaymentAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "user",
-        "concept",
+        "type",
         "membership_plan",
         "was_reported",
     )
