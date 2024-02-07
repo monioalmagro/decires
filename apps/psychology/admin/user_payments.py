@@ -30,6 +30,7 @@ class UserPaymentAdmin(admin.ModelAdmin):
         "id",
         "user",
         "concept",
+        "membership_plan",
         "was_reported",
     )
     list_editable = ("was_reported",)
