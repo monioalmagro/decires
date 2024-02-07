@@ -15,11 +15,20 @@ class UserPayment(AuditableMixin):
         on_delete=models.CASCADE,
         related_name="user_payment_set",
     )
-    concept = models.SmallIntegerField(
+    type = models.SmallIntegerField(
         choices=psychology_constants.PAYMENT_CHOICES,
+        default=psychology_constants.MONTHLY_PAYMENT,
         db_index=True,
         blank=True,
         null=True,
+    )
+    membership_plan = models.SmallIntegerField(
+        choices=psychology_constants.MEMBERSHIP_PLAN_TYPE_CHOICES,
+        default=psychology_constants.BASIC_PLAN,
+        db_index=True,
+        blank=True,
+        null=True,
+        help_text="Membership plan",
     )
     was_paid = models.BooleanField(default=False, db_index=True)
     was_reported = models.BooleanField(default=False, db_index=True)

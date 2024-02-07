@@ -4,6 +4,7 @@ from typing import List
 
 # Third-party Libraries
 from django.db import DatabaseError, IntegrityError, transaction
+from django.db.models import F, QuerySet
 
 # Own Libraries
 from apps.core.models import AuthUser
@@ -16,6 +17,16 @@ logger = logging.getLogger(__name__)
 
 class UserAdapter(ModelAdapter):
     model_class = AuthUser
+
+    def get_queryset(self, **kwargs) -> QuerySet[AuthUser]:
+        return (
+            self.get_model_class()
+            .objects.filter(**kwargs)
+            .annotate(
+                membership_plan=F("user_payment_set__membership_plan"),
+                type=F("user_payment_set__type"),
+            )
+        )
 
     @async_database()
     def get_object(self, **kwargs) -> AuthUser | None:
@@ -40,21 +51,21 @@ class UserAdapter(ModelAdapter):
         offset: int | None = None,
         order_by: List[str] | None = None,
         **kwargs,
-    ) -> List[AuthUser]:
+    ) -> list[AuthUser]:
         logger.debug(f"*** {self.__class__.__name__}.get_objects ***")
         kwargs["is_active"] = True
 
         limit = limit or self.default_limit
         offset = offset or 0
 
-        queryset = self.get_queryset(**kwargs).distinct("id")
+        queryset = self.get_queryset(**kwargs).distinct(*order_by)
 
         if order_by:
             queryset = queryset.order_by(*order_by)
 
         queryset = queryset[offset : offset + limit]
 
-        return list(queryset)
+        return set(queryset)
 
     @async_database()
     def create_new_professional(self, _input: MutationUserPydanticModel):

@@ -8,7 +8,8 @@
       "is_active": true,
       "is_deleted": false,
       "user": 1,
-      "concept": 1,
+      "type": 1,
+      "membership_plan": 1,
       "was_paid": true,
       "was_reported": true,
       "observations": "Pago, Mes marzo 2023"
@@ -23,7 +24,8 @@
       "is_active": true,
       "is_deleted": false,
       "user": 1,
-      "concept": 1,
+      "type": 1,
+      "membership_plan": 1,
       "was_paid": true,
       "was_reported": true,
       "observations": "Pago, Mes febrero 2023"
@@ -38,7 +40,8 @@
       "is_active": true,
       "is_deleted": false,
       "user": 1,
-      "concept": 1,
+      "type": 1,
+      "membership_plan": 1,
       "was_paid": true,
       "was_reported": true,
       "observations": "Primer pago, Mes enero 2023"

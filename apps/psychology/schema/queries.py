@@ -95,7 +95,19 @@ class ProfessionalQueries:
         if zone := _input.zone:
             kwargs["user_zone_set__zone__id"] = zone
 
-        if results := await adapter.get_objects(order_by=["id"], **kwargs):
+        ordering = [
+            "user_carreer_set__carreer_id",
+            "user_carreer_set__service_method",
+            ## por pagos MENSUAL - ANUAL
+            "type",
+            ## por pagos de tipo de plan: BASIC - PREMIUM - VIP
+            "membership_plan",
+            ##
+            "user_zone_set__zone__city_id",
+            "user_zone_set__zone_id",
+        ]
+
+        if results := await adapter.get_objects(order_by=ordering, **kwargs):
             return [
                 ProfessionalType.from_db_models(instance=professional)
                 for professional in results
