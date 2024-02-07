@@ -166,3 +166,4 @@ media/
 .DS_Store
 static/
 *.env
+.env.prd
