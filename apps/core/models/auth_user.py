@@ -73,16 +73,14 @@ class AuthUser(AbstractUser):
     verified_profile_at = models.DateTimeField(blank=True, null=True)
     personal_address = models.TextField(blank=True, null=True)
 
+    attention_schedule = models.CharField(max_length=50, blank=True, null=True)
+
     def __str__(self):
         _name = self.username or self.email
         return f"{_name}"
 
     def save(self, *args, **kwargs):
-        if self.is_verified_profile:
-            self.verified_profile_at = timezone.now()
-        else:
-            self.verified_profile_at = None
-
+        self.verified_profile_at = timezone.now() if self.is_verified_profile else None
         super().save(*args, **kwargs)
 
     @property
