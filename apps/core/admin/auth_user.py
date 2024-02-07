@@ -64,6 +64,7 @@ class UserAdmin(UserAdmin):
                     "facebook_profile",
                     "instagram_profile",
                     "linkedin_profile",
+                    "attention_schedule",
                 ),
             },
         ),

@@ -21,6 +21,14 @@ class UserPayment(AuditableMixin):
         blank=True,
         null=True,
     )
+    membership_plan = models.SmallIntegerField(
+        choices=psychology_constants.MEMBERSHIP_PLAN_TYPE_CHOICES,
+        default=psychology_constants.PLAN_BASIC,
+        db_index=True,
+        blank=True,
+        null=True,
+        help_text="Membership plan",
+    )
     was_paid = models.BooleanField(default=False, db_index=True)
     was_reported = models.BooleanField(default=False, db_index=True)
     observations = models.TextField(blank=True, null=True)
