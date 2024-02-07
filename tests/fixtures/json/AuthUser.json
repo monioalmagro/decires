@@ -25,7 +25,8 @@
       "verified_profile_at": "2024-01-14T15:14:40.826Z",
       "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B",
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "attention_schedule": null
     }
   },
   {
@@ -54,7 +55,8 @@
       "verified_profile_at": "2023-12-16T17:58:34.640Z",
       "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "attention_schedule": null
     }
   },
   {
@@ -83,7 +85,8 @@
       "verified_profile_at": "2023-12-16T18:19:02.408Z",
       "personal_address": "aqdrff",
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "attention_schedule": null
     }
   },
   {
@@ -112,7 +115,8 @@
       "verified_profile_at": "2023-12-16T19:25:25.527Z",
       "personal_address": "",
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "attention_schedule": null
     }
   },
   {
@@ -141,7 +145,8 @@
       "verified_profile_at": "2023-12-16T19:25:01.034Z",
       "personal_address": "Los cerezos, sector nuevo milenio, mz. F, Lote24B\r\n10",
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "attention_schedule": null
     }
   },
   {
@@ -170,7 +175,8 @@
       "verified_profile_at": "2023-12-16T19:28:56.374Z",
       "personal_address": "",
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "attention_schedule": null
     }
   }
 ]
