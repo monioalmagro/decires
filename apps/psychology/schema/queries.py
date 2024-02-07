@@ -99,7 +99,7 @@ class ProfessionalQueries:
             "user_carreer_set__carreer_id",
             "user_carreer_set__service_method",
             ## por pagos MENSUAL - ANUAL
-            "concept",
+            "type",
             ## por pagos de tipo de plan: BASIC - PREMIUM - VIP
             "membership_plan",
             ##
