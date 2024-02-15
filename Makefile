@@ -7,20 +7,20 @@ help: ## Print help
 .DEFAULT_GOAL := help
 init: down volume up ## Init Project
 down: ## Stop all compose services
-	docker-compose down --remove-orphans
+	docker compose down --remove-orphans
 volume: ## Remove all containers volumes
 	docker volume prune -f
 pull: ## Pull images
-	docker-compose pull
+	docker compose pull
 build: ## Build Docker services
-	docker-compose build --no-cache
+	docker compose build --no-cache
 up: pull build ## Run all services
-	docker-compose up -d
+	docker compose up -d
 	make drop-db
 	make migrate
 	make ps
 ps: ## Show all services
-	docker-compose ps
+	docker compose ps
 prune: ## Remove all volumes, containers and services
 	make down
 	make volume
@@ -43,9 +43,9 @@ clean:
 	find . -name '*~' -delete
 	find . -name '__pycache__' -delete
 lint: ## Run linters
-	docker-compose run --rm -v /app/ web sh -c "black apps/ && isort apps/ --profile black && flake8 apps/ && safety check"
+	docker compose run --rm -v /app/ web sh -c "black apps/ && isort apps/ --profile black && flake8 apps/ && safety check"
 lint-tests:
-	docker-compose run --rm -v /app/ web sh -c "black tests/ && isort tests/ --profile black"
+	docker compose run --rm -v /app/ web sh -c "black tests/ && isort tests/ --profile black"
 pyenv-python: ## Install python
 	pyenv install -s 3.11
 pyenv-create-env:
