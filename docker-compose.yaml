@@ -45,17 +45,6 @@ services:
       - postgres
     command: bash -c "python3 manage.py runserver 0:8000"
   
-  nginx:
-    container_name: ${COMPOSE_PROJECT_NAME}_nginx
-    image: nginx:latest
-    ports:
-      - 80:80
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./:/app/
-    depends_on:
-      - web
-
 
   postgres:
     image: postgres:latest
@@ -72,4 +61,3 @@ services:
 
 volumes:
   pg_data:
-  nginx_data:  # Definición del volumen para Nginx
