@@ -39,6 +39,7 @@ services:
     volumes:
       - ./:/app/
       - /app/.venv
+      - static_volume:/app/static
     environment:
       <<: *default-environment-args
     depends_on:
@@ -61,3 +62,4 @@ services:
 
 volumes:
   pg_data:
+  static_volume:
