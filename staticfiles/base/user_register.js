@@ -72,6 +72,7 @@ mutation newProfessionalMutations($input: MutationUserInput!) {
           __typename
         }
         genderEnum
+        membershipPlanEnum
         facebookProfile
         instagramProfile
         linkedinProfile

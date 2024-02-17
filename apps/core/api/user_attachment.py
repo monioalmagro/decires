@@ -34,19 +34,15 @@ class RegisterUserAttachment(TemplateView):
         _files = [_avatar, _dni, _matricula]
         update_fields = []
         for obj, _file in zip(obj_list, _files, strict=True):
-            if obj.content_type not in [
-                ".png",
-                ".jpg",
-                ".jpeg",
-                ".svg",
-            ]:
-                obj.media_file.save(_file.name, File(_file))
-                update_fields.append("media_file")
-            else:
-                obj.image.save(_file.name, File(_file))
-                update_fields.append("image")
+            if obj:
+                if obj.content_type != UserAttachment.USER_IMAGE:
+                    obj.media_file.save(_file.name, File(_file))
+                    update_fields.append("media_file")
+                else:
+                    obj.image.save(_file.name, File(_file))
+                    update_fields.append("image")
 
-            obj.save(update_fields=update_fields)
+                obj.save(update_fields=update_fields)
 
     def saved_user_attachments(self, request: HttpRequest):
         data_post = request.POST

@@ -9,7 +9,10 @@ from apps.psychology.adapters.specialization import SpecializationAdapter
 from apps.psychology.adapters.user_attachments import UserAttachmentAdapter
 from apps.psychology.adapters.zone import ZoneAdapter
 from apps.psychology.models import UserAttachment
-from apps.psychology.schema.enums.auth_user import AuthUserGenderEnum
+from apps.psychology.schema.enums.auth_user import (
+    AuthUserGenderEnum,
+    AuthUserMembershipPlanEnum,
+)
 from apps.psychology.schema.types.carreer import CarreerType
 from apps.psychology.schema.types.city import ZoneType
 from apps.psychology.schema.types.specialization import SpecializationType
@@ -39,6 +42,7 @@ class UserType:
     last_name: str | None = None
     email: str | None = None
     gender_enum: AuthUserGenderEnum | None = None
+    membership_plan_enum: AuthUserMembershipPlanEnum | None = None
     default_profile_picture: strawberry.Private[str]
 
     @classmethod
@@ -50,6 +54,7 @@ class UserType:
             email=instance.email,
             gender_enum=instance.gender,
             default_profile_picture=instance.default_profile_picture,
+            membership_plan_enum=instance.membership_plan,
         )
 
     @strawberry.field()
