@@ -4,11 +4,15 @@ from django.core.validators import validate_email
 from pydantic import BaseModel, validator
 
 # Own Libraries
-from apps.psychology.schema.enums.auth_user import AuthUserGenderEnum
+from apps.psychology.schema.enums.auth_user import (
+    AuthUserGenderEnum,
+    AuthUserMembershipPlanEnum,
+)
 from apps.psychology.schema.enums.user_carreer import (
     CarreerServiceMethodEnum,
     CarreerServiceModalityEnum,
 )
+from config.enviroment_vars import settings
 
 
 class QueryListPydanticModel(BaseModel):
@@ -39,8 +43,8 @@ class MutationUserPydanticModel(BaseModel):
     username: str
     first_name: str
     last_name: str | None = None
-    password: str
-    password_confirm: str
+    password: str | None = settings.PASSWORD_DEFAULT.get_secret_value()
+    password_confirm: str | None = settings.PASSWORD_DEFAULT.get_secret_value()
     nro_dni: str
     nro_matricula: str
     cuit: str
@@ -58,6 +62,10 @@ class MutationUserPydanticModel(BaseModel):
     specializations: list[strawberry.ID] = None
     experience_summary: str | None = None
     attachment_ids: list[strawberry.ID] = None
+    attention_schedule: str | None = None
+    membership_plan_enum: AuthUserMembershipPlanEnum | None = (
+        AuthUserMembershipPlanEnum.BASICO
+    )
 
     @validator("experience_summary")
     @classmethod
@@ -75,6 +83,7 @@ class MutationUserPydanticModel(BaseModel):
         "nro_matricula",
         "cuit",
         "phone",
+        "attention_schedule",
     )
     @classmethod
     def validate_first_name(cls, name):
@@ -105,35 +114,7 @@ class MutationUserPydanticModel(BaseModel):
     @validator("languages")
     @classmethod
     def languages_check(cls, languages):
-        return languages or []
-
-    @validator("password")
-    @classmethod
-    def validate_password(cls, value):
-        # Verificar que la contraseña contiene al menos 1 minúscula
-        if not any(char.islower() for char in value):
-            raise AssertionError("La contraseña debe contener al menos una minúscula")
-
-        # Verificar que la contraseña contiene al menos 1 mayúscula
-        if not any(char.isupper() for char in value):
-            raise AssertionError("La contraseña debe contener al menos una mayúscula")
-
-        # Verificar que la contraseña contiene al menos 1 carácter especial
-        if not any(char in "!@#$%^&*()-_+=<>,.?/:;{}[]" for char in value):
-            raise AssertionError(
-                "La contraseña debe contener al menos un carácter especial"
-            )
-
-        return value
-
-    @validator("password_confirm")
-    @classmethod
-    def validate_password_confirm(cls, value, values):
-        # Verificar que la contraseña y su confirmación son iguales
-        if "password" in values and value != values["password"]:
-            raise AssertionError("Las contraseñas no coinciden")
-
-        return value
+        return languages or ["1"]
 
     class Config:
         use_enum_values = True

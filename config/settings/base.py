@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 # Standard Libraries
 import os
 from pathlib import Path
@@ -32,7 +33,7 @@ SECRET_KEY = settings.SECRET_KEY.get_secret_value()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = settings.DEBUG
 
-ALLOWED_HOSTS = ['18.189.26.139', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 
 # Application definition

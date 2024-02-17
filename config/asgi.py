@@ -16,6 +16,8 @@ from django.core.asgi import get_asgi_application
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from strawberry.fastapi import GraphQLRouter
+
+# Own Libraries
 from config.enviroment_vars import settings
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
@@ -33,8 +35,8 @@ fastapp.include_router(graphql_app, prefix="/api/graph")
 
 origins = [
     "http://localhost",
-    # "http://localhost:8000",
     settings.DECIRES_URL,
+    # settings.GRAPHQL_URL,
 ]
 
 fastapp.add_middleware(

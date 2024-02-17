@@ -40,11 +40,13 @@ class CityType:
 @strawberry.type()
 class ZoneType:
     name: str | None = None
+    slug: str | None = None
     city: CityType | None = None
 
     @classmethod
     def from_db_model(cls, instance: Zone) -> "ZoneType":
         return cls(
             name=instance.name,
+            slug=instance.slug,
             city=CityType.from_db_model(instance=instance.city),
         )

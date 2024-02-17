@@ -157,49 +157,14 @@
 <script>
   const originalId = {{original_id}}
 </script>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
+     crossorigin=""
+></script>
 <script src="{% static 'base/professional_retrieve.js' %}?no_cache={{ no_cache }}"></script>
 <script src="{% static 'assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js' %}"></script>
 
-<script>
 
-var map = L.map('map').setView([-34.61315, -58.37723], 10);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 20,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-var puerto_madero = L.marker([-34.6, -58.36667]).addTo(map);
-puerto_madero.bindPopup("<b>Puerto Madero</b>").openPopup();
-
-var almagro = L.marker([-34.6113241,-58.4223237]).addTo(map);
-almagro.bindPopup("<b>Almagro</b>").openPopup();
-
-
-  var marker;
-
-  // Añadir un evento de clic al mapa
-  map.on('click', function (e) {
-      // Eliminar el marcador existente, si hay uno
-      if (marker) {
-          map.removeLayer(marker);
-      }
-
-      // Crear un nuevo marcador en la posición del clic
-      marker = L.marker(e.latlng).addTo(map);
-
-      // Obtener las coordenadas y mostrarlas en la consola
-      var lat = e.latlng.lat;
-      var lng = e.latlng.lng;
-      console.log("Latitud: " + lat + ", Longitud: " + lng);
-
-      // Aquí puedes enviar las coordenadas al servidor o realizar otras acciones
-      // como guardarlas en tu base de datos.
-  });
-
-
-</script>
 
 {% endblock extra_js %}

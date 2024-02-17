@@ -1,5 +1,6 @@
 # Standard Libraries
 import logging
+import os
 
 # Third-party Libraries
 from dotenv import load_dotenv
@@ -74,6 +75,9 @@ class PsychologySettings(BaseSettings):
     )
     DEFAULT_THUMBNAIL_MALE_IMAGE: str = Field(default="assets/img/user/male_user.jpg")
     AWS_SETTINGS: AWSSettings | None = aws_settings
+    ALLOWED_HOSTS: list[str] = Field(default=[], env="ALLOWED_HOSTS")
+
+    PASSWORD_DEFAULT: SecretStr = Field(default="Av123456789#")
 
     class Config:
         env_prefix = ""
@@ -81,6 +85,12 @@ class PsychologySettings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         json_loads = json.loads
+
+        @classmethod
+        def parse_env_var(cls, field_name: str, raw_val: str):
+            if field_name == "ALLOWED_HOSTS":
+                return os.environ.get("ALLOWED_HOSTS", "*").split(",")
+            return cls.json_loads(raw_val)
 
 
 settings = PsychologySettings()

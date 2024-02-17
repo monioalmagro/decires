@@ -133,8 +133,14 @@ class ProfessionalType(UserType):
     async def attachment_set(self) -> list[AttachmentType]:
         adapter = UserAttachmentAdapter()
         adapter.user_id = self.original_id
+
         if results := await adapter.get_objects(
-            **{"source_content_type": UserAttachment.USER_ATTACHMENT}
+            **{
+                "source_content_type__in": [
+                    UserAttachment.USER_DNI,
+                    UserAttachment.USER_MATRICULA,
+                ]
+            },
         ):
             return [
                 AttachmentType.from_db_model(instance=attachment_instance)

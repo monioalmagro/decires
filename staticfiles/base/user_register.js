@@ -300,6 +300,8 @@ registerUser = (attachmentIds = []) => {
           carreer: $("#carreer").val().toString(),
           officeLocations: $("#zone").val(),
           personalAddress: $("#personal_address").val(),
+          membershipPlanEnum: $("#membership_plan").val(),
+          attentionSchedule: $("#attention_schedule").val(),
         },
       },
     }),
@@ -338,13 +340,30 @@ registerUser = (attachmentIds = []) => {
   return 0;
 };
 
-uploadAttachment = (html_id = "avatar") => {
-  var fileInput = document.getElementById(html_id);
-  var file = fileInput.files[0];
+uploadAttachment = () => {
+  var avatarInput = document.getElementById("avatar");
+  var avatarFile = avatarInput.files[0];
+
+  var dniInput = document.getElementById("dni");
+  var dniFile = dniInput.files[0];
+
+  var matriculaInput = document.getElementById("matricula");
+  var matriculaFile = matriculaInput.files[0];
+
   var formData = new FormData();
-  formData.append("attachment", file);
-  formData.append("source_type", 1);
-  formData.append("description", "ImageProfile");
+
+  formData.append("avatar", avatarFile);
+  formData.append("avatar_data", JSON.stringify({ source_type: 1, description: "User AVATAR" }));
+
+  formData.append("dni", dniFile);
+  formData.append("dni_data", JSON.stringify({ source_type: 2, description: "User DNI" }));
+
+  formData.append("matricula", matriculaFile);
+  formData.append(
+    "matricula_data",
+    JSON.stringify({ source_type: 3, description: "User MATRICULA" })
+  );
+
   $.ajax({
     url: Django.urls.uploadAttachment,
     method: "POST",
@@ -352,10 +371,8 @@ uploadAttachment = (html_id = "avatar") => {
     processData: false,
     data: formData,
     success: function (response) {
-      console.log("Éxito:", response);
-      if (response.originalId) {
-        originalId = response.originalId.toString();
-        registerUser([originalId]);
+      if (response.originalIds) {
+        registerUser(response.originalIds);
       }
     },
     error: function (error) {
@@ -364,3 +381,21 @@ uploadAttachment = (html_id = "avatar") => {
   });
   return 0;
 };
+
+/* ## MEMBERSHIP PLAN ## */
+
+$("#membership_basic").on("click", function (e) {
+  e.preventDefault();
+  $btn_selected = $(this).addClass("btn-dark text-white").removeClass("btn-warning text-dark");
+  $("#membership_premium").addClass("btn-warning text-dark").removeClass("btn-dark text-white");
+  $("#membership_plan").val("BASICO");
+});
+
+$("#membership_premium").on("click", function (e) {
+  e.preventDefault();
+  $btn_selected = $(this).addClass("btn-dark text-white").removeClass("btn-warning text-dark");
+  $("#membership_basic").addClass("btn-warning text-dark").removeClass("btn-dark text-white");
+  $("#membership_plan").val("PREMIUM");
+});
+
+/* ## MEMBERSHIP PLAN ## */

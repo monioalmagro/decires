@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Own Libraries
 from apps.core import core_constants
+from apps.psychology import psychology_constants
 from config.enviroment_vars import settings
 
 
@@ -74,6 +75,14 @@ class AuthUser(AbstractUser):
     personal_address = models.TextField(blank=True, null=True)
 
     attention_schedule = models.CharField(max_length=50, blank=True, null=True)
+    membership_plan = models.SmallIntegerField(
+        choices=psychology_constants.MEMBERSHIP_PLAN_TYPE_CHOICES,
+        default=psychology_constants.BASIC_PLAN,
+        db_index=True,
+        blank=True,
+        null=True,
+        help_text="Membership plan",
+    )
 
     def __str__(self):
         _name = self.username or self.email

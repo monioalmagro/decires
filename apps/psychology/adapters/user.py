@@ -23,7 +23,7 @@ class UserAdapter(ModelAdapter):
             self.get_model_class()
             .objects.filter(**kwargs)
             .annotate(
-                membership_plan=F("user_payment_set__membership_plan"),
+                # membership_plan=F("user_payment_set__membership_plan"),
                 type=F("user_payment_set__type"),
             )
         )
@@ -86,6 +86,8 @@ class UserAdapter(ModelAdapter):
                     instagram_profile=_input.instagram_profile,
                     linkedin_profile=_input.linkedin_profile,
                     personal_address=_input.personal_address,
+                    membership_plan=_input.membership_plan_enum,
+                    attention_schedule=_input.attention_schedule,
                 )
             return obj
         except (DatabaseError, IntegrityError) as exp:

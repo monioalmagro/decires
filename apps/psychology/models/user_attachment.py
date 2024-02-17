@@ -12,11 +12,13 @@ User = get_user_model()
 
 class UserAttachment(AuditableMixin):
     USER_IMAGE = 1
-    USER_ATTACHMENT = 2
+    USER_DNI = 2
+    USER_MATRICULA = 3
 
     SOURCE_CONTENT_TYPE_CHOICES = (
         (USER_IMAGE, "USER_IMAGE"),
-        (USER_ATTACHMENT, "USER_ATTACHMENT"),
+        (USER_DNI, "USER_DNI"),
+        (USER_MATRICULA, "USER_MATRICULA"),
     )
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)

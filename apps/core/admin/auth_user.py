@@ -76,6 +76,7 @@ class UserAdmin(UserAdmin):
                     "cuit",
                     "is_verified_profile",
                     "verified_profile_at",
+                    "membership_plan",
                 ),
             },
         ),

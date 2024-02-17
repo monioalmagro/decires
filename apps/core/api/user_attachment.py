@@ -1,4 +1,5 @@
 # Standard Libraries
+import json
 import logging
 from typing import Any
 
@@ -26,54 +27,87 @@ class RegisterUserAttachment(TemplateView):
             return self.post(request=request, *args, **kwargs)
         return JsonResponse({"Error": "Method no allowed"})
 
-    def save_file(self, request: HttpRequest, obj: UserAttachment):
-        _file = request.FILES.get("attachment")
+    def save_file(self, request: HttpRequest, obj_list: list[UserAttachment]):
+        _avatar = request.FILES.get("avatar")
+        _dni = request.FILES.get("dni")
+        _matricula = request.FILES.get("matricula")
+        _files = [_avatar, _dni, _matricula]
         update_fields = []
-        if obj.content_type not in [
-            ".png",
-            ".jpg",
-            ".jpeg",
-            ".svg",
-        ]:
-            obj.media_file.save(_file.name, File(_file))
-            update_fields.append("media_file")
-        else:
-            obj.image.save(_file.name, File(_file))
-            update_fields.append("image")
+        for obj, _file in zip(obj_list, _files, strict=True):
+            if obj.content_type not in [
+                ".png",
+                ".jpg",
+                ".jpeg",
+                ".svg",
+            ]:
+                obj.media_file.save(_file.name, File(_file))
+                update_fields.append("media_file")
+            else:
+                obj.image.save(_file.name, File(_file))
+                update_fields.append("image")
 
-        obj.save(update_fields=update_fields)
+            obj.save(update_fields=update_fields)
 
-    def saved_user_attachment(self, request: HttpRequest):
-        data = request.POST
-        _file = request.FILES.get("attachment")
-        user_attachment = UserAttachment()
-        user_attachment.description = data.get("description") or None
-        user_attachment.source_content_type = data.get("source_type")
-        user_attachment.name = _file.name
-        user_attachment.content_type = f""".{File(_file).name.split(".")[-1]}"""
-        user_attachment.size = _file.size / (1024 * 1024)
-        user_attachment.url_path = "AWS PRESIGNED URL"
-        user_attachment.save()
-        return user_attachment
+    def saved_user_attachments(self, request: HttpRequest):
+        data_post = request.POST
+
+        avatar = request.FILES.get("avatar")
+        dni = request.FILES.get("dni")
+        matricula = request.FILES.get("matricula")
+
+        _files = [avatar, dni, matricula]
+        _datas = [
+            json.loads(data_post.get("avatar_data")) or {},
+            json.loads(data_post.get("dni_data")) or {},
+            json.loads(data_post.get("matricula_data")) or {},
+        ]
+
+        user_attachments = []
+
+        for _file, data in zip(_files, _datas, strict=True):
+            user_attachments.append(
+                UserAttachment(
+                    description=data.get("description") or None,
+                    source_content_type=data.get("source_type"),
+                    name=_file.name,
+                    content_type=f""".{File(_file).name.split(".")[-1]}""",
+                    size=_file.size / (1024 * 1024),
+                    url_path="AWS PRESIGNED URL",
+                )
+            ),
+
+        return UserAttachment.objects.bulk_create(objs=user_attachments)
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        # subir al bucket y guardar el path
         try:
-            _files = request.FILES.get("attachment") or None
+            _avatar = request.FILES.get("avatar")
+            dni = request.FILES.get("dni")
+            matricula = request.FILES.get("matricula")
+            if not _avatar:
+                raise AssertionError("Avatar File not found in this request")
+            if not dni:
+                raise AssertionError("DNI File not found in this request")
+            if not matricula:
+                raise AssertionError("Matricula File not found in this request")
 
-            if not _files:
-                raise AssertionError("File not found in this request")
+            attachment_list = self.saved_user_attachments(request=request)
+            self.save_file(request=request, obj_list=attachment_list)
+            response = {
+                "originalIds": [],
+                "instances": [],
+            }
 
-            attachment_instance = self.saved_user_attachment(request=request)
-            self.save_file(request=request, obj=attachment_instance)
+            for attachment_instance in attachment_list:
+                response["originalIds"].append(str(attachment_instance.pk))
+                response["instances"].append(
+                    {
+                        "originalId": attachment_instance.pk,
+                        "name": attachment_instance.name,
+                        "attachment_path": attachment_instance.url_path,
+                    }
+                )
 
-            return JsonResponse(
-                {
-                    "originalId": attachment_instance.pk,
-                    "name": attachment_instance.name,
-                    "attachment_path": attachment_instance.url_path,
-                }
-            )
+            return JsonResponse(response)
         except AssertionError as exp:
             logger.warning(f"*** {self.__class__.__name__}.post ***")
             logger.warning(f"*** VALIDATION ERROR {repr(exp)} ***")
