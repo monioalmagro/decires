@@ -43,6 +43,7 @@ class UserType:
     email: str | None = None
     gender_enum: AuthUserGenderEnum | None = None
     membership_plan_enum: AuthUserMembershipPlanEnum | None = None
+    attention_schedule: str | None = None
     default_profile_picture: strawberry.Private[str]
 
     @classmethod
@@ -53,8 +54,9 @@ class UserType:
             last_name=instance.last_name,
             email=instance.email,
             gender_enum=instance.gender,
-            default_profile_picture=instance.default_profile_picture,
             membership_plan_enum=instance.membership_plan,
+            attention_schedule=instance.attention_schedule,
+            default_profile_picture=instance.default_profile_picture,
         )
 
     @strawberry.field()

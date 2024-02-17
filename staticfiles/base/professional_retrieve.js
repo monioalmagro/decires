@@ -15,6 +15,8 @@ query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
         __typename
       }
       genderEnum
+      membershipPlanEnum
+      attentionSchedule
       facebookProfile
       instagramProfile
       linkedinProfile
@@ -932,7 +934,7 @@ markerCoordenadas = (zone_slugs) => {
         // fillColor: "#f03",
         fillColor: "#ff9800",
         fillOpacity: 0.5,
-        radius: 1000,
+        radius: 500,
       }).addTo(map);
     }
   });
