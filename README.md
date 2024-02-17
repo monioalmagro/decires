@@ -52,15 +52,16 @@ This results in the following running containers:
 ```bash
 docker-compose ps
 NAME                  IMAGE               COMMAND                  SERVICE             CREATED             STATUS              PORTS
-psychology_api        psychology-api      "/bin/sh -c 'python …"   api                 23 minutes ago      Up 23 minutes       0.0.0.0:9000->9000/tcp
-psychology_postgres   postgres:latest     "docker-entrypoint.s…"   postgres            23 minutes ago      Up 23 minutes       0.0.0.0:5432->5432/tcp
-psychology_web        psychology-web      "bash -c 'python3 ma…"   web                 23 minutes ago      Up 23 minutes       0.0.0.0:8000->8000/tcp
+psychology_api        psychology-api      "/bin/sh -c 'python …"   api                 4 seconds ago       Up 3 seconds        0.0.0.0:9000->9000/tcp
+psychology_nginx      nginx:latest        "/docker-entrypoint.…"   nginx               4 seconds ago       Up 3 seconds        0.0.0.0:8000->80/tcp
+psychology_postgres   postgres:latest     "docker-entrypoint.s…"   postgres            4 seconds ago       Up 4 seconds        0.0.0.0:5432->5432/tcp
+psychology_web        psychology-web      "bash -c 'python3 ma…"   web                 4 seconds ago       Up 3 seconds        0.0.0.0:8500->8000/tcp
 ```
 
 The microservices are running at:
 
 - API: [http://localhost:9000/api/graph/psychology/](http://localhost:9000/api/graph/psychology/)
-- Admin: [http://localhost:8000/admin](http://localhost:8000/admin/)
+- Admin: [http://localhost:8500/admin](http://localhost:8500/admin/)
 
 5. Run the linters:
 
