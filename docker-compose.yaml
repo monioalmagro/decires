@@ -29,7 +29,7 @@ services:
 
   web:
     ports:
-      - 8000:8000
+      - 8500:8000
     container_name: ${COMPOSE_PROJECT_NAME}_web
     build:
       context: ./
@@ -45,7 +45,17 @@ services:
     depends_on:
       - postgres
     command: bash -c "python3 manage.py runserver 0:8000"
-  
+
+  nginx:
+    image: nginx:latest
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./bin/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/app/static
+    depends_on:
+      - web
 
   postgres:
     image: postgres:latest
@@ -61,5 +71,6 @@ services:
       - "5432:5432"
 
 volumes:
+  .:
   pg_data:
   static_volume:
