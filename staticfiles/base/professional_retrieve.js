@@ -697,32 +697,6 @@ function htmlComponentDisplay($data) {
             </br>
             <h2 class="content-title">${obj.firstName} ${obj.lastName} (${userCarreer.name})</h2>
             <hr>
-            <h3 class="content-title"><i class="fa fa-globe"></i> Redes Sociales</h3>
-            <h4 class="content-title">
-              <small>
-                ${emailIcon}
-                ${obj.email || ""}
-              </small>
-            </h4>
-            <h4 class="content-title">
-              <small>
-                ${linkedInIcon}
-                ${obj.linkedinProfile || ""}
-              </small>
-            </h4>
-            <h4 class="content-title">
-              <small>
-                ${facebookIcon}
-                ${obj.facebookProfile || ""}
-              </small>
-            </h4>
-            <h4 class="content-title">
-              <small>
-                ${instagramIcon}
-                ${obj.instagramProfile || ""}
-              </small>
-            </h4>
-            <hr>
             <h4 class="content-title">Tipo de atención:
               <small>
                 ${userCarreer.serviceMethodEnum}
