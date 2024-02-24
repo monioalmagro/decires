@@ -17,3 +17,9 @@ from apps.psychology.admin.specialization import (
 )
 from apps.psychology.admin.admin_email_notification import AdminEmailNotificationAdmin
 from apps.psychology.admin.user_specialization import UserSpecializationInline
+
+from apps.psychology.admin.management_membership_plan import (
+    MembershipAdmin,
+    MembershipPriceAdmin,
+    HistoryMembershipPriceInlineAdmin,
+)

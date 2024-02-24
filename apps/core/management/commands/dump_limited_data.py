@@ -9,7 +9,10 @@ from apps.psychology.models import (
     AdminEmailNotification,
     Carreer,
     ContactMe,
+    HistoryMembershipPrice,
     Language,
+    Membership,
+    MembershipPrice,
     Specialization,
     UserAttachment,
     UserCarreer,
@@ -38,6 +41,9 @@ class Command(BaseCommand):
         (Specialization, "Specialization"),
         (UserSpecialization, "UserSpecialization"),
         (AdminEmailNotification, "AdminEmailNotification"),
+        (HistoryMembershipPrice, "HistoryMembershipPrice"),
+        (Membership, "Membership"),
+        (MembershipPrice, "MembershipPrice"),
     )
 
     def handle(self, *args, **options):
