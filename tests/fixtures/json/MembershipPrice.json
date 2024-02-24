@@ -12,9 +12,9 @@
       "promotional_price": 1000.0,
       "membership_options": {
         "items": [
-          "A",
-          "B",
-          "C"
+          "Recibir pacientes",
+          "Formación profesional",
+          "Supervisión"
         ],
         "modalidad": "Mensual"
       },
@@ -35,9 +35,9 @@
       "promotional_price": 2000.0,
       "membership_options": {
         "items": [
-          "A",
-          "B",
-          "C"
+          "Recibir pacientes",
+          "Formación profesional",
+          "Supervisión"
         ],
         "modalidad": "Mensual"
       },

@@ -2,9 +2,11 @@
 import strawberry
 
 # Own Libraries
+from apps.psychology import psychology_constants
 from apps.psychology.adapters.carreer import CarreerAdapter
 from apps.psychology.adapters.city import CityAdapter
 from apps.psychology.adapters.languages import LanguageAdapter
+from apps.psychology.adapters.membership_price import MembershipPriceAdapter
 from apps.psychology.adapters.specialization import SpecializationAdapter
 from apps.psychology.adapters.user import UserAdapter
 from apps.psychology.adapters.zone import ZoneAdapter
@@ -14,6 +16,7 @@ from apps.psychology.schema.inputs.user import (
 )
 from apps.psychology.schema.types.carreer import CarreerSelect2Type
 from apps.psychology.schema.types.city import CitySelect2Type, ZoneSelect2Type
+from apps.psychology.schema.types.membership_price import MembershipPriceType
 from apps.psychology.schema.types.specialization import (
     SpecializationSelect2Type,
 )
@@ -126,3 +129,19 @@ class ProfessionalQueries:
         }
         if result := await adapter.get_object(**kwargs):
             return ProfessionalType.from_db_models(instance=result)
+
+    @strawberry.field()
+    async def get_membership_plans(self) -> list[MembershipPriceType]:
+        adapter = MembershipPriceAdapter()
+        results = await adapter.get_objects(
+            membership__membership_plan__in=[
+                psychology_constants.PREMIUM_PLAN,
+                psychology_constants.BASIC_PLAN,
+            ],
+            order_by=["id"],
+        )
+
+        return [
+            MembershipPriceType.from_db_model(instance=membership)
+            for membership in results
+        ]

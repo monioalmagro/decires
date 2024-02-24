@@ -133,6 +133,20 @@ mutation newProfessionalMutations($input: MutationUserInput!) {
 }
 `;
 
+const getMembershipPlans = `
+  query getMembershipPlans{
+    psychology{
+      getMembershipPlans{
+        originalId
+        membership
+        price
+        membershipOptions
+        __typename
+      }
+    }
+  }
+`;
+
 get_zones_query = (cityId) => {
   return `query select2Queries {
     select2 {
@@ -385,18 +399,89 @@ uploadAttachment = () => {
 
 /* ## MEMBERSHIP PLAN ## */
 
-$("#membership_basic").on("click", function (e) {
-  e.preventDefault();
-  $btn_selected = $(this).addClass("btn-dark text-white").removeClass("btn-warning text-dark");
-  $("#membership_premium").addClass("btn-warning text-dark").removeClass("btn-dark text-white");
-  $("#membership_plan").val("BASICO");
-});
+membershipPlanSection = (obj, index) => {
+  features = ``;
+  features_data = obj.membershipOptions.items;
+  btn_id = null;
 
-$("#membership_premium").on("click", function (e) {
-  e.preventDefault();
-  $btn_selected = $(this).addClass("btn-dark text-white").removeClass("btn-warning text-dark");
-  $("#membership_basic").addClass("btn-warning text-dark").removeClass("btn-dark text-white");
-  $("#membership_plan").val("PREMIUM");
+  if (index == 0) {
+    btn_id = "membership_basic";
+    for (i = 0; i < features_data.length; i++) {
+      if (features_data[i] == features_data[0]) {
+        features += `<li>${features_data[i]}</li>`;
+      } else {
+        features += `<li><del>${features_data[i]}</del></li>`;
+      }
+    }
+  } else {
+    btn_id = "membership_premium";
+    for (k = 0; k < features_data.length; k++) {
+      features += `<li>${features_data[k]}</li>`;
+    }
+  }
+
+  return `<li data-animation="true" data-animation-type="fadeInUp">
+            <div class="pricing-container bg-white">
+              <h3 class="bg-orange text-dark">${obj.membership}</h3>
+              <div class="price bg-orange">
+                <div class="price-figure">
+                  <span class="price-number  text-dark">$${obj.price}</span>
+                  <span class="price-tenure">${obj.membershipOptions.modalidad}</span>
+                </div>
+              </div>
+              <ul class="features">
+                ${features}
+              </ul>
+              <div class="footer bg-white" >
+                <a class="btn btn-warning text-dark" id="${btn_id}">
+                  Seleccionar
+                </a>
+              </div>
+            </div>
+          </li>`;
+};
+
+$.ajax({
+  url: Django.graphql_url,
+  method: "POST",
+  contentType: "application/json",
+  data: JSON.stringify({
+    query: getMembershipPlans,
+    variables: {},
+  }),
+  success: function (response) {
+    $data = response.data.psychology.getMembershipPlans;
+
+    $html = `<li data-animation="true" data-animation-type="fadeInUp"></li>`;
+    for (j = 0; j < $data.length; j++) {
+      $html += membershipPlanSection($data[j], j);
+    }
+
+    $html += `<li data-animation="true" data-animation-type="fadeInUp"></li>`;
+    $("#features").empty().append($html);
+
+    //  BTN FUNCTIONS
+
+    $("#membership_basic").on("click", function (e) {
+      e.preventDefault();
+      $btn_selected = $(this).addClass("btn-dark text-white").removeClass("btn-warning text-dark");
+      $("#membership_premium").addClass("btn-warning text-dark").removeClass("btn-dark text-white");
+      $("#membership_plan").val("BASICO");
+    });
+
+    $("#membership_premium").on("click", function (e) {
+      e.preventDefault();
+      $btn_selected = $(this).addClass("btn-dark text-white").removeClass("btn-warning text-dark");
+      $("#membership_basic").addClass("btn-warning text-dark").removeClass("btn-dark text-white");
+      $("#membership_plan").val("PREMIUM");
+    });
+
+    return false;
+  },
+  error: function (error) {
+    // Manejar errores
+    console.error(error);
+  },
 });
 
 /* ## MEMBERSHIP PLAN ## */
