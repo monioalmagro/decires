@@ -23,7 +23,6 @@ class UserAdapter(ModelAdapter):
             self.get_model_class()
             .objects.filter(**kwargs)
             .annotate(
-                # membership_plan=F("user_payment_set__membership_plan"),
                 type=F("user_payment_set__type"),
             )
         )
@@ -31,7 +30,8 @@ class UserAdapter(ModelAdapter):
     @async_database()
     def get_object(self, **kwargs) -> AuthUser | None:
         logger.info(f"*** KWARGS: {kwargs} ***")
-        kwargs["is_active"] = True
+        if "is_active" not in kwargs:
+            kwargs["is_active"] = True
         user_unique_filter = kwargs.pop("user_unique_filter", None)
         user_exclude = kwargs.pop("user_exclude", None)
 
@@ -42,7 +42,7 @@ class UserAdapter(ModelAdapter):
         if user_exclude:
             queryset = queryset.exclude(**user_exclude)
 
-        return queryset.first() if queryset.exists() else None
+        return queryset.first()
 
     @async_database()
     def get_objects(
@@ -53,12 +53,13 @@ class UserAdapter(ModelAdapter):
         **kwargs,
     ) -> list[AuthUser]:
         logger.debug(f"*** {self.__class__.__name__}.get_objects ***")
-        kwargs["is_active"] = True
+        if "is_active" not in kwargs:
+            kwargs["is_active"] = True
 
         limit = limit or self.default_limit
         offset = offset or 0
 
-        queryset = self.get_queryset(**kwargs).distinct(*order_by)
+        queryset = self.get_queryset(**kwargs)
 
         if order_by:
             queryset = queryset.order_by(*order_by)
@@ -102,16 +103,3 @@ class UserAdapter(ModelAdapter):
     def set_password(self, obj: AuthUser, password: str):
         obj.set_password(password)
         obj.save(update_fields=["password"])
-
-    # @async_database()
-    # def add_zones(self, obj: AuthUser, zone_list: list[Zone]):
-    #     try:
-    #         obj.office_locations.set(zone_list)
-    #         obj.save()
-    #     except (DatabaseError, IntegrityError) as exp:
-    #         logger.warning(
-    #             "*** UserAdapter.add_zones, INTEGRITY "
-    #             f"ERROR, {str(exp)} - {repr(exp)} ***",
-    #             exc_info=True,
-    #         )
-    #         raise IntegrityError(str(exp)) from exp

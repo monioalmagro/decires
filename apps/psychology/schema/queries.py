@@ -1,3 +1,6 @@
+# Standard Libraries
+import logging
+
 # Third-party Libraries
 import strawberry
 
@@ -22,6 +25,8 @@ from apps.psychology.schema.types.specialization import (
 )
 from apps.psychology.schema.types.user import ProfessionalType
 from apps.psychology.schema.types.user_language import LanguageSelect2Type
+
+logger = logging.getLogger(__name__)
 
 
 @strawberry.type()
