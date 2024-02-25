@@ -133,12 +133,18 @@ class ProfessionalQueries:
     @strawberry.field()
     async def get_membership_plans(self) -> list[MembershipPriceType]:
         adapter = MembershipPriceAdapter()
-        results = await adapter.get_objects(
+        kwargs = dict(
             membership__membership_plan__in=[
                 psychology_constants.PREMIUM_PLAN,
                 psychology_constants.BASIC_PLAN,
+                # psychology_constants.VIP_PLAN,
             ],
+            is_active=True,
+            is_deleted=False,
+        )
+        results = await adapter.get_objects(
             order_by=["id"],
+            **kwargs,
         )
 
         return [
