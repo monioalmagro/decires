@@ -14,6 +14,10 @@ class Language(AuditableMixin, SlugMixin):
     def __str__(self) -> str:
         return f"{self.slug}"
 
+    class Meta:
+        verbose_name = "Idioma"
+        verbose_name_plural = "Idiomas"
+
 
 class UserLanguage(AuditableMixin):
     user = models.ForeignKey(
@@ -33,6 +37,8 @@ class UserLanguage(AuditableMixin):
         return f"{self.user.username} ({self.language})"
 
     class Meta:
+        verbose_name = "Idioma de usuario"
+        verbose_name_plural = "Idiomas de los usuarios"
         constraints = [
             models.UniqueConstraint(
                 fields=["user", "language"],

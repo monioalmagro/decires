@@ -29,6 +29,10 @@ class Membership(AuditableMixin):
     def __str__(self):
         return self.alias
 
+    class Meta:
+        verbose_name = "Plan"
+        verbose_name_plural = "Planes"
+
 
 class MembershipPrice(AuditableMixin):
     membership = models.ForeignKey(
@@ -57,6 +61,10 @@ class MembershipPrice(AuditableMixin):
 
     def __str__(self):
         return f"{self.membership.alias}"
+
+    class Meta:
+        verbose_name = "Precio del plan"
+        verbose_name_plural = "Precios por planes"
 
     @staticmethod
     def inactive_membership_plans(**kwargs):

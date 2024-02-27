@@ -31,6 +31,8 @@ class UserCarreer(AuditableMixin):
     experience_summary = models.TextField(blank=True, null=True)
 
     class Meta:
+        verbose_name = "Profesión del usuario"
+        verbose_name_plural = "Profesión de los usuarios"
         constraints = [
             models.UniqueConstraint(
                 fields=["user", "carreer"],

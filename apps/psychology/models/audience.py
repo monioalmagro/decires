@@ -11,3 +11,7 @@ class Audience(AuditableMixin):
 
     def __str__(self):
         return f"{self.name}"
+
+    class Meta:
+        verbose_name = "Audiencia"
+        verbose_name_plural = "Audiencias"

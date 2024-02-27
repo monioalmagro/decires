@@ -34,6 +34,10 @@ class UserPayment(AuditableMixin):
     was_reported = models.BooleanField(default=False, db_index=True)
     observations = models.TextField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = "Pago del usuario"
+        verbose_name_plural = "Pagos de los usuarios"
+
     def __str__(self):
         return f"{self.was_paid}"
 
