@@ -15,6 +15,10 @@ class Specialization(AuditableMixin):
     def __str__(self):
         return f"{self.name}"
 
+    class Meta:
+        verbose_name = "Especialización"
+        verbose_name_plural = "Especializaciones"
+
 
 class UserSpecialization(AuditableMixin):
     user = models.ForeignKey(
@@ -34,6 +38,8 @@ class UserSpecialization(AuditableMixin):
         return f"{self.user.username} ({self.specialization})"
 
     class Meta:
+        verbose_name = "Especialización del usuario "
+        verbose_name_plural = "Especializaciones de los usuarios"
         constraints = [
             models.UniqueConstraint(
                 fields=["user", "specialization"],

@@ -23,6 +23,8 @@ class AdminEmailNotification(AuditableMixin):
         return f"{self.admin_email}"
 
     class Meta:
+        verbose_name = "Notificación de Email"
+        verbose_name_plural = "Notificaciones de Email"
         constraints = [
             models.UniqueConstraint(
                 fields=["object_id", "content_type"],

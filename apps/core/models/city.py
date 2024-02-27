@@ -14,3 +14,7 @@ class City(AuditableMixin, SlugMixin):
 
     def __str__(self) -> str:
         return f"{self.name}"
+
+    class Meta:
+        verbose_name = "Ciudad"
+        verbose_name_plural = "Ciudades"

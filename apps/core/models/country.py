@@ -10,3 +10,7 @@ class Country(AuditableMixin, SlugMixin):
 
     def __str__(self) -> str:
         return f"{self.name}"
+
+    class Meta:
+        verbose_name = "País"
+        verbose_name_plural = "Paises"

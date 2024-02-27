@@ -27,3 +27,7 @@ class ContactMe(AuditableMixin):
 
     def __str__(self):
         return f"{self.full_name} ({self.email})"
+
+    class Meta:
+        verbose_name = "Derivaciôn"
+        verbose_name_plural = "Derivaciones"

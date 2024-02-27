@@ -18,6 +18,10 @@ class Zone(AuditableMixin, SlugMixin):
     def __str__(self) -> str:
         return f"{self.name}"
 
+    class Meta:
+        verbose_name = "Barrio"
+        verbose_name_plural = "Barrios"
+
 
 class UserZone(AuditableMixin):
     user = models.ForeignKey(
@@ -37,6 +41,8 @@ class UserZone(AuditableMixin):
         return f"{self.user.username} ({self.zone})"
 
     class Meta:
+        verbose_name = "Barrio del usuario"
+        verbose_name_plural = "Barrios de los usuarios"
         constraints = [
             models.UniqueConstraint(
                 fields=["user", "zone"],

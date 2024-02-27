@@ -74,6 +74,10 @@ class UserAttachment(AuditableMixin):
     def __str__(self) -> str:
         return f"{self.name} ({self.content_type})"
 
+    class Meta:
+        verbose_name = "Archivo del usuario"
+        verbose_name_plural = "Archivos de los usuarios"
+
     @property
     def url_content(self) -> str | None:
         if (base_media := settings.MEDIA_URL) and (
