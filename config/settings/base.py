@@ -152,9 +152,9 @@ MEDIA_ROOT = "media"
 AUTH_USER_MODEL = "core.AuthUser"
 
 # EMAIL
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'decirespsicologia@gmail.com'
-EMAIL_HOST_PASSWORD = 'qryk iyiy aghr fesj'
+EMAIL_BACKEND = settings.EMAIL_SETTINGS.EMAIL_BACKEND
+EMAIL_HOST = settings.EMAIL_SETTINGS.EMAIL_HOST
+EMAIL_PORT = settings.EMAIL_SETTINGS.EMAIL_PORT
+EMAIL_USE_TLS = settings.EMAIL_SETTINGS.EMAIL_USE_TLS
+EMAIL_HOST_USER = settings.EMAIL_SETTINGS.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = settings.EMAIL_SETTINGS.EMAIL_HOST_PASSWORD.get_secret_value()

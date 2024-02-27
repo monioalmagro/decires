@@ -1,19 +1,14 @@
+# Third-party Libraries
 from django.core.mail import send_mail
+
+# Own Libraries
 from apps.psychology.models import ContactMe
-
-
-password = "qryk iyiy aghr fesj"
-
+from config.enviroment_vars import settings
 
 SUBJECT_NEW_PROFESSIONAL = "Nuevo registro de un Profesional"
 MESSAGE_NEW_PROFESSIONAL = "Nuevo registro de un Profesional"
-EMAIL_FROM = "decirespsicologia@gmail.com"
-RECIPIENT_LIST = ["emazzurque@gmail.com"]
-
+RECIPIENT_LIST = [settings.DECIRES_EMAIL]
 SUBJECT_CONTACT_ME = "Derivación"
-
-EMAIL_FROM = "decirespsicologia@gmail.com"
-RECIPIENT_LIST = ["emazzurque@gmail.com"]
 
 
 async def prepare_data_contact_me(contact_me_instance: ContactMe):
@@ -23,14 +18,20 @@ async def prepare_data_contact_me(contact_me_instance: ContactMe):
     phone = contact_me_instance.phone
     user_message = contact_me_instance.message
     subject = SUBJECT_CONTACT_ME
-    MESSAGE_CONTACT_ME = f"El usuario {full_name}, solicito una derivacióncon el profesional {email_proff}, con el siguiente mensaje: {user_message}. Datos del usuario: email: {email},  telefono: {phone}"
-    email_from = EMAIL_FROM
+
+    MESSAGE_CONTACT_ME = (
+        f"El usuario {full_name}, solicitó una derivación con el "
+        f"profesional {email_proff}, con el siguiente mensaje: "
+        f"{user_message}. Datos del usuario: email: {email},  "
+        f"telefono: {phone}"
+    )
+
     recipient_list = RECIPIENT_LIST
     await prepare_and_send_email(
-        subject, MESSAGE_CONTACT_ME, email_from, recipient_list
+        subject, MESSAGE_CONTACT_ME, settings.DECIRES_EMAIL, recipient_list
     )
     await prepare_and_send_email(
-        subject, MESSAGE_CONTACT_ME, email_from, [str(email_proff)]
+        subject, MESSAGE_CONTACT_ME, settings.DECIRES_EMAIL, [str(email_proff)]
     )
 
 
@@ -43,6 +44,6 @@ async def prepare_and_send_email(
 async def prepare_data_new_professional(new_professional):
     subject = SUBJECT_NEW_PROFESSIONAL
     message = MESSAGE_NEW_PROFESSIONAL
-    email_from = EMAIL_FROM
+    email_from = settings.DECIRES_EMAIL
     recipient_list = RECIPIENT_LIST
     await prepare_and_send_email(subject, message, email_from, recipient_list)

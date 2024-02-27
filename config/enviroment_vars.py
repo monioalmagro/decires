@@ -32,6 +32,36 @@ class AWSSettings(BaseSettings):
 aws_settings = AWSSettings()
 
 
+class EMAILSettings(BaseSettings):
+    EMAIL_BACKEND: str = Field(
+        default="django.core.mail.backends.smtp.EmailBackend",
+        env="EMAIL_BACKEND",
+    )
+    EMAIL_HOST: str = Field(
+        default="smtp.gmail.com",
+        env="EMAIL_HOST",
+    )
+    EMAIL_PORT: int = Field(
+        default=587,
+        env="EMAIL_PORT",
+    )
+    EMAIL_USE_TLS: bool = Field(
+        default=True,
+        env="EMAIL_USE_TLS",
+    )
+    EMAIL_HOST_USER: str = Field(
+        default="decirespsicologia@gmail.com",
+        env="EMAIL_HOST_USER",
+    )
+    EMAIL_HOST_PASSWORD: SecretStr = Field(
+        default="qryk iyiy aghr fesj",
+        env="EMAIL_HOST_PASSWORD",
+    )
+
+
+email_settings = EMAILSettings()
+
+
 class PsychologySettings(BaseSettings):
     COMPOSE_PROJECT_NAME: str = Field(
         default="psychology",
@@ -69,12 +99,15 @@ class PsychologySettings(BaseSettings):
     )
     MEDIA_URL: str | None = Field(default="/media/")
     STATIC_URL: str | None = Field(default="/static/")
-    DECIRES_EMAIL: str = Field(default=None, env="DECIRES_EMAIL")
+    DECIRES_EMAIL: str = Field(
+        default="decirespsicologia@gmail.com", env="DECIRES_EMAIL"
+    )
     DEFAULT_THUMBNAIL_FEMALE_IMAGE: str = Field(
         default="assets/img/user/female_user.jpg"
     )
     DEFAULT_THUMBNAIL_MALE_IMAGE: str = Field(default="assets/img/user/male_user.jpg")
     AWS_SETTINGS: AWSSettings | None = aws_settings
+    EMAIL_SETTINGS: EMAILSettings | None = email_settings
     ALLOWED_HOSTS: list[str] = Field(default=[], env="ALLOWED_HOSTS")
 
     PASSWORD_DEFAULT: SecretStr = Field(default="Av123456789#")
