@@ -36,6 +36,7 @@ from apps.psychology.schema.interfaces.process import (
     BaseMutationProcess,
     BaseValidator,
 )
+from utils.send_email import prepare_data_new_professional
 
 
 class BaseUserProcess(BaseMutationProcess):
@@ -261,6 +262,7 @@ class NewProfessionalProcess(BaseUserProcess):
             await self.add_carreer(professional=new_professional)
             await self.add_specialization(professional=new_professional)
             await self.add_attachments(professional=new_professional)
+            await prepare_data_new_professional(new_professional)
             return new_professional
 
 
