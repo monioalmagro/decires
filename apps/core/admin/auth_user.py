@@ -154,7 +154,7 @@ class UserAdmin(UserAdmin):
         }
         self.message_user(request, message, messages.SUCCESS)
         queryset.update(
-            verified_profile=True,
+            is_verified_profile=True,
             verified_profile_at=timezone.now(),
         )
         return queryset
@@ -172,7 +172,7 @@ class UserAdmin(UserAdmin):
         )
         self.message_user(request, message, messages.SUCCESS)
         queryset.update(
-            verified_profile=False,
+            is_verified_profile=False,
             verified_profile_at=None,
         )
         return queryset
