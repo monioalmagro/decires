@@ -19,6 +19,7 @@ query professionalListPublicQuery($input: QueryListUserInput!) {
         __typename
       }
       genderEnum
+      attentionSchedule
       facebookProfile
       instagramProfile
       linkedinProfile
