@@ -129,7 +129,7 @@ class UserAdmin(UserAdmin):
     # raw_id_fields = ("office_locations",)
 
     actions = [
-        "is_verified_profile",
+        "verified_profile",
         "unverified_profile",
     ]
 

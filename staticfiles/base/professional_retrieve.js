@@ -15,6 +15,7 @@ query professionalRetrievePublicQuery($input: QueryRetrieveUserInput!) {
         __typename
       }
       genderEnum
+      attentionSchedule
       membershipPlanEnum
       attentionSchedule
       facebookProfile
@@ -705,6 +706,11 @@ function htmlComponentDisplay($data) {
             <h4 class="content-title">Modalidad de atención:
               <small>
                 ${userCarreer.serviceModalityEnum}
+              </small>
+            </h4>
+            <h4 class="content-title">Horario de atención:
+              <small>
+                ${obj.attentionSchedule || "-"}
               </small>
             </h4>
             <br>
