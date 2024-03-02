@@ -109,8 +109,7 @@ class ProfessionalValidator(BaseValidator):
 
     async def _validate_user_unique(self, user_adapter: UserAdapter):
         user_unique_filter = (
-            Q(username=self.input.username)
-            | Q(email=self.input.email)
+            Q(email=self.input.email)
             | Q(nro_dni=self.input.nro_dni)
             | Q(nro_matricula=self.input.nro_matricula)
             | Q(cuit=self.input.cuit)
@@ -189,6 +188,7 @@ class NewProfessionalProcess(BaseUserProcess):
 
     async def add_office_locations(self, professional: AuthUser):
         self.zone_adapter.user_id = professional.id
+
         if zone_list := await self.zone_adapter.get_objects(
             id__in=self.input.office_locations
         ):

@@ -9,7 +9,7 @@ import strawberry
 class CarreerServiceMethodEnum(enum.Enum):
     PRESENCIAL = strawberry.enum_value(value=1)
     VIRTUAL = strawberry.enum_value(value=2)
-    DOMICILIO = strawberry.enum_value(value=3)
+    PRESENCIAL_VIRTUAL = strawberry.enum_value(value=3)
 
 
 @strawberry.enum()

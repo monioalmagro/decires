@@ -40,7 +40,6 @@ class QueryRetrieveUserInput:
 
 class MutationUserPydanticModel(BaseModel):
     email: str
-    username: str
     first_name: str
     last_name: str | None = None
     password: str | None = settings.PASSWORD_DEFAULT.get_secret_value()
@@ -90,14 +89,6 @@ class MutationUserPydanticModel(BaseModel):
         if len(name) == 0:
             raise AssertionError("INPUT INVALID")
         return name.strip()
-
-    @validator("username")
-    @classmethod
-    def username_check(cls, username):
-        _username = username.strip()
-        if len(_username) == 0:
-            raise AssertionError("INPUT USERNAME INVALID")
-        return _username
 
     @validator("email")
     @classmethod
