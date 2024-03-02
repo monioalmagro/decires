@@ -74,10 +74,7 @@
                   </div>
                 </div>
                 <div class="row row-space-10">
-                  <div class="col-md-6 m-b-15">
-                    <label class="control-label">Username <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="username" placeholder="Username" required />
-                  </div>
+
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Género<span class="text-danger">*</span></label>
                     <select class="default-select2 form-control" id="gender" required>
@@ -86,13 +83,14 @@
                       <option value="FEMENINO">Femenino</option>
                     </select>
                   </div>
-                </div>
-                <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
                     <label class="control-label">Avatar del usuario <span class="text-danger">*</span></label>
                     <input type="file" id="avatar" accept="image/*" />
                   </div>
-                  <div class="col-md-6 m-b-15">
+                </div>
+                <div class="row row-space-10">
+
+                  <div class="col-md-12 m-b-15">
                     <label class="control-label">Previsualizar Avatar<span class="text-dark">*</span></label>
                     <button type="button" class="btn btn-warning form-control text-dark" onclick="uploadImage()">Previsualizar</button>
                   </div>
@@ -151,7 +149,7 @@
                       <option value=""></option>
                       <option value="PRESENCIAL">Presencial</option>
                       <option value="VIRTUAL">Virtual</option>
-                      <!-- <option value="DOMICILIO">Domicilio</option> -->
+                      <option value="PRESENCIAL_VIRTUAL">Presencial/Virtual</option>
                     </select>
                   </div>
                   <div class="col-md-6 m-b-15">
@@ -200,13 +198,13 @@
                 </div>
                 <div class="row row-space-10">
                   <div class="col-md-6 m-b-15">
-                    <label class="control-label">Ciudad de atención<span class="text-danger">*</span></label>
+                    <label class="control-label">Ciudad de atención (Solo Presencial)</label>
                     <select class="default-select2 form-control" id="city" required>
                       <option value="">Ciudad de atención</option>
                     </select>
                   </div>
                   <div class="col-md-6 m-b-15">
-                    <label class="control-label">Localidades de atención<span class="text-danger">*</span></label>
+                    <label class="control-label">Localidades de atención (Solo Presencial)</label>
                     <select class="multiple-select2 form-control" id="zone" multiple="multiple" required>
                       <option value="">Localidades de atención</option>
                     </select>

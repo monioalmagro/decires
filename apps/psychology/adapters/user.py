@@ -75,7 +75,7 @@ class UserAdapter(ModelAdapter):
             with transaction.atomic():
                 obj = model.objects.create(
                     email=_input.email,
-                    username=_input.username,
+                    username=_input.email,
                     first_name=_input.first_name,
                     last_name=_input.last_name,
                     nro_dni=_input.nro_dni,

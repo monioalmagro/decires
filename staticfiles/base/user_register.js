@@ -298,7 +298,6 @@ registerUser = (attachmentIds = []) => {
           password: $("#password").val(),
           passwordConfirm: $("#password_confirm").val(),
           email: $("#email").val(),
-          username: $("#username").val(),
           firstName: $("#first_name").val(),
           lastName: $("#last_name").val(),
           nroDni: $("#nro_dni").val(),

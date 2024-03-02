@@ -95,9 +95,13 @@ class ProfessionalQueries:
 
         kwargs = {
             "user_carreer_set__carreer_id": _input.carreer,
-            "user_carreer_set__service_method": _input.service_method_enum,
+            "user_carreer_set__service_method__in": {
+                _input.service_method_enum,
+                psychology_constants.PRESENTIAL_VIRTUAL,
+            },
             "is_verified_profile": True,
         }
+
         if city := _input.city:
             kwargs["user_zone_set__zone__city_id"] = city
         if zone := _input.zone:
