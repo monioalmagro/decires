@@ -112,6 +112,7 @@ class PsychologySettings(BaseSettings):
 
     PASSWORD_DEFAULT: SecretStr = Field(default="Av123456789#")
     CORS_ALLOWED_ORIGINS: list[str] = Field(default=[], env="CORS_ALLOWED_ORIGINS")
+    CSRF_TRUSTED_ORIGINS: list[str] = Field(default=[], env="CSRF_TRUSTED_ORIGINS")
 
     class Config:
         env_prefix = ""
@@ -126,6 +127,8 @@ class PsychologySettings(BaseSettings):
                 return os.environ.get("ALLOWED_HOSTS", "*").split(",")
             if field_name == "CORS_ALLOWED_ORIGINS":
                 return os.environ.get("CORS_ALLOWED_ORIGINS", "*").split(",")
+            if field_name == "CSRF_TRUSTED_ORIGINS":
+                return os.environ.get("CSRF_TRUSTED_ORIGINS", "*").split(",")
             return cls.json_loads(raw_val)
 
 
