@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     "apps.core",
     "apps.psychology",
 ]
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -150,6 +152,14 @@ MEDIA_ROOT = "media"
 
 
 AUTH_USER_MODEL = "core.AuthUser"
+
+# DJANGO CORS
+
+CORS_ALLOWED_ORIGINS = settings.CORS_ALLOWED_ORIGINS or [
+    "https://redpsidecires.com.ar",
+    "http://localhost:8000",
+    "http://localhost:9000",
+]
 
 # EMAIL
 EMAIL_BACKEND = settings.EMAIL_SETTINGS.EMAIL_BACKEND

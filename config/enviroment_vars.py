@@ -111,6 +111,7 @@ class PsychologySettings(BaseSettings):
     ALLOWED_HOSTS: list[str] = Field(default=[], env="ALLOWED_HOSTS")
 
     PASSWORD_DEFAULT: SecretStr = Field(default="Av123456789#")
+    CORS_ALLOWED_ORIGINS: list[str] = Field(default=[], env="CORS_ALLOWED_ORIGINS")
 
     class Config:
         env_prefix = ""
@@ -123,6 +124,8 @@ class PsychologySettings(BaseSettings):
         def parse_env_var(cls, field_name: str, raw_val: str):
             if field_name == "ALLOWED_HOSTS":
                 return os.environ.get("ALLOWED_HOSTS", "*").split(",")
+            if field_name == "CORS_ALLOWED_ORIGINS":
+                return os.environ.get("CORS_ALLOWED_ORIGINS", "*").split(",")
             return cls.json_loads(raw_val)
 
 
