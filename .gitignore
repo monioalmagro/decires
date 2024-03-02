@@ -167,3 +167,4 @@ media/
 static/
 *.env
 .env.prd
+tests/fixtures/json/*.json
