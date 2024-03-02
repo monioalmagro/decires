@@ -1,1 +1,0 @@
-[{"model": "psychology.contactme", "pk": 1, "fields": {"created_at": "2023-11-19T00:52:58.440Z", "updated_at": "2023-11-19T00:52:58.440Z", "is_active": true, "is_deleted": false, "user": 1, "full_name": "Pablo Marmol", "email": "ax@cantv.net", "phone": "+584242000000", "message": "Cualquier cosa es buena", "was_reported": false}}]
