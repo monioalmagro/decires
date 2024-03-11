@@ -75,20 +75,54 @@ class MutationUserPydanticModel(BaseModel):
                 raise AssertionError("Experience summary invalid")
         return experience_summary.strip()
 
-    @validator(
-        "first_name",
-        "last_name",
-        "nro_dni",
-        "nro_matricula",
-        "cuit",
-        "phone",
-        "attention_schedule",
-    )
+    @validator("first_name")
     @classmethod
     def validate_first_name(cls, name):
         if len(name) == 0:
-            raise AssertionError("INPUT INVALID")
+            raise AssertionError("NOMBRE INVALIDO")
         return name.strip()
+
+    @validator("last_name")
+    @classmethod
+    def validate_last_name(cls, last_name):
+        if len(last_name) == 0:
+            raise AssertionError("APELLIDO INVALIDO")
+        return last_name.strip()
+
+    @validator("nro_dni")
+    @classmethod
+    def validate_nro_dni(cls, nro_dni):
+        if len(nro_dni) == 0:
+            raise AssertionError("DNI INVALIDO")
+        return nro_dni.strip()
+
+    @validator("nro_matricula")
+    @classmethod
+    def validate_nro_matricula(cls, nro_matricula):
+        if len(nro_matricula) == 0:
+            raise AssertionError("MATRICULA INVALIDO")
+        return nro_matricula.strip()
+
+    @validator("cuit")
+    @classmethod
+    def validate_cuit(cls, cuit):
+        if len(cuit) == 0:
+            raise AssertionError("CUIT INVALIDO")
+        return cuit.strip()
+
+    @validator("phone")
+    @classmethod
+    def validate_phone(cls, phone):
+        if len(phone) == 0:
+            raise AssertionError("TELEFONO INVALIDO")
+        return phone.strip()
+
+    @validator("attention_schedule")
+    @classmethod
+    def validate_attention_schedule(cls, attention_schedule):
+        if len(attention_schedule) == 0:
+            raise AssertionError("HORARIO DE ATENCION INVALIDO")
+        return attention_schedule.strip()
 
     @validator("email")
     @classmethod

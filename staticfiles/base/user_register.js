@@ -322,22 +322,24 @@ registerUser = (attachmentIds = []) => {
     success: function (response) {
       notification = new deciresAlert();
       if (
-        response.data &&
-        response.data.psychology &&
-        response.data.psychology.newProfessional &&
-        response.data.psychology.newProfessional.originalId
+          response.data &&
+          response.data.psychology &&
+          response.data.psychology.newProfessional &&
+          response.data.psychology.newProfessional.message
       ) {
-        notification.basic("Éxito", "Se ha registrado exitosamente en la plataforma", "success");
-        setTimeout(function () {
-          location.href = Django.urls.home;
-        }, 5000);
+          const errorMessage = response.data.psychology.newProfessional.message;
+          notification.basic(
+              "Error Revisar los siguientes campos",
+              errorMessage,
+              "error evisar los siguientes campos"
+          );
       } else {
-        console.error(response);
-        notification.basic(
-          "Ups, algo salió mal!",
-          "No hemos podido registrarte en la plataforma",
-          "warning"
-        );
+          console.error(response);
+          notification.basic(
+              "Ups, algo salió mal!",
+              "No hemos podido registrarte en la plataforma",
+              "warning"
+          );
       }
       return false;
     },
