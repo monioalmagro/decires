@@ -142,12 +142,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-STATIC_URL = "/static/"
-STATIC_ROOT = "static"
+
+STATIC_URL = f"https://{settings.AWS.BUCKETS.STATIC.CUSTOM_DOMAIN}/"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# STATIC_URL = "/static/"
+# STATIC_ROOT = "static"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "staticfiles/"),)
 
 
-MEDIA_URL = "/media/"
+# MEDIA_URL = "/media/"
+MEDIA_URL = f"https://{settings.AWS.BUCKETS.MEDIA.CUSTOM_DOMAIN}/"
 MEDIA_ROOT = "media"
 
 
@@ -168,3 +173,13 @@ EMAIL_PORT = settings.EMAIL_SETTINGS.EMAIL_PORT
 EMAIL_USE_TLS = settings.EMAIL_SETTINGS.EMAIL_USE_TLS
 EMAIL_HOST_USER = settings.EMAIL_SETTINGS.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = settings.EMAIL_SETTINGS.EMAIL_HOST_PASSWORD.get_secret_value()
+
+# AWS SETTINGS
+
+AWS_ACCESS_KEY_ID = settings.AWS.ACCESS_KEY_ID.get_secret_value()
+AWS_SECRET_ACCESS_KEY = settings.AWS.SECRET_ACCESS_KEY.get_secret_value()
+AWS_STORAGE_BUCKET_NAME = settings.AWS.BUCKETS.STATIC.BUCKET_NAME
+AWS_S3_REGION_NAME = settings.AWS.REGION_NAME  # por ejemplo, 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = f"{settings.AWS.BUCKETS.STATIC.BUCKET_NAME}.s3.amazonaws.com"
+
+# Configuración de archivos estáticos
