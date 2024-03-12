@@ -13,7 +13,7 @@ volume: ## Remove all containers volumes
 pull: ## Pull images
 	docker compose pull
 build: ## Build Docker services
-	docker compose build --no-cache
+	docker compose build 
 up: pull build ## Run all services
 	docker compose up -d
 	make drop-db

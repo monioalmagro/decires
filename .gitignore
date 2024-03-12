@@ -168,3 +168,6 @@ static/
 *.env
 .env.prd
 tests/fixtures/json/*.json
+
+# vs code
+.vscode/
