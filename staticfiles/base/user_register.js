@@ -331,7 +331,7 @@ registerUser = (attachmentIds = []) => {
           notification.basic(
               "Error Revisar los siguientes campos",
               errorMessage,
-              "error evisar los siguientes campos"
+              "error"
           );
       } else {
           console.error(response);
