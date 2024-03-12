@@ -38,7 +38,7 @@ FROM development as development-web
 # Port used by the Django development server
 EXPOSE 8000
 
-RUN rm /app/.env
+# RUN rm /app/.env
 
 # Run Django migrations and collect static files
 RUN python manage.py collectstatic --noinput
@@ -69,6 +69,6 @@ RUN chmod +x /run.sh /run-django.sh /run-uvicorn.sh
 
 # Run Django collectstatic during image build
 RUN python manage.py collectstatic --noinput
-
+RUN rm /app/.env
 # Set the default command to run the application
 CMD ["/run.sh"]

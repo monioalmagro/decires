@@ -13,13 +13,62 @@ import json
 load_dotenv()
 
 
+class S3StaticBucketSetting(BaseSettings):
+    BUCKET_NAME: str | None = Field(default=None, env="STATIC_BUCKET_NAME")
+    CUSTOM_DOMAIN: str | None = Field(default=None, env="STATIC_CUSTOM_DOMAIN")
+
+    class Config:
+        env_prefix = ""
+        case_sensitive = False
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        json_loads = json.loads
+
+
+class S3MediaBucketSetting(BaseSettings):
+    BUCKET_NAME: str | None = Field(default=None, env="MEDIA_BUCKET_NAME")
+    CUSTOM_DOMAIN: str | None = Field(default=None, env="MEDIA_CUSTOM_DOMAIN")
+
+    class Config:
+        env_prefix = ""
+        case_sensitive = False
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        json_loads = json.loads
+
+
+static_bucket = S3StaticBucketSetting()
+media_bucket = S3MediaBucketSetting()
+
+
+class S3BucketSettings(BaseSettings):
+    STATIC: S3StaticBucketSetting = static_bucket
+    MEDIA: S3MediaBucketSetting = media_bucket
+
+    class Config:
+        env_prefix = ""
+        case_sensitive = False
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        json_loads = json.loads
+
+
+s3_bucket_settings = S3BucketSettings()
+
+
 class AWSSettings(BaseSettings):
-    AWS_REGION_NAME: str = Field(default="us-east-1", env="AWS_REGION_NAME")
-    AWS_ACCESS_KEY_ID: str | None = Field(default=None, env="AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY: str | None = Field(default=None, env="AWS_SECRET_ACCESS_KEY")
-    AWS_ACCOUNT_ID: int | None = Field(default=None, env="AWS_ACCOUNT_ID")
-    AWS_STAGE: str = Field(default="qa", env="AWS_STAGE")
-    AWS_S3_BUCKET_NAME: str | None = Field(default=None, env="AWS_S3_BUCKET_NAME")
+    REGION_NAME: str = Field(default="us-east-2", env="AWS_REGION_NAME")
+    ACCESS_KEY_ID: SecretStr | None = Field(
+        default=None,
+        env="AWS_ACCESS_KEY_ID",
+    )
+    SECRET_ACCESS_KEY: SecretStr | None = Field(
+        default=None,
+        env="AWS_SECRET_ACCESS_KEY",
+    )
+    ACCOUNT_ID: int | None = Field(default=None, env="AWS_ACCOUNT_ID")
+    STAGE: str = Field(default="qa", env="AWS_STAGE")
+    BUCKETS: S3BucketSettings = s3_bucket_settings
 
     class Config:
         env_prefix = ""
@@ -106,7 +155,7 @@ class PsychologySettings(BaseSettings):
         default="assets/img/user/female_user.jpg"
     )
     DEFAULT_THUMBNAIL_MALE_IMAGE: str = Field(default="assets/img/user/male_user.jpg")
-    AWS_SETTINGS: AWSSettings | None = aws_settings
+    AWS: AWSSettings | None = aws_settings
     EMAIL_SETTINGS: EMAILSettings | None = email_settings
     ALLOWED_HOSTS: list[str] = Field(default=[], env="ALLOWED_HOSTS")
 
@@ -133,3 +182,7 @@ class PsychologySettings(BaseSettings):
 
 
 settings = PsychologySettings()
+# Standard Libraries
+from pprint import pprint
+
+pprint(settings.dict())

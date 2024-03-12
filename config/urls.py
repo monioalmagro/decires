@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 # Third-party Libraries
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,7 +22,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 # Own Libraries
-from apps.core.views import javascript
+from apps.core.views import (
+    javascript,
+    masked_file_resource,
+    masked_img_resource,
+)
 from apps.core.views.interfaces import PsychologyBaseView
 
 admin.site.site_title = "Psychology site admin"
@@ -29,19 +34,29 @@ admin.site.site_header = "Psychology administration"
 admin.site.index_title = "Site administration"
 
 
-urlpatterns = (
-    [
-        path("admin/", admin.site.urls),
-        path("javascript/", javascript, name="javascript"),
-        path("", include("apps.core.urls", namespace="core")),
-        path(
-            "",
-            PsychologyBaseView.as_view(
-                template_name="home.html",
-            ),
-            name="home",
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("javascript/", javascript, name="javascript"),
+    path(
+        "user-img-attachment/<pk>/<gender>/",
+        masked_img_resource,
+        name="masked_img_resource",
+    ),
+    path(
+        "user-file-attachment/<pk>/",
+        masked_file_resource,
+        name="masked_file_resource",
+    ),
+    path("", include("apps.core.urls", namespace="core")),
+    path(
+        "",
+        PsychologyBaseView.as_view(
+            template_name="home.html",
         ),
-    ]
-    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-)
+        name="home",
+    ),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
